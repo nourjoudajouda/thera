@@ -1,0 +1,4 @@
+<div class="d-flex flex-wrap gap-2">
+    <a class="btn btn-sm btn-light border d-inline-flex align-items-center gap-1" href="{{ route('doctor.practice.services',['edit'=>$service->id]) }}"><span class="material-symbols-outlined fs-6">edit</span>تعديل</a>
+    <form action="{{ route('doctor.practice.services.status',$service) }}" method="POST" data-thera-confirm="{{ $service->is_active ? 'إيقاف قبول الحجز لهذه الخدمة؟' : 'تفعيل قبول الحجز لهذه الخدمة؟' }}" data-thera-confirm-text="ستبقى بيانات الخدمة محفوظة، وتُطبق الحالة الجديدة على الحجوزات القادمة." data-thera-confirm-button="نعم، تأكيد">@csrf @method('PATCH')<input name="is_active" type="hidden" value="{{ $service->is_active ? '0':'1' }}"><button class="btn btn-sm {{ $service->is_active ? 'btn-outline-warning':'btn-outline-success' }}" type="submit">{{ $service->is_active ? 'إيقاف الحجز':'تفعيل' }}</button></form>
+</div>

@@ -1,0 +1,5 @@
+<span class="appointment-status status-{{ $item->status }}">{{ App\Models\DoctorAppointment::STATUSES[$item->status] }}</span>
+<span @class(['appointment-status','arrival-recorded'=>(bool)$item->arrived_at])>{{ $item->arrived_at?'حضور مسجل':'لم يسجل حضور' }}</span>
+@if(in_array($item->status,['confirmed','completed']))<span class="appointment-status payment-{{ $item->paymentStatus() }}">{{ ['paid'=>'مسدد بالكامل','partial'=>'مدفوع جزئيًا','unpaid'=>'غير مدفوع'][$item->paymentStatus()] }}</span>@elseif($item->paidMinor()>0)<span class="appointment-status status-no_show">رصيد محفوظ — مراجعة مالية</span>@endif
+@if($item->queueState()==='waiting_payment')<span class="appointment-status status-no_show">وصل — بانتظار التحصيل</span>@elseif($item->queueState()==='ready')<span class="appointment-status status-completed">جاهز وينتظر</span>@elseif($item->queueState()==='called')<span class="appointment-status">تم استدعاء المريض</span>@endif
+@if($item->queueState()==='in_visit')<span class="appointment-status">داخل الزيارة</span>@endif

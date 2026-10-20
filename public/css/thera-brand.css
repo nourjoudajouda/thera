@@ -1,0 +1,19 @@
+/* One official logo, with its transparent canvas cropped only at display time. */
+@supports (object-view-box: inset(22% 26% 17% 26%)) {
+    img[src*="images/doctor/thera-logo.png"] {
+        object-view-box: inset(22% 26% 17% 26%);
+        object-fit: contain;
+    }
+    #app-sidebar img[src*="images/doctor/thera-logo.png"],
+    #admin-sidebar img[src*="images/doctor/thera-logo.png"] {
+        width: 104px !important;
+        height: 48px !important;
+        max-width: 104px !important;
+        flex-shrink: 0;
+    }
+    .brand-logo[src*="thera-logo.png"] {
+        width: 160px !important;
+        height: 110px !important;
+        max-width: 160px !important;
+    }
+}

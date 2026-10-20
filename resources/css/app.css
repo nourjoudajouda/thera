@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+
+@theme {
+    --font-sans: 'Tajawal', 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-arabic: 'Tajawal', sans-serif;
+    --font-inter: 'Inter', sans-serif;
+    --color-primary: #0495f6;
+    --color-primary-hover: #0466f1;
+    --color-primary-active: #1035db;
+    --color-brand: #0495f6;
+    --color-brand-hover: #0466f1;
+    --color-brand-active: #1035db;
+    --color-brand-light: #e6f4fe;
+    --color-brand-dark: #0376c5;
+    --color-brand-50: #f0f9ff;
+    --color-brand-100: #e0f2fe;
+    --color-navy: #16243e;
+    --color-navy-dark: #132038;
+    --color-navy-surface: #0e1726;
+    --color-sidebar-bg: #16243e;
+    --color-sidebar-surface: #132038;
+    --color-sidebar: #16243e;
+    --color-sidebar-darker: #132038;
+    --color-sidebar-hover: #203254;
+    --color-sidebar-border: #223456;
+    --color-bodyBg: #f6f9fc;
+    --color-softSurface: #f8fafc;
+    --color-textMain: #0b1020;
+    --color-textSecondary: #64748b;
+    --color-textMuted: #94a3b8;
+    --color-borderLight: #e2e8f0;
+    --color-surface-sidebar: #16243e;
+    --color-surface-sidebarDark: #132038;
+    --color-surface-page: #f6f9fc;
+    --color-surface-card: #ffffff;
+    --color-surface-border: #e2e8f0;
+    --color-surface-input: #f8fafc;
+    --shadow-soft: 0 2px 10px rgb(0 0 0 / 4%);
+    --shadow-dropdown: 0 10px 25px -5px rgb(0 0 0 / 10%), 0 8px 10px -6px rgb(0 0 0 / 5%);
+    --shadow-drawer: -10px 0 30px rgb(0 0 0 / 12%);
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea {
+    font-family: 'Tajawal', sans-serif;
+}
+
+[dir='ltr'] {
+    font-family: 'Inter', sans-serif;
+}
