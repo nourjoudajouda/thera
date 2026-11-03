@@ -17,13 +17,16 @@ class DoctorAppointment extends Model
     /** @use HasFactory<DoctorAppointmentFactory> */
     use HasFactory;
 
-    public const STATUSES = ['confirmed' => 'مؤكد', 'cancelled' => 'ملغى', 'completed' => 'مكتمل', 'no_show' => 'لم يحضر'];
+    public const STATUSES = ['pending_payment' => 'بانتظار الدفع', 'expired' => 'انتهت مهلة الدفع', 'confirmed' => 'مؤكد', 'cancelled' => 'ملغى', 'completed' => 'مكتمل', 'no_show' => 'لم يحضر'];
 
     public const SOURCE_PATIENT_APP = 'patient_app';
 
     protected static function booted(): void
     {
         static::saving(function (self $appointment): void {
+            if ($appointment->is_test && $appointment->status === 'cancelled') {
+                $appointment->test_paid_minor = 0;
+            }
             if ($appointment->doctor_patient_id && (! $appointment->exists || $appointment->isDirty(['doctor_patient_id', 'doctor_id']))) {
                 if (! DoctorPatient::whereKey($appointment->doctor_patient_id)->where('doctor_id', $appointment->doctor_id)->exists()) {
                     throw ValidationException::withMessages(['doctor_patient_id' => 'ملف المريض لا يتبع هذا الطبيب.']);
@@ -42,6 +45,11 @@ class DoctorAppointment extends Model
 
             if (! $appointment->exists || ! $appointment->visit()->where('doctor_id', $appointment->doctor_id)->where('doctor_facility_id', $appointment->doctor_facility_id)->where('status', 'completed')->whereNotNull('closed_at')->exists()) {
                 throw ValidationException::withMessages(['status' => 'إكمال الموعد يتطلب زيارة طبية مغلقة مرتبطة به.']);
+            }
+        });
+        static::updated(function (self $appointment): void {
+            if ($appointment->is_test && $appointment->wasChanged('status') && $appointment->status === 'cancelled') {
+                PatientPaymentAttempt::where('doctor_appointment_id', $appointment->id)->whereIn('status', ['succeeded', 'pending'])->update(['status' => 'reversed']);
             }
         });
     }
@@ -102,7 +110,7 @@ class DoctorAppointment extends Model
 
     public function paidMinor(): int
     {
-        return (int) ($this->paid_minor ?? 0);
+        return (int) ($this->paid_minor ?? 0) + ($this->is_test ? (int) $this->test_paid_minor : 0);
     }
 
     public function remainingMinor(): int
@@ -126,7 +134,8 @@ class DoctorAppointment extends Model
         if ($this->relationLoaded('visit') && $this->visit && ! $this->visit->closed_at) {
             return 'in_visit';
         }
-        if ($this->remainingMinor() > 0 && $this->doctor->requiresCollectionBeforeVisit()) {
+        $requiresCollection = $this->payment_policy_snapshot ? $this->payment_policy_snapshot['remaining_timing'] !== 'after_visit' : $this->doctor->requiresCollectionBeforeVisit();
+        if ($this->remainingMinor() > 0 && $requiresCollection) {
             return 'waiting_payment';
         }
 
@@ -142,6 +151,6 @@ class DoctorAppointment extends Model
     /** @return array<string, string> */
     protected function casts(): array
     {
-        return ['starts_at' => 'immutable_datetime', 'ends_at' => 'immutable_datetime', 'arrived_at' => 'immutable_datetime', 'price_minor' => 'integer', 'duration_minutes' => 'integer', 'revision' => 'integer'];
+        return ['payment_policy_snapshot' => 'array', 'hold_expires_at' => 'immutable_datetime', 'is_test' => 'boolean', 'test_paid_minor' => 'integer', 'starts_at' => 'immutable_datetime', 'ends_at' => 'immutable_datetime', 'arrived_at' => 'immutable_datetime', 'price_minor' => 'integer', 'duration_minutes' => 'integer', 'revision' => 'integer'];
     }
 }

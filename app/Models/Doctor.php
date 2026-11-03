@@ -28,6 +28,11 @@ use Illuminate\Notifications\Notifiable;
 #[Hidden(['password', 'remember_token', 'stamp_path'])]
 class Doctor extends Authenticatable
 {
+    public function patientReviews(): HasMany
+    {
+        return $this->hasMany(PatientReview::class);
+    }
+
     public function stamps(): HasMany
     {
         return $this->hasMany(DoctorStamp::class);

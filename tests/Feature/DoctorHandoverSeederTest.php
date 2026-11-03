@@ -8,6 +8,8 @@ use App\Models\DoctorAppointment;
 use App\Models\DoctorExternalReport;
 use App\Models\DoctorPatient;
 use App\Models\DoctorVisit;
+use App\Models\Patient;
+use App\Models\PatientReminder;
 use Database\Seeders\SpecialtySeeder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Filesystem\FilesystemAdapter;
@@ -20,6 +22,16 @@ use Tests\TestCase;
 
 class DoctorHandoverSeederTest extends TestCase
 {
+    public function test_reset_refuses_to_delete_patient_app_data(): void
+    {
+        Doctor::factory()->create(['email' => 'doctor@thera.test', 'verification_status' => 'verified']);
+        $patient = Patient::factory()->create();
+        PatientReminder::create(['patient_id' => $patient->id, 'created_by' => $patient->user_id, 'title' => 'محفوظ', 'time' => '09:00', 'timezone' => 'Asia/Hebron', 'enabled' => true]);
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Patient application data exists in patient_reminders');
+        $this->artisan('thera:prepare-handover', ['--apply' => true])->run();
+    }
+
     use RefreshDatabase;
 
     public function test_preview_does_not_delete_or_change_accounts_or_create_a_backup(): void

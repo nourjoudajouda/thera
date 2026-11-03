@@ -11,6 +11,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['name', 'type', 'city', 'bookings_enabled', 'is_active'])]
 class Facility extends Model
 {
+    public function checkInCode(): string
+    {
+        return 'THERA:'.$this->id.':'.hash_hmac('sha256', (string) $this->id, config('app.key'));
+    }
+
     /** @use HasFactory<FacilityFactory> */
     use HasFactory;
 

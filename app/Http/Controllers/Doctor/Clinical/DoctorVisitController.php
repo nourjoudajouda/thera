@@ -78,7 +78,8 @@ class DoctorVisitController extends Controller
             && $doctor->verification_status === 'verified'
             && $appointment->doctorFacility->doctor_id === $doctor->id
             && $appointment->doctorFacility->membership_status === DoctorFacility::STATUS_ACTIVE
-            && $appointment->doctorFacility->facility->is_active;
+            && $appointment->doctorFacility->facility->is_active
+            && $patient->theraPatient?->hasDoctorConsent($doctor);
         $prior = DoctorVisit::query()
             ->where(function (Builder $query) use ($doctor, $patient, $shared): void {
                 $query->where(fn (Builder $owned) => $owned->whereBelongsTo($doctor)

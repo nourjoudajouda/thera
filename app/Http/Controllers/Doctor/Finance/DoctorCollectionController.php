@@ -28,7 +28,7 @@ class DoctorCollectionController extends Controller
         if ($request->filled('membership')) {
             abort_unless($memberships->contains('id', $request->integer('membership')), 404);
         }
-        $query = DoctorAppointment::query()->whereBelongsTo($doctor)->where('starts_at', '>=', $day->utc())->where('starts_at', '<', $day->addDay()->utc())
+        $query = DoctorAppointment::query()->whereBelongsTo($doctor)->where('is_test', false)->where('starts_at', '>=', $day->utc())->where('starts_at', '<', $day->addDay()->utc())
             ->when($request->filled('membership'), fn ($query) => $query->where('doctor_facility_id', $request->integer('membership')))
             ->when($request->filled('search'), fn ($query) => $query->where(fn ($query) => $query->where('patient_name', 'like', '%'.$data['search'].'%')->orWhere('patient_phone', 'like', '%'.$data['search'].'%')->orWhere('id', $data['search'])));
         $net = DoctorPayment::query()->selectRaw('COALESCE(SUM(amount_minor), 0)')->whereColumn('doctor_appointment_id', 'doctor_appointments.id');
@@ -41,7 +41,7 @@ class DoctorCollectionController extends Controller
         $summaryRows = (clone $query)->withSum('payments as paid_minor', 'amount_minor')->get();
         $totals = $summaryRows->groupBy('currency')->map(fn ($rows) => ['paid' => $rows->sum(fn ($item) => $item->paidMinor()), 'remaining' => $rows->whereIn('status', ['confirmed', 'completed'])->sum(fn ($item) => $item->remainingMinor())]);
         $appointments = $query->with(['doctorFacility.facility', 'queueEntry'])->withSum('payments as paid_minor', 'amount_minor')->orderByDesc('updated_at')->orderByDesc('id')->paginate(20)->withQueryString();
-        $selected = $request->filled('appointment') ? DoctorAppointment::query()->whereBelongsTo($doctor)->with(['doctorFacility.facility', 'queueEntry', 'payments.reversal'])->withSum('payments as paid_minor', 'amount_minor')->findOrFail($request->integer('appointment')) : null;
+        $selected = $request->filled('appointment') ? DoctorAppointment::query()->whereBelongsTo($doctor)->where('is_test', false)->with(['doctorFacility.facility', 'queueEntry', 'payments.reversal'])->withSum('payments as paid_minor', 'amount_minor')->findOrFail($request->integer('appointment')) : null;
 
         return view('doctor.finance.collections', compact('doctor', 'day', 'memberships', 'appointments', 'selected', 'totals'));
     }
@@ -73,6 +73,7 @@ class DoctorCollectionController extends Controller
         $payment = DB::transaction(function () use ($request, $appointment, $amount, $original): DoctorPayment {
             Doctor::query()->lockForUpdate()->findOrFail($request->user('doctor')->id);
             $appointment->refresh()->load(['doctorFacility.facility', 'queueEntry'])->loadSum('payments as paid_minor', 'amount_minor');
+            abort_if($appointment->is_test, 409, 'هذا موعد تجريبي؛ لا يسجل تحصيل حقيقي عليه.');
             $kind = $original ? 'reversal' : 'payment';
             $payload = ['appointment' => $appointment->id, 'kind' => $kind, 'amount' => $amount, 'method' => $original?->method ?? $request->input('method'), 'reference' => $original ? $original->reference : $request->input('reference'), 'reason' => $request->input('reason'), 'original' => $original?->id];
             $fingerprint = hash('sha256', json_encode($payload, JSON_THROW_ON_ERROR));

@@ -25,6 +25,8 @@ use RuntimeException;
 
 class DoctorHandoverSeeder extends Seeder
 {
+    public const PROTECTED_PATIENT_TABLES = ['personal_access_tokens', 'patient_payment_attempts', 'patient_delegations', 'patient_doctor_consents', 'patient_access_events', 'patient_notifications', 'patient_devices', 'patient_reminders', 'patient_favorites', 'patient_reviews'];
+
     public const TABLES = [
         'patient_directory_events', ...ResetDoctorJourneySeeder::TABLES,
         'patients', 'doctor_schedule_exceptions', 'doctor_schedules',
@@ -49,7 +51,7 @@ class DoctorHandoverSeeder extends Seeder
         $doctor = Doctor::where('email', 'doctor@thera.test')->where('verification_status', 'verified')->firstOrFail();
         $schema = DB::connection()->getDriverName() === 'sqlite' ? 'main' : DB::connection()->getDatabaseName();
         $tables = Schema::getTableListing($schema, false);
-        $expected = [...self::TABLES, 'doctors', 'migrations'];
+        $expected = [...self::TABLES, ...self::PROTECTED_PATIENT_TABLES, 'doctors', 'migrations'];
         if (array_diff($tables, $expected) || array_diff($expected, $tables)) {
             throw new RuntimeException('Unexpected schema; review the exact reset table allowlist before deleting anything.');
         }
@@ -57,6 +59,11 @@ class DoctorHandoverSeeder extends Seeder
         $this->command?->info('Keep verified doctor '.$doctor->email.'; future dates '.$today->addDay()->toDateString().' through '.$today->addDays(14)->toDateString());
         if (! $apply) {
             return;
+        }
+        foreach (self::PROTECTED_PATIENT_TABLES as $table) {
+            if (DB::table($table)->exists()) {
+                throw new RuntimeException('Patient application data exists in '.$table.'. Handover reset is disabled to preserve it.');
+            }
         }
         if (! extension_loaded('gd')) {
             throw new RuntimeException('GD is required. Nothing was deleted.');

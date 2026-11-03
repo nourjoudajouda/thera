@@ -127,7 +127,8 @@ class DoctorAppointmentController extends Controller
                     continue;
                 }
                 $capacity += $schedule->daily_capacity;
-                $used = $daily->where('doctor_facility_id', $membership->id)->where('status', '!=', 'cancelled')->count();
+                $used = $daily->where('doctor_facility_id', $membership->id)->whereNotIn('status', ['cancelled', 'expired'])
+                    ->reject(fn (DoctorAppointment $appointment) => $appointment->status === 'pending_payment' && $appointment->hold_expires_at?->isPast())->count();
                 $remaining += max(0, $schedule->daily_capacity - $used);
                 if ($exception?->type === DoctorScheduleException::TYPE_SPECIAL) {
                     $special = true;

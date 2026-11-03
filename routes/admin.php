@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\MedicationApprovalController;
+use App\Http\Controllers\Admin\PatientDelegationController;
+use App\Http\Controllers\Admin\PatientReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function (): void {
@@ -15,6 +17,11 @@ Route::prefix('admin')->name('admin.')->group(function (): void {
     });
 
     Route::middleware('auth:admin')->group(function (): void {
+        Route::get('patient-reviews', [PatientReviewController::class, 'index'])->name('patient-reviews.index');
+        Route::patch('patient-reviews/{review}', [PatientReviewController::class, 'update'])->name('patient-reviews.update');
+        Route::get('patient-delegations', [PatientDelegationController::class, 'index'])->name('patient-delegations.index');
+        Route::get('patient-delegations/{delegation}/proof', [PatientDelegationController::class, 'proof'])->name('patient-delegations.proof');
+        Route::patch('patient-delegations/{delegation}', [PatientDelegationController::class, 'update'])->name('patient-delegations.update');
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
         Route::get('/', DashboardController::class)->name('dashboard');
         Route::resource('doctors', DoctorController::class)->only(['index', 'show']);

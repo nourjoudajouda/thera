@@ -11,6 +11,7 @@ use App\Http\Controllers\Doctor\Account\ProfessionalProfileController;
 use App\Http\Controllers\Doctor\Account\VerificationController;
 use App\Http\Controllers\Doctor\Appointments\DoctorAppointmentController;
 use App\Http\Controllers\Doctor\Appointments\DoctorQueueController;
+use App\Http\Controllers\Doctor\Appointments\FacilityCheckInController;
 use App\Http\Controllers\Doctor\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Doctor\Auth\NewPasswordController;
 use App\Http\Controllers\Doctor\Auth\PasswordResetLinkController;
@@ -27,6 +28,7 @@ use App\Http\Controllers\Doctor\DoctorShellController;
 use App\Http\Controllers\Doctor\Finance\DoctorCollectionController;
 use App\Http\Controllers\Doctor\Orders\DoctorDiagnosticOrderController;
 use App\Http\Controllers\Doctor\Orders\DoctorExternalReportController;
+use App\Http\Controllers\Doctor\PatientSharedRecordController;
 use App\Http\Controllers\Doctor\Practice\DoctorScheduleController;
 use App\Http\Controllers\Doctor\Practice\DoctorServiceController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +48,9 @@ Route::prefix('doctor')->name('doctor.')->group(function (): void {
     });
 
     Route::middleware('auth:doctor')->group(function (): void {
+        Route::get('patients/{doctorPatient}/shared-record', [PatientSharedRecordController::class, 'show'])->name('patients.shared-record');
+        Route::get('patients/{doctorPatient}/shared-record/{type}/{id}/file', [PatientSharedRecordController::class, 'download'])->whereIn('type', ['visit', 'prescription', 'order', 'referral', 'report'])->name('patients.shared-document');
+        Route::get('facilities/{facility}/check-in', [FacilityCheckInController::class, 'show'])->name('facilities.check-in');
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
         Route::get('shell/notifications', [DoctorShellController::class, 'notifications'])->middleware('throttle:60,1')->name('shell.notifications');
         Route::get('account/stamp', [DoctorStampController::class, 'show'])->name('account.stamp.show');

@@ -72,6 +72,8 @@
         <a class="sidebar-link {{ request()->routeIs('admin.approvals.*') ? 'active' : '' }}" href="{{ route('admin.approvals.index') }}">
             <span class="material-symbols-outlined">approval</span><span class="sidebar-label">طلبات الاعتماد</span>
         </a>
+        <a class="sidebar-link" href="{{ route('admin.patient-delegations.index') }}"><span class="material-symbols-outlined">family_restroom</span><span class="sidebar-label">تفويضات الأسرة</span></a>
+        <a class="sidebar-link" href="{{ route('admin.patient-reviews.index') }}"><span class="material-symbols-outlined">rate_review</span><span class="sidebar-label">تقييمات المرضى</span></a>
     </nav>
     <div class="mt-auto p-3" style="background:#132038;border-top:1px solid rgba(255,255,255,.08)">
         <div class="d-flex align-items-center gap-2 mb-3 px-2">

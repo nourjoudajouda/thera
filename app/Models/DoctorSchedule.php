@@ -128,7 +128,8 @@ class DoctorSchedule extends Model
                 }
             }
         }
-        $appointments = DoctorAppointment::query()->where('doctor_id', $membership->doctor_id)->where('status', '!=', 'cancelled')
+        $appointments = DoctorAppointment::query()->where('doctor_id', $membership->doctor_id)->whereNotIn('status', ['cancelled', 'expired'])
+            ->where(fn ($query) => $query->where('status', '!=', 'pending_payment')->orWhere('hold_expires_at', '>', now()))
             ->when($ignoreAppointmentId, fn ($query) => $query->whereKeyNot($ignoreAppointmentId))
             ->where('starts_at', '<', $date->addDay()->startOfDay()->utc())
             ->where('ends_at', '>', $date->startOfDay()->utc())->get();

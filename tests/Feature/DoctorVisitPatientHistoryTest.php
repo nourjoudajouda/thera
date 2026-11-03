@@ -11,6 +11,7 @@ use App\Models\DoctorPatient;
 use App\Models\DoctorPrescription;
 use App\Models\DoctorVisit;
 use App\Models\Patient;
+use App\Models\PatientDoctorConsent;
 use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\TestWith;
@@ -224,11 +225,32 @@ class DoctorVisitPatientHistoryTest extends TestCase
             ->assertViewHas('patientHistory', fn ($history) => ! $history['shared'] && $history['histories']->isEmpty());
     }
 
+    public function test_the_existing_visit_workspace_stops_network_history_after_consent_revocation_or_expiry(): void
+    {
+        $network = Patient::factory()->create();
+        $patient = $this->patient($network);
+        $foreign = $this->patient($network);
+        $this->visit($foreign, 2, true, ['diagnosis' => 'تشخيص مشترك يحتاج موافقة']);
+        $current = $this->visit($patient);
+        $url = route('doctor.clinical.visit', ['visit' => $current->id]);
+        $this->actingAs($patient->doctor, 'doctor')->get($url)->assertOk()->assertSee('تشخيص مشترك يحتاج موافقة');
+        $consent = PatientDoctorConsent::where('patient_id', $network->id)->where('doctor_id', $patient->doctor_id)->firstOrFail();
+        $consent->update(['revoked_at' => now()]);
+        $this->get($url)->assertOk()->assertDontSee('تشخيص مشترك يحتاج موافقة');
+        $consent->update(['revoked_at' => null, 'expires_at' => now()->subMinute()]);
+        $this->get($url)->assertOk()->assertDontSee('تشخيص مشترك يحتاج موافقة');
+    }
+
     private function patient(?Patient $network = null): DoctorPatient
     {
         $this->travelTo(CarbonImmutable::parse('2026-11-02 10:00', config('thera.schedule_timezone')));
 
-        return DoctorPatient::factory()->for(Doctor::factory()->state(['verification_status' => 'verified']))->create(['name' => 'سارة خالد', 'patient_id' => $network?->id]);
+        $file = DoctorPatient::factory()->for(Doctor::factory()->state(['verification_status' => 'verified']))->create(['name' => 'سارة خالد', 'patient_id' => $network?->id]);
+        if ($network) {
+            PatientDoctorConsent::factory()->create(['patient_id' => $network->id, 'doctor_id' => $file->doctor_id, 'granted_by' => $network->user_id]);
+        }
+
+        return $file;
     }
 
     /** @param array<string, mixed> $content */
