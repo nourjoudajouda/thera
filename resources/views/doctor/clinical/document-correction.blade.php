@@ -1,0 +1,9 @@
+@if($document->correctedFrom)
+<section class="alert alert-info rounded-4 small"><strong>إصدار تصحيحي رقم {{ $document->document_version }}</strong><p class="mt-2 mb-1">سبب التصحيح: {{ $document->correction_reason }}</p><a href="{{ route($routePrefix.'.show',$document->correctedFrom) }}">عرض النسخة السابقة {{ $document->correctedFrom->reference() }}</a>@unless($document->approved_at)<p class="mb-0 mt-2">هذه مسودة تصحيح فقط؛ الأصل يبقى المعتمد حتى اعتماد هذا الإصدار. التصحيح لا يعيد فتح الزيارة ولا يغير الموعد أو التحصيل أو التنفيذ السابق.</p>@endunless</section>
+@endif
+@if($document->correction)
+<section class="alert {{ $document->correction->approved_at ? 'alert-warning' : 'alert-info' }} rounded-4 small"><strong>{{ $document->correction->approved_at ? 'نسخة سابقة — صدر إصدار تصحيحي معتمد بدلًا منها.' : 'توجد مسودة تصحيح غير معتمدة؛ هذه النسخة ما زالت معتمدة.' }}</strong><a class="d-block mt-2" href="{{ route($routePrefix.'.show',$document->correction) }}">{{ $document->correction->approved_at ? 'عرض الإصدار التصحيحي' : 'متابعة مسودة التصحيح' }} {{ $document->correction->reference() }}</a></section>
+@endif
+@if($document->approved_at && !$document->correction)
+<details class="service-card visit-extra-section mb-4"><summary>تصحيح المستند المعتمد <small>إنشاء إصدار جديد مع حفظ الأصل وسبب التصحيح</small></summary><div class="visit-extra-body"><form method="POST" action="{{ route($routePrefix.'.correct',$document) }}" data-ajax-follow>@csrf<input type="hidden" name="revision" value="{{ $document->revision }}"><label class="form-label" for="document-correction-reason">سبب التصحيح</label><textarea class="form-control mb-3" id="document-correction-reason" name="reason" rows="3" minlength="10" maxlength="1000" required placeholder="وضح ما يحتاج للتصحيح وسببه…"></textarea><button class="btn btn-outline-primary" type="submit">إنشاء إصدار تصحيحي</button></form></div></details>
+@endif

@@ -11,6 +11,21 @@ class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_create_account_link_opens_registration_without_requiring_javascript(): void
+    {
+        $response = $this->get(route('doctor.login'))->assertOk();
+        $dom = new \DOMDocument;
+        @$dom->loadHTML('<?xml encoding="utf-8" ?>'.$response->getContent());
+        $link = $dom->getElementById('create-doctor-account');
+
+        $this->assertNotNull($link);
+        $this->assertSame('a', $link->tagName);
+        $this->assertSame(route('doctor.register'), $link->getAttribute('href'));
+        $this->get($link->getAttribute('href'))->assertOk()->assertSee('إنشاء حساب');
+        $this->get(route('admin.login'))->assertOk()->assertDontSee('id="create-doctor-account"', false);
+        $this->assertDatabaseCount('doctors', 0);
+    }
+
     public function test_guest_can_view_the_doctor_login_page(): void
     {
         $this->get(route('doctor.login'))

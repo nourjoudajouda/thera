@@ -122,15 +122,15 @@
 <div class="px-3 pb-1 pt-2 text-[11px] text-gray-400 tracking-wider font-semibold uppercase sidebar-label">العمل اليومي</div>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">grid_view</span>
-<span class="sidebar-label truncate">الرئيسية</span>
+<span class="sidebar-label truncate" data-i18n="الرئيسية">الرئيسية</span>
 </a>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">calendar_today</span>
-<span class="sidebar-label truncate">المواعيد</span>
+<span class="sidebar-label truncate" data-i18n="المواعيد">المواعيد</span>
 </a>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">person_search</span>
-<span class="sidebar-label truncate">المرضى</span>
+<span class="sidebar-label truncate" data-i18n="المرضى">المرضى</span>
 </a>
 </nav>
 <!-- Group 2: العمل الطبي -->
@@ -138,27 +138,27 @@
 <div class="px-3 pb-1 pt-2 text-[11px] text-gray-400 tracking-wider font-semibold uppercase sidebar-label">العمل الطبي</div>
 <a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all bg-[#0495F6] text-white font-semibold shadow-sm text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">stethoscope</span>
-<span class="sidebar-label truncate">الزيارات</span>
+<span class="sidebar-label truncate" data-i18n="الزيارات">الزيارات</span>
 </a>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">prescriptions</span>
-<span class="sidebar-label truncate">الوصفات الطبية</span>
+<span class="sidebar-label truncate" data-i18n="الوصفات الطبية">الوصفات الطبية</span>
 </a>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">science</span>
-<span class="sidebar-label truncate">طلبات المختبر</span>
+<span class="sidebar-label truncate" data-i18n="طلبات المختبر">طلبات المختبر</span>
 </a>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">radiology</span>
-<span class="sidebar-label truncate">طلبات الأشعة</span>
+<span class="sidebar-label truncate" data-i18n="طلبات الأشعة">طلبات الأشعة</span>
 </a>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">assignment_turned_in</span>
-<span class="sidebar-label truncate">النتائج</span>
+<span class="sidebar-label truncate" data-i18n="النتائج">النتائج</span>
 </a>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">sync_alt</span>
-<span class="sidebar-label truncate">الإحالات والمتابعات</span>
+<span class="sidebar-label truncate" data-i18n="الإحالات والمتابعات">الإحالات والمتابعات</span>
 </a>
 </nav>
 <!-- Group 3: الإدارة -->
@@ -166,19 +166,19 @@
 <div class="px-3 pb-1 pt-2 text-[11px] text-gray-400 tracking-wider font-semibold uppercase sidebar-label">الإدارة</div>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">receipt_long</span>
-<span class="sidebar-label truncate">الخدمات والأسعار</span>
+<span class="sidebar-label truncate" data-i18n="الخدمات والأسعار">الخدمات والأسعار</span>
 </a>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">schedule</span>
-<span class="sidebar-label truncate">الدوام والجدول</span>
+<span class="sidebar-label truncate" data-i18n="الدوام والجدول">الدوام والجدول</span>
 </a>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">account_balance_wallet</span>
-<span class="sidebar-label truncate">التحصيل والمستحقات</span>
+<span class="sidebar-label truncate" data-i18n="التحصيل والمستحقات">التحصيل والمستحقات</span>
 </a>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[22px] shrink-0">settings</span>
-<span class="sidebar-label truncate">الإعدادات</span>
+<span class="sidebar-label truncate" data-i18n="الإعدادات">الإعدادات</span>
 </a>
 </nav>
 </div>
@@ -207,20 +207,20 @@
 <div class="hidden absolute bottom-16 right-3 left-3 bg-[#1A2C4B] rounded-xl shadow-xl border border-[#2B4066] p-1.5 flex flex-col gap-1 z-50" id="doctor-account-menu">
 <a class="flex items-center gap-2 px-3 py-2 text-gray-200 hover:bg-[#243B63] hover:text-white rounded-lg text-[13px] transition-colors" href="#">
 <span class="material-symbols-outlined text-[18px] text-gray-400">badge</span>
-<span>الملف الشخصي</span>
+<span data-i18n="الملف الشخصي">الملف الشخصي</span>
 </a>
 <a class="flex items-center gap-2 px-3 py-2 text-gray-200 hover:bg-[#243B63] hover:text-white rounded-lg text-[13px] transition-colors" href="#">
 <span class="material-symbols-outlined text-[18px] text-gray-400">settings</span>
-<span>إعدادات الحساب</span>
+<span data-i18n="إعدادات الحساب">إعدادات الحساب</span>
 </a>
 <a class="flex items-center gap-2 px-3 py-2 text-gray-200 hover:bg-[#243B63] hover:text-white rounded-lg text-[13px] transition-colors" href="#">
 <span class="material-symbols-outlined text-[18px] text-emerald-400">toggle_on</span>
-<span>تغيير حالة التوفر</span>
+<span data-i18n="تغيير حالة التوفر">تغيير حالة التوفر</span>
 </a>
 <div class="h-px bg-[#2B4066] my-1"></div>
 <a class="flex items-center gap-2 px-3 py-2 text-rose-400 hover:bg-rose-500/10 rounded-lg text-[13px] transition-colors" href="#">
 <span class="material-symbols-outlined text-[18px]">logout</span>
-<span>تسجيل الخروج</span>
+<span data-i18n="تسجيل الخروج">تسجيل الخروج</span>
 </a>
 </div>
 </div>
@@ -236,7 +236,7 @@
 <div class="relative" id="quick-add-container" onmouseenter="window.handleQuickAddEnter()" onmouseleave="window.handleQuickAddLeave()">
 <button class="flex items-center gap-1.5 h-10 px-4 rounded-lg bg-[#0495F6] text-white font-semibold text-[14px] hover:bg-[#0466F1] active:bg-[#1035DB] transition-all shadow-sm" id="quick-add-btn" onclick="window.toggleQuickAddMenu(event)" type="button">
 <span class="material-symbols-outlined text-[20px]">add</span>
-<span>إضافة</span>
+<span data-i18n="إضافة">إضافة</span>
 <span class="material-symbols-outlined text-[18px] transition-transform duration-200" id="quick-add-arrow">expand_more</span>
 </button>
 <!-- Quick Add Dropdown Menu -->
@@ -244,29 +244,29 @@
 <div class="px-2.5 py-1 text-[11px] text-[#64748B] font-semibold uppercase tracking-wider">تشغيلي</div>
 <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] text-[#0B1020] hover:bg-[#F8FAFC] hover:text-[#0495F6] transition-colors" href="#" onclick="window.closeQuickAddMenu()">
 <span class="material-symbols-outlined text-[18px] text-[#0495F6]">person_add</span>
-<span>إضافة مريض</span>
+<span data-i18n="إضافة مريض">إضافة مريض</span>
 </a>
 <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] text-[#0B1020] hover:bg-[#F8FAFC] hover:text-[#0495F6] transition-colors" href="#" onclick="window.closeQuickAddMenu()">
 <span class="material-symbols-outlined text-[18px] text-[#0495F6]">event</span>
-<span>موعد جديد</span>
+<span data-i18n="موعد جديد">موعد جديد</span>
 </a>
 <div class="h-px bg-[#E2E8F0] my-1.5"></div>
 <div class="px-2.5 py-1 text-[11px] text-[#64748B] font-semibold uppercase tracking-wider">سريري</div>
 <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] text-[#0B1020] hover:bg-[#F8FAFC] hover:text-[#0495F6] transition-colors" href="#" onclick="window.closeQuickAddMenu(); openContextualDrawer('prescription');">
 <span class="material-symbols-outlined text-[18px] text-violet-600">prescriptions</span>
-<span>وصفة طبية</span>
+<span data-i18n="وصفة طبية">وصفة طبية</span>
 </a>
 <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] text-[#0B1020] hover:bg-[#F8FAFC] hover:text-[#0495F6] transition-colors" href="#" onclick="window.closeQuickAddMenu(); openContextualDrawer('lab');">
 <span class="material-symbols-outlined text-[18px] text-indigo-600">science</span>
-<span>طلب مختبر</span>
+<span data-i18n="طلب مختبر">طلب مختبر</span>
 </a>
 <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] text-[#0B1020] hover:bg-[#F8FAFC] hover:text-[#0495F6] transition-colors" href="#" onclick="window.closeQuickAddMenu(); openContextualDrawer('radiology');">
 <span class="material-symbols-outlined text-[18px] text-cyan-600">radiology</span>
-<span>طلب أشعة</span>
+<span data-i18n="طلب أشعة">طلب أشعة</span>
 </a>
 <a class="flex items-center gap-2 px-3 py-2 rounded-lg text-[13px] text-[#0B1020] hover:bg-[#F8FAFC] hover:text-[#0495F6] transition-colors" href="#" onclick="window.closeQuickAddMenu(); openContextualDrawer('referral');">
 <span class="material-symbols-outlined text-[18px] text-teal-600">sync_alt</span>
-<span>إحالة / متابعة</span>
+<span data-i18n="إحالة / متابعة">إحالة / متابعة</span>
 </a>
 </div>
 </div>
@@ -298,9 +298,9 @@
 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6" data-purpose="page-title-actions">
 <div>
 <div class="flex items-center gap-2 text-[12px] text-[#64748B] mb-1">
-<a class="hover:text-[#0495F6] transition-colors" href="#">العمل الطبي</a>
+<a class="hover:text-[#0495F6] transition-colors" href="#" data-i18n="العمل الطبي">العمل الطبي</a>
 <span>/</span>
-<a class="hover:text-[#0495F6] transition-colors" href="#">الزيارات</a>
+<a class="hover:text-[#0495F6] transition-colors" href="#" data-i18n="الزيارات">الزيارات</a>
 <span>/</span>
 <span class="text-[#0B1020] font-medium">توثيق الزيارة</span>
 </div>
@@ -470,7 +470,7 @@
 <div class="flex flex-col gap-2">
 <div class="flex items-center gap-2.5">
 <span class="material-symbols-outlined text-[#783BF7] text-[20px] p-2 bg-[#783BF7]/10 rounded-lg shrink-0">prescriptions</span>
-<h3 class="text-[14px] font-bold text-[#0B1020]">وصفة طبية</h3>
+<h3 class="text-[14px] font-bold text-[#0B1020]" data-i18n="وصفة طبية">وصفة طبية</h3>
 </div>
 <p class="text-[12px] text-[#64748B] leading-relaxed">إنشاء وإدارة وصفة علاجية مرتبطة بالزيارة</p>
 </div>
@@ -484,7 +484,7 @@
 <div class="flex flex-col gap-2">
 <div class="flex items-center gap-2.5">
 <span class="material-symbols-outlined text-[#0495F6] text-[20px] p-2 bg-[#0495F6]/10 rounded-lg shrink-0">science</span>
-<h3 class="text-[14px] font-bold text-[#0B1020]">طلب مختبر</h3>
+<h3 class="text-[14px] font-bold text-[#0B1020]" data-i18n="طلب مختبر">طلب مختبر</h3>
 </div>
 <p class="text-[12px] text-[#64748B] leading-relaxed">طلب فحوصات مخبرية وتحديد جهة التحليل</p>
 </div>
@@ -498,7 +498,7 @@
 <div class="flex flex-col gap-2">
 <div class="flex items-center gap-2.5">
 <span class="material-symbols-outlined text-cyan-600 text-[20px] p-2 bg-cyan-50 rounded-lg shrink-0">radiology</span>
-<h3 class="text-[14px] font-bold text-[#0B1020]">طلب أشعة</h3>
+<h3 class="text-[14px] font-bold text-[#0B1020]" data-i18n="طلب أشعة">طلب أشعة</h3>
 </div>
 <p class="text-[12px] text-[#64748B] leading-relaxed">طلب تصوير سريري مع تحديد جهة الفحص</p>
 </div>
@@ -512,7 +512,7 @@
 <div class="flex flex-col gap-2">
 <div class="flex items-center gap-2.5">
 <span class="material-symbols-outlined text-emerald-600 text-[20px] p-2 bg-emerald-50 rounded-lg shrink-0">sync_alt</span>
-<h3 class="text-[14px] font-bold text-[#0B1020]">إحالة / متابعة</h3>
+<h3 class="text-[14px] font-bold text-[#0B1020]" data-i18n="إحالة / متابعة">إحالة / متابعة</h3>
 </div>
 <p class="text-[12px] text-[#64748B] leading-relaxed">إضافة إحالة أو توثيق قرار متابعة</p>
 </div>
@@ -738,7 +738,7 @@
 <label class="text-[12px] font-semibold text-[#0B1020]">الطول سم<input id="vital-height" inputmode="decimal" class="mt-1 w-full h-10 px-3 rounded-lg border border-[#CBD5E1] bg-[#F8FAFC] focus:outline-none focus:border-[#0495F6]" placeholder="175"/></label>
 <label class="text-[12px] font-semibold text-[#0B1020]">BMI<input id="vital-bmi" readonly class="mt-1 w-full h-10 px-3 rounded-lg border border-[#E2E8F0] bg-[#F1F5F9] text-[#64748B]" placeholder="يُحسب تلقائيًا"/></label>
 </div>
-<div class="flex items-center justify-end gap-2 mt-6"><button class="h-9 px-4 rounded-lg border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[13px] font-semibold" onclick="closeVitalsModal()" type="button">إلغاء</button><button class="h-9 px-5 rounded-lg bg-[#0495F6] hover:bg-[#0466F1] text-white text-[13px] font-bold" onclick="saveVitals()" type="button">حفظ العلامات الحيوية</button></div>
+<div class="flex items-center justify-end gap-2 mt-6"><button class="h-9 px-4 rounded-lg border border-[#CBD5E1] hover:bg-[#F8FAFC] text-[13px] font-semibold" onclick="closeVitalsModal()" type="button" data-i18n="إلغاء">إلغاء</button><button class="h-9 px-5 rounded-lg bg-[#0495F6] hover:bg-[#0466F1] text-white text-[13px] font-bold" onclick="saveVitals()" type="button">حفظ العلامات الحيوية</button></div>
 </div>
 </div>
 <!-- END: VitalsModal -->
@@ -754,7 +754,7 @@
 <div class="p-3 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC]"><div class="font-bold text-[13px]">الأدوية الحالية</div><div class="text-[12px] text-[#64748B] mt-1">لا توجد أدوية حالية ظاهرة ضمن السجل المتاح</div></div>
 <div class="p-3 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC]"><div class="font-bold text-[13px]">زيارات سابقة</div><div class="text-[12px] text-[#64748B] mt-1">زيارة واحدة ضمن العلاقة العلاجية الحالية</div></div>
 </div>
-<div class="flex justify-end mt-5"><button class="h-9 px-4 rounded-lg bg-[#0495F6] text-white text-[13px] font-bold" onclick="closeMedicalRecordModal()" type="button">إغلاق</button></div>
+<div class="flex justify-end mt-5"><button class="h-9 px-4 rounded-lg bg-[#0495F6] text-white text-[13px] font-bold" onclick="closeMedicalRecordModal()" type="button" data-i18n="إغلاق">إغلاق</button></div>
 </div>
 </div>
 <!-- END: MedicalRecordModal -->
@@ -764,7 +764,7 @@
 <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-[#E2E8F0] text-right">
 <div class="flex items-center justify-between mb-4"><div><h3 class="text-lg font-bold text-[#0B1020]">تفاصيل الزيارة السابقة</h3><p class="text-[12px] text-[#64748B]">18 أكتوبر 2024 • كشفية طب باطني</p></div><button class="p-1.5 rounded-lg hover:bg-[#F1F5F9] text-[#64748B]" onclick="closePreviousVisitModal()" type="button"><span class="material-symbols-outlined">close</span></button></div>
 <div class="space-y-3 text-[13px]"><div class="p-3 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC]"><b>الطبيب:</b> د. محمد أحمد</div><div class="p-3 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC]"><b>السياق المتاح:</b> ملخص الزيارة المرتبط بعلاقتك العلاجية بالمريض.</div><div class="p-3 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] text-[#64748B]">لا يتم عرض أي معلومات إضافية مخفية أو خارج نطاق الصلاحية الحالية.</div></div>
-<div class="flex justify-end mt-5"><button class="h-9 px-4 rounded-lg bg-[#0495F6] text-white text-[13px] font-bold" onclick="closePreviousVisitModal()" type="button">إغلاق</button></div>
+<div class="flex justify-end mt-5"><button class="h-9 px-4 rounded-lg bg-[#0495F6] text-white text-[13px] font-bold" onclick="closePreviousVisitModal()" type="button" data-i18n="إغلاق">إغلاق</button></div>
 </div>
 </div>
 <!-- END: PreviousVisitModal -->

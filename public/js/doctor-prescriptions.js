@@ -29,7 +29,7 @@
             if (container.querySelectorAll('[data-rx-item]').length >= 30) { window.TheraAlerts.info('الحد الأقصى 30 دواءً في الوصفة.'); return; }
             container.insertAdjacentHTML('beforeend', template.innerHTML.replaceAll('__INDEX__', String(index++)));
             const row = container.lastElementChild;
-            if (window.jQuery?.fn.select2) window.jQuery(row).find('select').each(function () {window.jQuery(this).select2({dir:'rtl', width:'100%'}).on('change.rxDirty', changed);});
+            if (window.jQuery?.fn.select2) window.jQuery(row).find('select').each(function () {const modal = window.jQuery(this).closest('.modal'); window.jQuery(this).select2({dir:'rtl', width:'100%', dropdownParent:modal.length?modal:window.jQuery(document.body)}).on('change.rxDirty', changed);});
             bindRow(row);
             changed();
         });

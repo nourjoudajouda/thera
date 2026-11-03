@@ -104,6 +104,35 @@ class DoctorCredentialControllerTest extends TestCase
         Storage::disk('local')->assertMissing($credential->document_path);
     }
 
+    public function test_private_document_preview_checks_ownership_and_uses_a_safe_mime_without_caching(): void
+    {
+        Storage::fake('local');
+        $doctor = Doctor::factory()->create();
+        $credential = DoctorCredential::factory()->for($doctor)->create(['document_original_name' => 'proof.png']);
+        $file = UploadedFile::fake()->image('proof.png');
+        Storage::disk('local')->put($credential->document_path, $file->getContent());
+        $url = route('doctor.account.professional-profile.credentials.document', ['doctorCredential' => $credential, 'preview' => 1]);
+
+        $this->get($url)->assertRedirect(route('doctor.login'));
+        $response = $this->actingAs($doctor, 'doctor')->get($url)->assertOk()->assertHeader('Content-Type', 'image/png')->assertHeader('Cache-Control', 'no-store, private')->assertHeader('X-Content-Type-Options', 'nosniff');
+
+        $this->assertStringContainsString('inline', $response->headers->get('Content-Disposition'));
+        $this->actingAs(Doctor::factory()->create(), 'doctor')->get($url)->assertNotFound();
+    }
+
+    public function test_pdf_preview_is_inline_but_unsupported_contents_are_not_rendered_as_a_document(): void
+    {
+        Storage::fake('local');
+        $credential = DoctorCredential::factory()->create();
+        Storage::disk('local')->put($credential->document_path, "%PDF-1.4\n1 0 obj\n<< /Type /Catalog >>\nendobj\n%%EOF");
+        $url = route('doctor.account.professional-profile.credentials.document', ['doctorCredential' => $credential, 'preview' => 1]);
+
+        $this->actingAs($credential->doctor, 'doctor')->get($url)->assertOk()->assertHeader('Content-Type', 'application/pdf');
+
+        Storage::disk('local')->put($credential->document_path, '<html><script>alert(1)</script></html>');
+        $this->get($url)->assertNotFound();
+    }
+
     public function test_verified_credential_cannot_be_deleted(): void
     {
         Storage::fake('local');

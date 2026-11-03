@@ -5,10 +5,10 @@ import vm from 'node:vm';
 
 const source = await readFile(new URL('../../public/js/doctor-appointments.js', import.meta.url), 'utf8');
 
-function initializeDrawer(href) {
+function initializeDrawer(href, queryKey = 'appointment') {
     const listeners = new Map();
     const location = { href };
-    const drawer = { dataset: {}, addEventListener(name, listener) { listeners.set(name, listener); } };
+    const drawer = { dataset: { financeQueryKey: queryKey }, addEventListener(name, listener) { listeners.set(name, listener); } };
     const window = { bootstrap: { Offcanvas: { getOrCreateInstance() { return { show() {} }; } } } };
     const document = {
         getElementById(id) { return id === 'practice-page-state' ? { textContent: '{}' } : null; },
@@ -40,4 +40,23 @@ test('a late close event cannot clear a different appointment opened afterwards'
     listeners.get('hidden.bs.offcanvas')();
 
     assert.equal(new URL(location.href).searchParams.get('appointment'), '19');
+});
+
+test('closing an embedded collection preserves the appointment detail and list filters', () => {
+    const { listeners, location } = initializeDrawer('http://localhost:8000/doctor/appointments/details?appointment=18&collection=18&date=2026-11-01&view=list&search=Reem&page=2', 'collection');
+    listeners.get('hidden.bs.offcanvas')();
+    const url = new URL(location.href);
+    assert.equal(url.searchParams.has('collection'), false);
+    assert.equal(url.searchParams.get('appointment'), '18');
+    assert.equal(url.searchParams.get('view'), 'list');
+    assert.equal(url.searchParams.get('date'), '2026-11-01');
+    assert.equal(url.searchParams.get('search'), 'Reem');
+    assert.equal(url.searchParams.get('page'), '2');
+});
+
+test('a stale embedded drawer close does not clear the next patient collection', () => {
+    const { listeners, location } = initializeDrawer('http://localhost:8000/doctor/appointments?collection=18&view=list', 'collection');
+    location.href = 'http://localhost:8000/doctor/appointments?collection=19&view=list';
+    listeners.get('hidden.bs.offcanvas')();
+    assert.equal(new URL(location.href).searchParams.get('collection'), '19');
 });

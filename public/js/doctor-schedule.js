@@ -67,6 +67,7 @@ window.initDoctorSchedule = () => {
         if(id==='facilities'){window.location.assign(window.doctorRoutes.profile+'?tab=facilities');return;}
         if(id==='services'){window.location.assign(window.doctorRoutes.services+'?membership='+state.membershipId);return;}
         const target=$(id);if(!target)return;
+        const disclosure=target.closest('details');if(disclosure)disclosure.open=true;
         const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         target.scrollIntoView({behavior:reduced?'instant':'smooth',block:'center'});
         target.focus({preventScroll:true});
@@ -89,14 +90,19 @@ window.initDoctorSchedule = () => {
             if (!rows.length) card.append(element('p','عطلة — لا يوجد دوام','small text-secondary mb-0'));
             for (const {period,index} of rows) {
                 const row=element('tr'); const dayCell=element('td',label,'fw-bold text-nowrap');
-                const times=element('td',`${period.start} – ${period.end}`,'schedule-time text-nowrap');
+                const status=element('td');status.append(element('span','دوام','schedule-work-label'));
+                const start=element('td');start.append(element('span',period.start,'schedule-inline-time'));
+                const end=element('td');end.append(element('span',period.end,'schedule-inline-time'));
                 const details=element('td'); details.append(element('p',serviceNames(period.service_ids),'small fw-bold mb-1 text-break'),element('p',breakSummary(period.breaks),'schedule-break-label mb-0'));
                 const actions=element('td'); const box=element('div',undefined,'schedule-actions');
-                box.append(actionButton('تعديل',()=>openPeriod(index,day)),actionButton('حذف',()=>removePeriod(index),'outline-danger')); actions.append(box); row.append(dayCell,times,details,actions); tbody.append(row);
+                box.append(actionButton('تعديل',()=>openPeriod(index,day)),actionButton('حذف',()=>removePeriod(index),'outline-danger'));
+                if(index===rows[rows.length-1].index)box.append(actionButton('إضافة فترة',()=>openPeriod(null,day)));
+                actions.append(box); row.append(dayCell,status,start,end,details,actions); tbody.append(row);
                 const periodCard=element('div',undefined,'border-top pt-3 mt-3'); periodCard.append(element('p',`${period.start} – ${period.end}`,'schedule-time fw-bold small mb-2'),element('p',serviceNames(period.service_ids),'small text-break mb-2'),element('p',breakSummary(period.breaks),'schedule-break-label mb-3'));
                 const mobileActions=element('div',undefined,'schedule-actions'); mobileActions.append(actionButton('تعديل',()=>openPeriod(index,day)),actionButton('حذف',()=>removePeriod(index),'outline-danger')); periodCard.append(mobileActions); card.append(periodCard);
             }
-            const tr=element('tr'); tr.append(element('td',rows.length?'':label,'fw-bold text-nowrap'),element('td',rows.length?'':'عطلة','small text-secondary'),element('td','')); const td=element('td'); td.append(actionButton('إضافة فترة',()=>openPeriod(null,day))); tr.append(td); tbody.append(tr); mobile.append(card);
+            if(!rows.length){const tr=element('tr'); tr.append(element('td',label,'fw-bold text-nowrap'),element('td','عطلة','small text-secondary'),element('td','—'),element('td','—'),element('td','')); const td=element('td'); td.append(actionButton('إضافة فترة',()=>openPeriod(null,day))); tr.append(td); tbody.append(tr);}
+            mobile.append(card);
         });
         let total=0; for(const period of periods) total+=minutes(period.end)-minutes(period.start)-period.breaks.reduce((sum,b)=>sum+minutes(b.end)-minutes(b.start),0);
         $('summary-days').textContent = new Set(periods.map(period=>period.weekday)).size;
@@ -157,6 +163,7 @@ window.initDoctorSchedule = () => {
     const switchMembership=async()=>{if(switchingMembership)return;switchingMembership=true;try{if(dirty()){const result=await window.TheraAlerts.confirm({title:'الانتقال إلى منشأة أخرى؟',text:'ستفقد تغييرات الجدول غير المحفوظة.'});if(!result.isConfirmed){$('schedule-membership').value=state.membershipId;window.jQuery?.($('schedule-membership')).trigger('change.select2');return;}}await window.TheraPractice.navigate(window.doctorRoutes.schedule+'?membership='+encodeURIComponent($('schedule-membership').value),{discardChanges:true});}finally{switchingMembership=false;}};
     $('schedule-membership').addEventListener('change',switchMembership);window.jQuery?.($('schedule-membership')).on('select2:select',switchMembership);
     $('add-exception-button').addEventListener('click',event=>{if(dirty()){event.preventDefault();event.stopPropagation();window.TheraAlerts.info('احفظ تغييرات الجدول أولًا قبل فتح الاستثناءات.');return;}if(state.editingException){event.preventDefault();event.stopPropagation();window.TheraPractice.navigate(window.doctorRoutes.schedule+'?membership='+state.membershipId+'&create_exception=1');}});
+    document.querySelectorAll('[data-schedule-add-exception]').forEach(button=>button.addEventListener('click',()=>$('add-exception-button').click()));
     document.querySelector('input[name="preview"]')?.closest('form').addEventListener('submit',event=>{if(dirty()){event.preventDefault();window.TheraAlerts.info('احفظ تغييرات الجدول أولًا حتى تظهر في معاينة التوفر.');}});
     if(state.openException || new URLSearchParams(window.location.search).has('create_exception'))exceptionDrawer.show();
 };

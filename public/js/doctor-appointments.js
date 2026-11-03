@@ -7,11 +7,12 @@ window.initDoctorAppointments = () => {
     if (financeDrawer) {
         if (!financeDrawer.dataset.closeBound) {
             financeDrawer.dataset.closeBound = 'true';
-            const selectedAppointment = new URL(location.href).searchParams.get('appointment');
+            const queryKey = financeDrawer.dataset.financeQueryKey || 'appointment';
+            const selectedAppointment = new URL(location.href).searchParams.get(queryKey);
             financeDrawer.addEventListener('hidden.bs.offcanvas', () => {
                 const url = new URL(location.href);
-                if (url.searchParams.get('appointment') !== selectedAppointment) return;
-                url.searchParams.delete('appointment');
+                if (url.searchParams.get(queryKey) !== selectedAppointment) return;
+                url.searchParams.delete(queryKey);
                 history.replaceState(null, '', url);
             });
         }
@@ -19,7 +20,7 @@ window.initDoctorAppointments = () => {
     }
     if (jq?.fn.select2) jq('[data-appointment-select]').each(function () {
         if (jq(this).hasClass('select2-hidden-accessible')) return;
-        jq(this).select2({dir:'rtl',width:'100%',dropdownParent:jq(this).closest('.offcanvas').length?jq(this).closest('.offcanvas'):jq(document.body),minimumResultsForSearch:0,language:{noResults:()=>'لا توجد نتائج'}});
+        jq(this).select2({dir:'rtl',width:'100%',dropdownParent:jq(this).closest('.offcanvas, .modal').length?jq(this).closest('.offcanvas, .modal'):jq(document.body),minimumResultsForSearch:0,language:{noResults:()=>'لا توجد نتائج'}});
     });
     window.TheraFilters?.init();
     if (!$('appointment-form')) return;
@@ -75,10 +76,6 @@ window.initDoctorAppointments = () => {
     date.addEventListener('change',()=>{chosen='';time.value='';refresh();});
     $('refresh-appointment-slots').addEventListener('click',refresh);
     $('appointment-form').addEventListener('submit',event=>{if(!time.value){event.preventDefault();window.TheraAlerts.info('اختر وقتًا متاحًا أولًا.');}});
-    if ($('appointment-contact') && jq?.fn.select2) {
-        jq($('appointment-contact')).select2({dir:'rtl',width:'100%',minimumInputLength:2,language:{inputTooShort:()=>'اكتب حرفين للبحث',noResults:()=>'لا يوجد مراجع سابق مطابق؛ أدخل الاسم والهاتف أدناه.',searching:()=>'جارٍ البحث…'},ajax:{url:state.contactsUrl,dataType:'json',delay:300,data:params=>({q:params.term})}})
-            .on('select2:select',event=>{$('appointment-patient').value=event.params.data.name;$('appointment-phone').value=event.params.data.phone;});
-    }
     filterServices(true);
 };
 window.initDoctorAppointments();

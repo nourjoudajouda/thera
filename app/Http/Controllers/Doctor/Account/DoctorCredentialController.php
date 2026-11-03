@@ -50,6 +50,14 @@ class DoctorCredentialController extends Controller
 
         abort_unless(Storage::disk('local')->exists($doctorCredential->document_path), 404);
 
+        if ($request->boolean('preview')) {
+            $mime = Storage::disk('local')->mimeType($doctorCredential->document_path);
+            abort_unless(in_array($mime, ['application/pdf', 'image/jpeg', 'image/png'], true), 404);
+
+            return Storage::disk('local')->response($doctorCredential->document_path, $doctorCredential->document_original_name,
+                ['Content-Type' => $mime, 'Cache-Control' => 'private, no-store', 'X-Content-Type-Options' => 'nosniff'], 'inline');
+        }
+
         return Storage::disk('local')->download(
             $doctorCredential->document_path,
             $doctorCredential->document_original_name,

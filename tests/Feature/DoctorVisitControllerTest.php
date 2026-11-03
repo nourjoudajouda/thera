@@ -78,7 +78,7 @@ class DoctorVisitControllerTest extends TestCase
         $this->putJson(route('doctor.clinical.visits.update', $visit), ['revision' => 1, 'intent' => 'save', 'status' => 'draft', 'complaint' => 'الشكوى الأولى'])->assertOk();
         $this->putJson(route('doctor.clinical.visits.update', $visit), ['revision' => 2, 'intent' => 'save', 'status' => 'pending_results', 'complaint' => 'مراجعة الشكوى'])->assertOk();
 
-        $this->assertSame('pending_results', $visit->fresh()->status);
+        $this->assertSame('initial', $visit->fresh()->status);
         $this->assertSame('confirmed', $visit->doctorAppointment->fresh()->status);
         $this->assertSame('الشكوى الأولى', $visit->revisions()->where('revision', 2)->sole()->snapshot['content']['complaint']);
         $this->assertSame(3, $visit->fresh()->revision);
@@ -196,6 +196,19 @@ class DoctorVisitControllerTest extends TestCase
 
         $this->assertSame([], $visit->fresh()->content);
         $this->assertSame(1, $visit->fresh()->revision);
+    }
+
+    public function test_quick_documentation_keeps_every_field_and_saved_optional_content(): void
+    {
+        $visit = $this->startVisit();
+        $visit->update(['content' => ['medical_history' => 'تاريخ مرضي محفوظ', 'vitals' => ['pulse' => 75]]]);
+
+        $page = $this->get(route('doctor.clinical.visit', ['visit' => $visit->id]))->assertOk();
+
+        foreach (['complaint', 'assessment', 'diagnosis', 'diagnosis_type', 'treatment_plan', 'medical_history', 'physical_exam', 'clinical_notes', 'followup_plan', 'vitals[pulse]', 'vitals[temperature]', 'vitals[systolic]', 'vitals[diastolic]', 'vitals[weight]', 'vitals[height]'] as $field) {
+            $page->assertSee('name="'.$field.'"', false);
+        }
+        $page->assertSee('تاريخ مرضي محفوظ')->assertSee('توجد معلومات محفوظة')->assertSee('مراجعة وإغلاق الزيارة')->assertSee('id="visit-review"', false)->assertSee('الإجراءات المرتبطة')->assertDontSee('name="status"', false);
     }
 
     private function readyAppointment(): DoctorAppointment

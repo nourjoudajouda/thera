@@ -40,7 +40,7 @@ class DoctorCollectionController extends Controller
         }
         $summaryRows = (clone $query)->withSum('payments as paid_minor', 'amount_minor')->get();
         $totals = $summaryRows->groupBy('currency')->map(fn ($rows) => ['paid' => $rows->sum(fn ($item) => $item->paidMinor()), 'remaining' => $rows->whereIn('status', ['confirmed', 'completed'])->sum(fn ($item) => $item->remainingMinor())]);
-        $appointments = $query->with(['doctorFacility.facility', 'queueEntry'])->withSum('payments as paid_minor', 'amount_minor')->orderBy('starts_at')->orderBy('id')->paginate(20)->withQueryString();
+        $appointments = $query->with(['doctorFacility.facility', 'queueEntry'])->withSum('payments as paid_minor', 'amount_minor')->orderByDesc('updated_at')->orderByDesc('id')->paginate(20)->withQueryString();
         $selected = $request->filled('appointment') ? DoctorAppointment::query()->whereBelongsTo($doctor)->with(['doctorFacility.facility', 'queueEntry', 'payments.reversal'])->withSum('payments as paid_minor', 'amount_minor')->findOrFail($request->integer('appointment')) : null;
 
         return view('doctor.finance.collections', compact('doctor', 'day', 'memberships', 'appointments', 'selected', 'totals'));

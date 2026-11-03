@@ -141,66 +141,66 @@ html,body{overflow-x:hidden;}
 <div class="sidebar-scroll flex-1 min-h-0 py-4 px-3 space-y-6 overflow-y-auto overflow-x-hidden" id="sidebar-nav-container">
 <!-- Group 1: العمل اليومي -->
 <div class="space-y-1">
-<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2">العمل اليومي</p>
+<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2" data-i18n="العمل اليومي">العمل اليومي</p>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-base font-semibold" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">grid_view</span>
-<span class="nav-label">الرئيسية</span>
+<span class="nav-label" data-i18n="الرئيسية">الرئيسية</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-base font-semibold" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">calendar_today</span>
-<span class="nav-label">المواعيد</span>
+<span class="nav-label" data-i18n="المواعيد">المواعيد</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-base font-semibold" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">person_search</span>
-<span class="nav-label">المرضى</span>
+<span class="nav-label" data-i18n="المرضى">المرضى</span>
 </a>
 </div>
 <!-- Group 2: العمل الطبي -->
 <div class="space-y-1">
-<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2">العمل الطبي</p>
+<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2" data-i18n="العمل الطبي">العمل الطبي</p>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-base font-semibold" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">stethoscope</span>
-<span class="nav-label">الزيارات</span>
+<span class="nav-label" data-i18n="الزيارات">الزيارات</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-base font-semibold" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">prescriptions</span>
-<span class="nav-label">الوصفات الطبية</span>
+<span class="nav-label" data-i18n="الوصفات الطبية">الوصفات الطبية</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-base font-semibold" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">science</span>
-<span class="nav-label">طلبات المختبر</span>
+<span class="nav-label" data-i18n="طلبات المختبر">طلبات المختبر</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-base font-semibold" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">radiology</span>
-<span class="nav-label">طلبات الأشعة</span>
+<span class="nav-label" data-i18n="طلبات الأشعة">طلبات الأشعة</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-base font-semibold" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">assignment_turned_in</span>
-<span class="nav-label">النتائج</span>
+<span class="nav-label" data-i18n="النتائج">النتائج</span>
 </a>
 <a aria-current="page" class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl bg-[#0495F6] text-white font-bold shadow-md shadow-[#0495F6]/20 transition-all text-base" href="#">
 <span class="material-symbols-outlined text-[22px] flex-shrink-0 text-white">sync_alt</span>
-<span class="nav-label">الإحالات والمتابعات</span>
+<span class="nav-label" data-i18n="الإحالات والمتابعات">الإحالات والمتابعات</span>
 </a>
 </div>
 <!-- Group 3: الإدارة -->
 <div class="space-y-1">
-<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2">الإدارة</p>
+<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2" data-i18n="الإدارة">الإدارة</p>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-base font-semibold" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">receipt_long</span>
-<span class="nav-label">الخدمات والأسعار</span>
+<span class="nav-label" data-i18n="الخدمات والأسعار">الخدمات والأسعار</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-base font-semibold" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">schedule</span>
-<span class="nav-label">الدوام والجدول</span>
+<span class="nav-label" data-i18n="الدوام والجدول">الدوام والجدول</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-base font-semibold" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">account_balance_wallet</span>
-<span class="nav-label">التحصيل والمستحقات</span>
+<span class="nav-label" data-i18n="التحصيل والمستحقات">التحصيل والمستحقات</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-all text-base font-semibold" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">settings</span>
-<span class="nav-label">الإعدادات</span>
+<span class="nav-label" data-i18n="الإعدادات">الإعدادات</span>
 </a>
 </div>
 </div>
@@ -226,20 +226,20 @@ html,body{overflow-x:hidden;}
 <div class="hidden absolute bottom-full mb-2 right-3 w-56 bg-[#132038] rounded-xl shadow-dropdown border border-[rgba(255,255,255,0.08)] py-1.5 z-50 text-slate-200 text-sm" id="doctor-account-menu">
 <button class="w-full text-right px-4 py-2 hover:bg-white/5 flex items-center gap-2 text-slate-200" type="button">
 <span class="material-symbols-outlined text-lg text-slate-400">person</span>
-<span class="">الملف الشخصي</span>
+<span class="" data-i18n="الملف الشخصي">الملف الشخصي</span>
 </button>
 <button class="w-full text-right px-4 py-2 hover:bg-white/5 flex items-center gap-2 text-slate-200" type="button">
 <span class="material-symbols-outlined text-lg text-slate-400">manage_accounts</span>
-<span class="">إعدادات الحساب</span>
+<span class="" data-i18n="إعدادات الحساب">إعدادات الحساب</span>
 </button>
 <button class="w-full text-right px-4 py-2 hover:bg-white/5 flex items-center gap-2 text-slate-200" type="button">
 <span class="material-symbols-outlined text-lg text-emerald-400">radio_button_checked</span>
-<span class="">تغيير حالة التوفر</span>
+<span class="" data-i18n="تغيير حالة التوفر">تغيير حالة التوفر</span>
 </button>
 <div class="my-1 border-t border-[rgba(255,255,255,0.08)]"></div>
 <button class="w-full text-right px-4 py-2 hover:bg-red-500/10 text-red-400 flex items-center gap-2" type="button">
 <span class="material-symbols-outlined text-lg text-red-400">logout</span>
-<span class="">تسجيل الخروج</span>
+<span class="" data-i18n="تسجيل الخروج">تسجيل الخروج</span>
 </button>
 </div>
 </footer>
@@ -253,7 +253,7 @@ html,body{overflow-x:hidden;}
 <div class="relative" id="quick-add-container">
 <button class="h-10 px-4 bg-[#0495F6] hover:bg-[#0466F1] text-white rounded-xl font-bold flex items-center gap-2 shadow-sm transition-colors text-sm" id="quick-add-btn" type="button">
 <span class="material-symbols-outlined text-xl">add</span>
-<span class="">إضافة</span>
+<span class="" data-i18n="إضافة">إضافة</span>
 <span class="material-symbols-outlined text-base" id="quick-add-arrow">expand_more</span>
 </button>
 <!-- Dropdown Menu -->
@@ -261,33 +261,33 @@ html,body{overflow-x:hidden;}
 <div class="px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">تشغيلي</div>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">person_add</span>
-<span class="">إضافة مريض</span>
+<span class="" data-i18n="إضافة مريض">إضافة مريض</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">calendar_today</span>
-<span class="">موعد جديد</span>
+<span class="" data-i18n="موعد جديد">موعد جديد</span>
 </button>
 <div class="my-1.5 border-t border-slate-100"></div>
 <div class="px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">سريري</div>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">stethoscope</span>
-<span class="">زيارة</span>
+<span class="" data-i18n="زيارة">زيارة</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">prescriptions</span>
-<span class="">وصفة طبية</span>
+<span class="" data-i18n="وصفة طبية">وصفة طبية</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">science</span>
-<span class="">طلب مختبر</span>
+<span class="" data-i18n="طلب مختبر">طلب مختبر</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" id="quick-add-rad-order-btn" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">radiology</span>
-<span class="">طلب أشعة</span>
+<span class="" data-i18n="طلب أشعة">طلب أشعة</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-brand-light text-brand font-bold flex items-center gap-2.5" id="quick-add-ref-follow-btn" type="button">
 <span class="material-symbols-outlined text-brand text-lg">sync_alt</span>
-<span class="">إحالة / متابعة</span>
+<span class="" data-i18n="إحالة / متابعة">إحالة / متابعة</span>
 </button>
 </div>
 </div>
@@ -324,11 +324,11 @@ html,body{overflow-x:hidden;}
   <section class="mt-4 mb-5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
     <div>
       <nav class="flex items-center gap-2 text-xs text-slate-400 mb-1 font-medium" aria-label="Breadcrumb">
-        <span>العمل الطبي</span>
+        <span data-i18n="العمل الطبي">العمل الطبي</span>
         <span class="material-symbols-outlined text-xs">chevron_left</span>
-        <span class="text-brand font-bold">الإحالات والمتابعات</span>
+        <span class="text-brand font-bold" data-i18n="الإحالات والمتابعات">الإحالات والمتابعات</span>
       </nav>
-      <h1 class="text-2xl font-bold text-slate-900 tracking-tight">الإحالات والمتابعات</h1>
+      <h1 class="text-2xl font-bold text-slate-900 tracking-tight" data-i18n="الإحالات والمتابعات">الإحالات والمتابعات</h1>
       <p class="text-xs text-slate-500 mt-1">إدارة إحالات المرضى وخطط المتابعة دون خلطها بمسار حجز المواعيد</p>
     </div>
     <div class="flex items-center gap-2">
@@ -380,7 +380,7 @@ html,body{overflow-x:hidden;}
         <input class="w-full h-10 pr-9 pl-3 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:ring-1 focus:ring-brand focus:border-brand" id="rf-filter-search" placeholder="ابحث بالمريض أو رقم السجل أو السبب..." type="text">
       </div>
       <select class="rtl-select w-full h-10 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 px-2.5" id="rf-filter-type"><option value="">النوع: الكل</option><option value="referral">إحالة</option><option value="followup">متابعة</option></select>
-      <select class="rtl-select w-full h-10 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 px-2.5" id="rf-filter-status"><option value="">الحالة: الكل</option><option value="draft">مسودة</option><option value="documented">موثقة</option><option value="route_requested">طلب توجيه</option><option value="required">مطلوبة</option><option value="appointment_created">تم إنشاء موعد</option><option value="completed">مكتملة</option><option value="cancelled">ملغاة</option></select>
+      <select class="rtl-select w-full h-10 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 px-2.5" id="rf-filter-status"><option value="">الحالة: الكل</option><option value="draft" data-i18n="مسودة">مسودة</option><option value="documented">موثقة</option><option value="route_requested">طلب توجيه</option><option value="required">مطلوبة</option><option value="appointment_created">تم إنشاء موعد</option><option value="completed">مكتملة</option><option value="cancelled">ملغاة</option></select>
       <select class="rtl-select w-full h-10 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 px-2.5" id="rf-filter-priority"><option value="">الأولوية: الكل</option><option value="normal">عادي</option><option value="urgent">عاجل</option></select>
       <select class="rtl-select w-full h-10 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 px-2.5" id="rf-filter-sort"><option value="newest">الترتيب: الأحدث أولاً</option><option value="oldest">الترتيب: الأقدم أولاً</option><option value="due_first">الترتيب: الأقرب استحقاقًا</option><option value="urgent">الترتيب: الأولوية العاجلة</option></select>
       <button aria-label="إعادة ضبط الفلاتر" class="w-10 h-10 bg-white border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg flex items-center justify-center transition-colors thera-icon-btn" id="reset-rf-filters-btn" title="إعادة ضبط الفلاتر" type="button"><span class="material-symbols-outlined text-[18px]">restart_alt</span></button>
@@ -393,7 +393,7 @@ html,body{overflow-x:hidden;}
       <table class="w-full text-right text-xs min-w-[1120px]">
         <thead class="bg-slate-50 text-slate-500 font-bold text-[11px]">
           <tr>
-            <th class="py-3 px-4">المريض</th>
+            <th class="py-3 px-4" data-i18n="المريض">المريض</th>
             <th class="py-3 px-4">السجل</th>
             <th class="py-3 px-4">التفاصيل</th>
             <th class="py-3 px-4">الزيارة</th>
@@ -521,7 +521,7 @@ html,body{overflow-x:hidden;}
 
       <footer class="px-6 py-4 bg-slate-50 border-t border-slate-200">
         <div class="flex items-center justify-between gap-2 whitespace-nowrap">
-          <button class="h-10 px-4 text-slate-600 hover:bg-slate-200/60 rounded-xl font-bold shrink-0" id="rf-create-cancel" type="button">إلغاء</button>
+          <button class="h-10 px-4 text-slate-600 hover:bg-slate-200/60 rounded-xl font-bold shrink-0" id="rf-create-cancel" type="button" data-i18n="إلغاء">إلغاء</button>
           <div class="flex items-center gap-2 min-w-0">
             <button class="h-10 px-3.5 bg-white border border-slate-300 text-slate-700 hover:bg-slate-100 rounded-xl font-bold shrink-0" id="rf-save-draft" type="button">حفظ كمسودة</button>
             <button class="h-10 px-4 bg-blue-50 border border-blue-200 text-[#0369A1] hover:bg-blue-100 rounded-xl font-bold shrink-0" id="rf-save-documented" type="button">حفظ كموثق</button>
@@ -569,7 +569,7 @@ html,body{overflow-x:hidden;}
           <div class="flex items-start gap-3"><span class="material-symbols-outlined text-brand text-xl" id="rf-details-action-icon">task_alt</span><div class="flex-1"><h4 class="font-bold text-slate-900 text-xs mb-1" id="rf-details-action-title">—</h4><p class="text-[11px] text-slate-600 mb-3" id="rf-details-action-copy">—</p><button class="h-8 px-4 bg-brand hover:bg-brand-hover text-white rounded-lg font-bold text-xs" id="rf-details-action-btn" type="button">—</button></div></div>
         </section>
       </div>
-      <footer class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between"><button class="h-10 px-4 text-slate-600 hover:bg-slate-200/60 rounded-xl font-bold" id="rf-details-close-footer" type="button">إغلاق</button><div class="flex items-center gap-2"><button class="h-10 px-4 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 rounded-xl font-bold flex items-center gap-2" id="rf-open-visit-btn" type="button"><span class="material-symbols-outlined text-base">stethoscope</span><span>فتح الزيارة</span></button><button class="h-10 px-4 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 rounded-xl font-bold flex items-center gap-2" id="rf-print-btn" type="button"><span class="material-symbols-outlined text-base">print</span><span>طباعة</span></button></div></footer>
+      <footer class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between"><button class="h-10 px-4 text-slate-600 hover:bg-slate-200/60 rounded-xl font-bold" id="rf-details-close-footer" type="button" data-i18n="إغلاق">إغلاق</button><div class="flex items-center gap-2"><button class="h-10 px-4 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 rounded-xl font-bold flex items-center gap-2" id="rf-open-visit-btn" type="button"><span class="material-symbols-outlined text-base">stethoscope</span><span>فتح الزيارة</span></button><button class="h-10 px-4 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 rounded-xl font-bold flex items-center gap-2" id="rf-print-btn" type="button"><span class="material-symbols-outlined text-base">print</span><span>طباعة</span></button></div></footer>
     </div>
   </div>
 </aside>

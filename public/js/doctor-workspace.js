@@ -19,29 +19,24 @@
     sidebar?.addEventListener('mouseleave', () => sidebar.classList.remove('sidebar-hovered'));
     desktop.addEventListener('change', update);
     update();
-    const menu = document.getElementById('doctor-account-menu');
-    document.getElementById('doctor-card-trigger')?.addEventListener('click', () => menu?.classList.toggle('hidden'));
     const quickMenu = document.getElementById('quick-add-dropdown');
-    document.getElementById('quick-add-btn')?.addEventListener('click', () => quickMenu?.classList.toggle('hidden'));
-    document.addEventListener('click', event => {
-        if (!event.target.closest('#quick-add-container')) quickMenu?.classList.add('hidden');
-        if (!event.target.closest('#sidebar-doctor-card')) menu?.classList.add('hidden');
-    });
-    document.querySelectorAll('#doctor-account-menu button').forEach(button => {
-        if (button.textContent.includes('الملف الشخصي')) button.addEventListener('click', () => window.location.assign(window.doctorRoutes.profile));
-    });
+    sidebar?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+        if (!desktop.matches) window.bootstrap?.Offcanvas.getInstance(sidebar)?.hide();
+    }));
     const destinations = {'إضافة مريض':'patients','موعد جديد':'appointmentCreate','زيارة':'visits','وصفة طبية':'prescriptions','طلب مختبر':'labOrders','طلب أشعة':'radiologyOrders','إحالة / متابعة':'referrals'};
     quickMenu?.querySelectorAll('button').forEach(button => {
         const label = button.querySelector('span:last-child')?.textContent.trim();
         if (destinations[label]) button.addEventListener('click', () => window.location.assign(window.doctorRoutes[destinations[label]]));
     });
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => queueMicrotask(() => {
+        const diagnosticNavigation = document.getElementById('main-content-layout')?.dataset.diagnosticNav;
+        const currentPath = diagnosticNavigation ? new URL(diagnosticNavigation, window.location.href).pathname : window.location.pathname;
         sidebar?.querySelectorAll('a.nav-item').forEach(link => {
             const path = new URL(link.href).pathname;
             const visitDetail = window.doctorPage === 'doctor.clinical.visit' && window.doctorRoutes?.visits && path === new URL(window.doctorRoutes.visits).pathname;
-            const active = visitDetail || path === window.location.pathname || (path !== '/doctor' && window.location.pathname.startsWith(path + '/'));
+            const active = visitDetail || path === currentPath || (path !== '/doctor' && currentPath.startsWith(path + '/'));
             link.classList.toggle('workspace-nav-active', active);
             if (active) link.setAttribute('aria-current', 'page');
         });
-    });
+    }));
 })();

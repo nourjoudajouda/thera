@@ -21,10 +21,11 @@ class DoctorQueueController extends Controller
         Gate::forUser($request->user('doctor'))->authorize('update', $doctorAppointment);
         $request->validate(['revision' => ['required', 'integer', 'min:1']]);
         DB::transaction(function () use ($request, $doctorAppointment): void {
-            Doctor::query()->lockForUpdate()->findOrFail($request->user('doctor')->id);
+            $doctor = Doctor::query()->lockForUpdate()->findOrFail($request->user('doctor')->id);
             $doctorAppointment->refresh()->load(['queueEntry', 'doctorFacility.facility'])->loadSum('payments as paid_minor', 'amount_minor');
+            $doctorAppointment->setRelation('doctor', $doctor);
             if (! in_array($doctorAppointment->queueState(), ['ready', 'called'], true) || $doctorAppointment->doctorFacility->membership_status !== DoctorFacility::STATUS_ACTIVE || ! $doctorAppointment->doctorFacility->facility->is_active) {
-                throw ValidationException::withMessages(['revision' => 'الاستدعاء يتطلب موعدًا مؤكدًا اليوم، وحضورًا مسجلًا، وتسديد المتبقي، وعضوية ومنشأة نشطتين.']);
+                throw ValidationException::withMessages(['revision' => 'الاستدعاء يتطلب موعدًا مؤكدًا اليوم، وحضورًا مسجلًا، وتسديد المتبقي إذا كان اشتراط التحصيل مفعّلًا، وعضوية ومنشأة نشطتين.']);
             }
             if ($doctorAppointment->queueEntry) {
                 return;

@@ -14,6 +14,7 @@
 <!-- Tailwind Configuration -->
 
 <!-- Typography and Material Symbols Styles -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
 @include('doctor.partials.assets')
 <style data-purpose="typography">
     body {
@@ -187,199 +188,13 @@
 </style>
 </head>
 <body class="select-none bg-[#F6F9FC] text-slate-800 antialiased min-h-screen">
-<aside class="fixed top-0 right-0 bottom-0 z-50 bg-[#16243E] border-l border-[rgba(255,255,255,0.08)] flex flex-col select-none" data-purpose="application-sidebar" id="app-sidebar">
-<!-- Sidebar Header & Official Logo -->
-<header class="h-16 flex items-center justify-between px-4 bg-[#132038] border-b border-[rgba(255,255,255,0.08)] flex-shrink-0">
-<div class="flex items-center gap-3 overflow-hidden">
-<img alt="THERA Logo" class="h-9 max-w-[130px] object-contain flex-shrink-0 sidebar-brand-text" src="{{ asset('images/doctor/thera-logo.png') }}"/>
-</div>
-<button class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition-colors" id="sidebar-pin-toggle" title="تثبيت / طي القائمة" type="button">
-<span class="material-symbols-outlined text-xl fill-1" id="sidebar-pin-icon">push_pin</span>
-</button>
-</header>
-<!-- Scrollable Navigation Items -->
-<div class="sidebar-scroll flex-1 min-h-0 py-4 px-3 space-y-6 overflow-y-auto overflow-x-hidden" id="sidebar-nav-container">
-<!-- Group 1: العمل اليومي -->
-<div class="space-y-1">
-<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2">العمل اليومي</p>
-<a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5 font-semibold" href="#">
-<span class="material-symbols-outlined text-[20px] flex-shrink-0">grid_view</span>
-<span class="nav-label">الرئيسية</span>
-</a>
-<a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5 font-semibold" href="#">
-<span class="material-symbols-outlined text-[20px] flex-shrink-0">calendar_today</span>
-<span class="nav-label">المواعيد</span>
-</a>
-<a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5 font-semibold" href="#">
-<span class="material-symbols-outlined text-[20px] flex-shrink-0">person_search</span>
-<span class="nav-label">المرضى</span>
-</a>
-</div>
-<!-- Group 2: العمل الطبي -->
-<div class="space-y-1">
-<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2">العمل الطبي</p>
-<a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5 font-semibold" href="#">
-<span class="material-symbols-outlined text-[20px] flex-shrink-0">stethoscope</span>
-<span class="nav-label">الزيارات</span>
-</a>
-<a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5 font-semibold" href="#">
-<span class="material-symbols-outlined text-[20px] flex-shrink-0">prescriptions</span>
-<span class="nav-label">الوصفات الطبية</span>
-</a>
-<a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5 font-semibold" href="#">
-<span class="material-symbols-outlined text-[20px] flex-shrink-0">science</span>
-<span class="nav-label">طلبات المختبر</span>
-</a>
-<a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5 font-semibold" href="#">
-<span class="material-symbols-outlined flex-shrink-0 text-[20px]">radiology</span>
-<span class="nav-label">طلبات الأشعة</span>
-</a>
-<a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5 font-semibold" href="#">
-<span class="material-symbols-outlined text-[20px] flex-shrink-0">assignment_turned_in</span>
-<span class="nav-label">النتائج</span>
-</a>
-<a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5 font-semibold" href="#">
-<span class="material-symbols-outlined text-[20px] flex-shrink-0">sync_alt</span>
-<span class="nav-label">الإحالات والمتابعات</span>
-</a>
-</div>
-<!-- Group 3: الإدارة -->
-<div class="space-y-1">
-<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2">الإدارة</p>
-<a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5 font-semibold" href="#">
-<span class="material-symbols-outlined flex-shrink-0 text-[22px] text-white">receipt_long</span>
-<span class="nav-label">الخدمات والأسعار</span>
-</a>
-<a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5 font-semibold" href="#">
-<span class="material-symbols-outlined text-[20px] flex-shrink-0">schedule</span>
-<span class="nav-label">الدوام والجدول</span>
-</a>
-<a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5 font-semibold" href="#">
-<span class="material-symbols-outlined text-[20px] flex-shrink-0">account_balance_wallet</span>
-<span class="nav-label">التحصيل والمستحقات</span>
-</a>
-<a aria-current="page" class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base bg-[#0495F6] text-white font-bold shadow-md shadow-[#0495F6]/20" href="#">
-<span class="material-symbols-outlined text-[20px] flex-shrink-0">settings</span>
-<span class="nav-label">الإعدادات</span>
-</a>
-</div>
-</div>
-<!-- Fixed Doctor Footer Profile -->
-<footer class="relative bg-[#132038] border-t border-[rgba(255,255,255,0.08)] p-3 flex-shrink-0" id="sidebar-doctor-card">
-<div class="doctor-card-body flex items-center justify-between cursor-pointer rounded-xl p-1.5 hover:bg-white/5 transition-all" id="doctor-card-trigger">
-<div class="flex items-center gap-2.5 overflow-hidden">
-<div class="relative flex-shrink-0">
-<div class="w-10 h-10 rounded-full bg-[#203254] text-white flex items-center justify-center font-bold text-xs border border-white/20">م أ</div>
-<span class="absolute bottom-0 left-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-[#132038] rounded-full"></span>
-</div>
-<div class="doctor-meta flex flex-col text-right overflow-hidden">
-<span class="text-white text-sm font-bold truncate">د. محمد أحمد</span>
-<span class="text-xs text-slate-400 truncate">استشاري طب باطني</span>
-<span class="text-[11px] text-emerald-400 font-medium">متاح الآن</span>
-</div>
-</div>
-<button class="doctor-meta text-slate-400 hover:text-white p-1" type="button">
-<span class="material-symbols-outlined text-lg">more_vert</span>
-</button>
-</div>
-<!-- Doctor Menu Dropdown Popover -->
-<div class="hidden absolute bottom-full mb-2 right-3 w-56 bg-[#132038] rounded-xl shadow-dropdown border border-[rgba(255,255,255,0.08)] py-1.5 z-50 text-slate-200 text-sm" id="doctor-account-menu">
-<button class="w-full text-right px-4 py-2 hover:bg-white/5 flex items-center gap-2 text-slate-200" type="button">
-<span class="material-symbols-outlined text-lg text-slate-400">person</span>
-<span class="">الملف الشخصي</span>
-</button>
-<button class="w-full text-right px-4 py-2 hover:bg-white/5 flex items-center gap-2 text-slate-200" type="button">
-<span class="material-symbols-outlined text-lg text-slate-400">manage_accounts</span>
-<span class="">إعدادات الحساب</span>
-</button>
-<button class="w-full text-right px-4 py-2 hover:bg-white/5 flex items-center gap-2 text-slate-200" type="button">
-<span class="material-symbols-outlined text-lg text-emerald-400">radio_button_checked</span>
-<span class="">تغيير حالة التوفر</span>
-</button>
-<div class="my-1 border-t border-[rgba(255,255,255,0.08)]"></div>
-<button class="w-full text-right px-4 py-2 hover:bg-red-500/10 text-red-400 flex items-center gap-2" type="button">
-<span class="material-symbols-outlined text-lg text-red-400">logout</span>
-<span class="">تسجيل الخروج</span>
-</button>
-</div>
-</footer>
-</aside>
-<header class="fixed top-0 left-0 h-16 bg-white border-b border-[#E2E8F0] z-40 px-6 flex items-center justify-between" data-purpose="top-navigation" id="top-header" style="right:268px;">
-<!-- Right Section: Quick Add and Search -->
-<div class="flex items-center gap-4">
-<!-- Quick Add Dropdown Container -->
-<div class="relative" id="quick-add-container">
-<button class="h-10 px-4 bg-[#0495F6] hover:bg-[#0466F1] text-white rounded-xl font-bold flex items-center gap-2 shadow-sm transition-colors text-sm" id="quick-add-btn" type="button">
-<span class="material-symbols-outlined text-xl">add</span>
-<span class="">إضافة</span>
-<span class="material-symbols-outlined text-base" id="quick-add-arrow">expand_more</span>
-</button>
-<!-- Dropdown Menu -->
-<div class="hidden absolute top-full right-0 mt-2 w-64 bg-white rounded-2xl shadow-dropdown border border-slate-200 py-2 z-50 text-slate-700 text-sm" id="quick-add-dropdown">
-<div class="px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">تشغيلي</div>
-<button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
-<span class="material-symbols-outlined text-slate-500 text-lg">person_add</span>
-<span class="">إضافة مريض</span>
-</button>
-<button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
-<span class="material-symbols-outlined text-slate-500 text-lg">calendar_today</span>
-<span class="">موعد جديد</span>
-</button>
-<div class="my-1.5 border-t border-slate-100"></div>
-<div class="px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">سريري</div>
-<button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
-<span class="material-symbols-outlined text-slate-500 text-lg">stethoscope</span>
-<span class="">زيارة</span>
-</button>
-<button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
-<span class="material-symbols-outlined text-slate-500 text-lg">prescriptions</span>
-<span class="">وصفة طبية</span>
-</button>
-<button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
-<span class="material-symbols-outlined text-slate-500 text-lg">science</span>
-<span class="">طلب مختبر</span>
-</button>
-<button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" id="quick-add-rad-order-btn" type="button">
-<span class="material-symbols-outlined text-slate-500 text-lg">radiology</span>
-<span class="">طلب أشعة</span>
-</button>
-<button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
-<span class="material-symbols-outlined text-slate-500 text-lg">sync_alt</span>
-<span class="">إحالة / متابعة</span>
-</button>
-</div>
-</div>
-<!-- Quick Search Input -->
-<div class="relative w-80">
-<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl pointer-events-none">search</span>
-<input class="w-full h-10 pr-10 pl-4 bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl text-sm focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand placeholder-slate-400" placeholder="ابحث عن مريض أو موعد... (⌘K)" type="text"/>
-</div>
-</div>
-<!-- Left Section: Language, Theme, Notifications -->
-<div class="flex items-center gap-3">
-<!-- Theme Switcher -->
-<button class="w-10 h-10 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 flex items-center justify-center transition-colors" title="الوضع الليلي / النهاري" type="button">
-<span class="material-symbols-outlined text-xl">light_mode</span>
-</button>
-<!-- Language Selector -->
-<button class="h-10 px-3 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 flex items-center gap-1.5 text-sm font-medium transition-colors" type="button">
-<span class="material-symbols-outlined text-base">translate</span>
-<span class="">عربي (AR)</span>
-</button>
-<!-- Notifications -->
-<div class="relative">
-<button class="w-10 h-10 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 flex items-center justify-center transition-colors" title="التنبيهات" type="button">
-<span class="material-symbols-outlined text-xl">notifications</span>
-<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
-</button>
-</div>
-</div>
-</header>
+@include('doctor.partials.workspace-sidebar')
+@include('doctor.partials.workspace-topbar')
 <main class="pt-16 p-6 min-h-screen" data-purpose="workspace-content" id="main-content-layout" style="margin-right:268px;">
 <div class="max-w-[1500px] mx-auto pt-3">
 <div class="mb-5">
 <div class="flex items-center gap-2 text-sm text-slate-400 mb-1.5">
-<span>الإدارة</span><span class="material-symbols-outlined text-[16px]">chevron_left</span><span>التحقق من الطبيب</span>
+<span data-i18n="الإدارة">الإدارة</span><span class="material-symbols-outlined text-[16px]">chevron_left</span><span>التحقق من الطبيب</span>
 </div>
 <h1 class="text-[28px] leading-tight font-extrabold text-[#0B1020]">التحقق من الطبيب</h1>
 <p class="mt-1 text-sm text-slate-500">إدارة حالة التحقق المهني، المستندات، الطلبات وسجل المراجعات.</p>
@@ -411,7 +226,7 @@
 <div class="step-item done"><div class="step-dot"><span class="material-symbols-outlined text-[19px]">check</span></div><p class="text-xs font-bold text-slate-700">المستندات</p></div>
 <div class="step-item done"><div class="step-dot"><span class="material-symbols-outlined text-[19px]">check</span></div><p class="text-xs font-bold text-slate-700">تم الإرسال</p></div>
 <div class="step-item done"><div class="step-dot"><span class="material-symbols-outlined text-[19px]">check</span></div><p class="text-xs font-bold text-slate-700">المراجعة</p></div>
-<div class="step-item current"><div class="step-dot"><span class="material-symbols-outlined text-[19px]">verified</span></div><p class="text-xs font-bold text-[#0466F1]">تم التحقق</p></div>
+<div class="step-item current"><div class="step-dot"><span class="material-symbols-outlined text-[19px]">verified</span></div><p class="text-xs font-bold text-[#0466F1]" data-i18n="تم التحقق">تم التحقق</p></div>
 </div>
 </section>
 <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-4" id="verification-kpis">
@@ -424,7 +239,7 @@
 <button aria-selected="true" class="verify-tab h-10 px-4 rounded-xl text-sm font-bold" data-tab="overview">نظرة عامة</button>
 <button aria-selected="false" class="verify-tab h-10 px-4 rounded-xl text-sm font-bold" data-tab="documents">المستندات</button>
 <button aria-selected="false" class="verify-tab h-10 px-4 rounded-xl text-sm font-bold" data-tab="credentials">المؤهلات</button>
-<button aria-selected="false" class="verify-tab h-10 px-4 rounded-xl text-sm font-bold" data-tab="achievements">الإنجازات</button>
+<button aria-selected="false" class="verify-tab h-10 px-4 rounded-xl text-sm font-bold" data-tab="achievements" data-i18n="الإنجازات">الإنجازات</button>
 <button aria-selected="false" class="verify-tab h-10 px-4 rounded-xl text-sm font-bold" data-tab="submission">حالة الطلب</button>
 <button aria-selected="false" class="verify-tab h-10 px-4 rounded-xl text-sm font-bold" data-tab="history">سجل المراجعات</button>
 </div></div>
@@ -463,7 +278,7 @@
 </div>
 <aside class="space-y-4">
 <div class="verify-card p-5"><h4 class="font-extrabold text-slate-800">تنبيه مهم</h4><p class="text-sm text-slate-500 leading-7 mt-2">تغيير بيانات مهنية موثّقة أو استبدال مستند معتمد قد يفتح مراجعة جديدة للعنصر المتأثر.</p><button class="mt-3 text-sm font-bold text-[#0495F6]" id="what-triggers-review">ما الذي يعيد المراجعة؟</button></div>
-<div class="verify-card p-5"><div class="flex items-center justify-between"><div><p class="text-xs text-slate-400">الملف المهني</p><p class="font-extrabold text-slate-800 mt-1">مكتمل بنسبة 85%</p></div><span class="material-symbols-outlined text-[#0495F6]">badge</span></div><button class="w-full h-10 mt-4 rounded-xl border border-[#0495F6] text-[#0495F6] hover:bg-blue-50 font-bold text-sm" id="open-profile-link-2">إدارة الملف المهني</button></div>
+<div class="verify-card p-5"><div class="flex items-center justify-between"><div><p class="text-xs text-slate-400" data-i18n="الملف المهني">الملف المهني</p><p class="font-extrabold text-slate-800 mt-1">مكتمل بنسبة 85%</p></div><span class="material-symbols-outlined text-[#0495F6]">badge</span></div><button class="w-full h-10 mt-4 rounded-xl border border-[#0495F6] text-[#0495F6] hover:bg-blue-50 font-bold text-sm" id="open-profile-link-2" data-i18n="إدارة الملف المهني">إدارة الملف المهني</button></div>
 </aside>
 </div>
 </section>
@@ -495,7 +310,7 @@
 </section>
 <section class="verify-panel" data-panel="history">
 <div class="verify-card overflow-hidden"><div class="p-5 md:p-6 border-b border-slate-100"><h3 class="text-lg font-extrabold">سجل المراجعات</h3><p class="text-sm text-slate-500 mt-1">تاريخ الطلبات والقرارات السابقة محفوظ ولا يتم استبداله.</p></div>
-<div class="divide-y divide-slate-100"><div class="p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4"><div><div class="flex flex-wrap items-center gap-2"><p class="font-extrabold">VR-2026-00418</p><span class="status-pill h-6 bg-emerald-50 text-emerald-700 border border-emerald-200">تم التحقق</span></div><p class="text-xs text-slate-500 mt-1.5">أرسل 14 سبتمبر 2026 • القرار 18 سبتمبر 2026</p></div><button class="history-detail text-xs font-bold text-[#0495F6]" data-history="current">عرض التفاصيل</button></div>
+<div class="divide-y divide-slate-100"><div class="p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4"><div><div class="flex flex-wrap items-center gap-2"><p class="font-extrabold">VR-2026-00418</p><span class="status-pill h-6 bg-emerald-50 text-emerald-700 border border-emerald-200" data-i18n="تم التحقق">تم التحقق</span></div><p class="text-xs text-slate-500 mt-1.5">أرسل 14 سبتمبر 2026 • القرار 18 سبتمبر 2026</p></div><button class="history-detail text-xs font-bold text-[#0495F6]" data-history="current">عرض التفاصيل</button></div>
 <div class="p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4"><div><div class="flex flex-wrap items-center gap-2"><p class="font-extrabold">VR-2026-00372</p><span class="status-pill h-6 bg-red-50 text-red-700 border border-red-200">مرفوض</span><span class="text-[11px] font-bold text-slate-500">تم التصحيح لاحقًا</span></div><p class="text-xs text-slate-500 mt-1.5">أرسل 5 سبتمبر 2026 • القرار 8 سبتمبر 2026</p></div><button class="history-detail text-xs font-bold text-red-600" data-history="rejected">عرض سبب الرفض</button></div></div></div>
 </section>
 </div>
@@ -506,7 +321,7 @@
 <section aria-labelledby="demo-modal-title" aria-modal="true" class="pointer-events-auto w-full max-w-3xl max-h-[90vh] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col" role="dialog">
 <header class="h-16 px-5 md:px-6 flex items-center justify-between border-b border-slate-200 bg-white shrink-0"><div class="min-w-0"><h3 class="font-extrabold text-lg text-[#0B1020] truncate" id="demo-modal-title">التفاصيل</h3><p class="text-xs text-slate-400 mt-0.5" id="demo-modal-subtitle">معاينة تفاعلية</p></div><button class="w-9 h-9 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-500 flex items-center justify-center" data-modal-close="" type="button"><span class="material-symbols-outlined text-[20px]">close</span></button></header>
 <div class="p-5 md:p-6 overflow-y-auto" id="demo-modal-body"></div>
-<footer class="px-5 md:px-6 py-4 border-t border-slate-200 bg-slate-50 flex flex-wrap items-center justify-end gap-2 shrink-0" id="demo-modal-footer"><button class="h-10 px-4 rounded-xl border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 text-sm font-bold" data-modal-close="" type="button">إغلاق</button></footer>
+<footer class="px-5 md:px-6 py-4 border-t border-slate-200 bg-slate-50 flex flex-wrap items-center justify-end gap-2 shrink-0" id="demo-modal-footer"><button class="h-10 px-4 rounded-xl border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 text-sm font-bold" data-modal-close="" type="button" data-i18n="إغلاق">إغلاق</button></footer>
 </section>
 </div>
 </div>
@@ -514,14 +329,6 @@
 <script>
 (() => {
   const $=id=>document.getElementById(id);
-  const sidebar=$('app-sidebar'), topHeader=$('top-header'), main=$('main-content-layout');
-  const pin=$('sidebar-pin-toggle'), pinIcon=$('sidebar-pin-icon'); let collapsed=false;
-  function setLayout(){ sidebar.classList.toggle('sidebar-collapsed',collapsed); topHeader.style.right=collapsed?'72px':'268px'; main.style.marginRight=collapsed?'72px':'268px'; if(pinIcon) pinIcon.textContent=collapsed?'keep_off':'push_pin'; }
-  pin?.addEventListener('click',()=>{collapsed=!collapsed;setLayout()});
-  sidebar?.addEventListener('mouseenter',()=>{if(collapsed)sidebar.classList.add('sidebar-hovered')});
-  sidebar?.addEventListener('mouseleave',()=>sidebar.classList.remove('sidebar-hovered'));
-
-  const qa=$('quick-add-btn'), qd=$('quick-add-dropdown'); qa?.addEventListener('click',e=>{e.stopPropagation();qd.classList.toggle('hidden')}); document.addEventListener('click',e=>{if(!e.target.closest('#quick-add-container'))qd?.classList.add('hidden')});
 
   document.querySelectorAll('.verify-tab').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.verify-tab').forEach(b=>b.setAttribute('aria-selected','false'));btn.setAttribute('aria-selected','true');document.querySelectorAll('.verify-panel').forEach(p=>p.classList.remove('active'));document.querySelector(`[data-panel="${btn.dataset.tab}"]`)?.classList.add('active')}));
 
@@ -1042,6 +849,7 @@
 })();
 </script>
 @include('doctor.partials.route-map')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 <script src="{{ asset('js/doctor.js') }}" defer></script>
 </body>
 </html>

@@ -6,9 +6,9 @@
 </button>
 <!-- Quick Add Dropdown Container -->
 <div class="relative" id="quick-add-container">
-<button class="h-10 px-4 bg-[#0495F6] hover:bg-[#0466F1] text-white rounded-xl font-bold flex items-center gap-2 shadow-sm transition-colors text-sm" id="quick-add-btn" type="button">
+<button aria-label="إضافة" aria-expanded="false" aria-controls="quick-add-dropdown" class="h-10 px-4 bg-[#0495F6] hover:bg-[#0466F1] text-white rounded-xl font-bold flex items-center gap-2 shadow-sm transition-colors text-sm" id="quick-add-btn" type="button">
 <span class="material-symbols-outlined text-xl">add</span>
-<span class="quick-add-label">إضافة</span>
+<span class="quick-add-label" data-i18n="إضافة">إضافة</span>
 <span class="material-symbols-outlined text-base" id="quick-add-arrow">expand_more</span>
 </button>
 <!-- Dropdown Menu -->
@@ -16,58 +16,61 @@
 <div class="px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">تشغيلي</div>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">person_add</span>
-<span class="">إضافة مريض</span>
+<span class="" data-i18n="إضافة مريض">إضافة مريض</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">calendar_today</span>
-<span class="">موعد جديد</span>
+<span class="" data-i18n="موعد جديد">موعد جديد</span>
 </button>
 <div class="my-1.5 border-t border-slate-100"></div>
 <div class="px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">سريري</div>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">stethoscope</span>
-<span class="">زيارة</span>
+<span class="" data-i18n="زيارة">زيارة</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">prescriptions</span>
-<span class="">وصفة طبية</span>
+<span class="" data-i18n="وصفة طبية">وصفة طبية</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" id="quick-add-lab-order-btn" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">science</span>
-<span class="">طلب مختبر</span>
+<span class="" data-i18n="طلب مختبر">طلب مختبر</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" id="quick-add-rad-order-btn" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">radiology</span>
-<span class="">طلب أشعة</span>
+<span class="" data-i18n="طلب أشعة">طلب أشعة</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">sync_alt</span>
-<span class="">إحالة / متابعة</span>
+<span class="" data-i18n="إحالة / متابعة">إحالة / متابعة</span>
 </button>
 </div>
 </div>
 <!-- Quick Search Input -->
 <div class="header-search relative w-80">
 <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl pointer-events-none">search</span>
-<input class="w-full h-10 pr-10 pl-4 bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl text-sm focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand placeholder-slate-400" placeholder="ابحث عن مريض أو موعد... (⌘K)" type="text"/>
+<input id="doctor-global-search" aria-label="البحث في المرضى والمواعيد" class="w-full h-10 pr-10 pl-4 bg-[#F8FAFC] border border-[#CBD5E1] rounded-xl text-sm focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand placeholder-slate-400" placeholder="ابحث عن مريض أو موعد... (⌘K)" type="search" autocomplete="off"/>
+<div id="doctor-search-menu" class="doctor-shell-popover hidden" aria-live="polite"></div>
 </div>
 </div>
 <!-- Left Section: Notifications, Language, Theme — FROZEN APPROVED SHELL -->
 <div class="header-actions flex items-center gap-3">
 <!-- Notifications -->
-<div class="relative">
-<button class="w-10 h-10 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 flex items-center justify-center transition-colors" title="التنبيهات" type="button">
+<div class="relative" data-shell-menu-root>
+<button id="doctor-notifications-toggle" aria-label="التنبيهات" aria-controls="doctor-notifications-menu" aria-expanded="false" data-notifications-url="{{ route('doctor.shell.notifications') }}" class="w-10 h-10 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 flex items-center justify-center transition-colors" title="التنبيهات" type="button">
 <span class="material-symbols-outlined text-xl">notifications</span>
-<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+<span id="doctor-notifications-dot" hidden class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
 </button>
+<section id="doctor-notifications-menu" class="doctor-shell-popover hidden" aria-label="قائمة التنبيهات"><h2 data-i18n="التنبيهات">التنبيهات</h2><div id="doctor-notifications-list" role="status"></div><a href="{{ route('doctor.account.settings', ['tab'=>'notifications']) }}" data-i18n="إعدادات الإشعارات">إعدادات الإشعارات</a></section>
 </div>
 <!-- Language Selector -->
-<button class="header-secondary-action h-10 px-3 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 flex items-center gap-1.5 text-sm font-medium transition-colors" title="تغيير اللغة" type="button">
+<div class="relative" data-shell-menu-root><button id="doctor-language-toggle" aria-label="تغيير اللغة" aria-expanded="false" aria-controls="doctor-language-menu" class="h-10 px-3 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 flex items-center gap-1.5 text-sm font-medium transition-colors" title="تغيير اللغة" type="button">
 <span class="material-symbols-outlined text-base">language</span>
-<span class="">عربي (AR)</span>
+<span id="doctor-language-label">عربي (AR)</span>
 </button>
+<div id="doctor-language-menu" class="doctor-shell-popover doctor-shell-small hidden"><button type="button" data-doctor-language="ar" lang="ar" data-i18n="العربية">العربية</button><button type="button" data-doctor-language="en" lang="en">English</button></div></div>
 <!-- Theme Switcher -->
-<button class="header-secondary-action w-10 h-10 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 flex items-center justify-center transition-colors" title="الوضع الليلي / النهاري" type="button">
+<button id="doctor-theme-toggle" aria-label="الوضع الليلي / النهاري" aria-pressed="false" class="w-10 h-10 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 flex items-center justify-center transition-colors" title="الوضع الليلي / النهاري" type="button">
 <span class="material-symbols-outlined text-xl">light_mode</span>
 </button>
 </div>

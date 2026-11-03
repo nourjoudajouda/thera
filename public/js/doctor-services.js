@@ -34,13 +34,13 @@ window.initDoctorServices = () => {
     window.jQuery?.(membership).on('select2:select', refresh);
     refresh();
     if (state.openDrawer) window.bootstrap.Offcanvas.getOrCreateInstance(drawer).show();
-    document.getElementById('add-service-button')?.addEventListener('click', event => {
+    document.querySelectorAll('#add-service-button, [data-service-create]').forEach(button => button.addEventListener('click', event => {
         if (state.hasEditingService) {
             event.preventDefault();
             event.stopPropagation();
             window.TheraPractice.navigate(window.doctorRoutes.services + '?create=1');
         }
-    });
+    }));
     if (new URLSearchParams(window.location.search).get('create') === '1') window.bootstrap.Offcanvas.getOrCreateInstance(drawer).show();
 };
 window.initDoctorServices();

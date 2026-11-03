@@ -9,7 +9,7 @@
 
 <section aria-labelledby="profile-tab-preview" class="profile-panel" data-panel="preview" id="profile-panel-preview" role="tabpanel">
     @if ($doctor->verification_status !== 'verified')
-        <div class="alert alert-warning d-flex align-items-start gap-2 mb-4" role="alert">
+        <div class="alert alert-warning flex items-start gap-2 mb-4" role="alert">
             <span class="material-symbols-outlined mt-1">visibility</span>
             <div>
                 <strong>هذه معاينة لملفك كما سيظهر للمرضى.</strong>
@@ -19,13 +19,13 @@
     @endif
 
     <div class="profile-card overflow-hidden public-preview-shell soft-grid">
-        <div class="p-5 p-md-4 p-lg-5 border-bottom bg-white bg-opacity-75">
-            <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-4">
+        <div class="p-6 md:p-8 border-b border-slate-100 bg-white/75 backdrop-blur-sm">
+            <div class="flex flex-col lg:flex-row lg:items-center gap-5">
                 <div class="w-24 h-24 rounded-2xl bg-gradient-to-br from-[#E6F4FE] to-[#EEF2FF] border border-[#D8E8F6] flex items-center justify-center text-[#0466F1] text-3xl font-extrabold shrink-0">
                     {{ $doctorInitials ?: 'ط' }}
                 </div>
-                <div class="flex-grow-1 min-w-0">
-                    <div class="d-flex flex-wrap align-items-center gap-2">
+                <div class="flex-1 min-w-0">
+                    <div class="flex flex-wrap items-center gap-2">
                         <h3 class="text-2xl font-extrabold text-[#0B1020] mb-0">{{ $doctor->name }}</h3>
                         @if ($doctor->verification_status === 'verified')
                             <span class="status-pill bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="material-symbols-outlined text-[16px]">verified</span>موثّق</span>
@@ -34,52 +34,44 @@
                         @endif
                     </div>
                     <p class="text-sm font-bold text-slate-600 mt-2 mb-0">{{ $doctor->professional_title ?: 'لم يُحدد المسمى المهني بعد' }}</p>
-                    <div class="d-flex flex-wrap gap-3 gap-md-4 mt-3 text-sm text-slate-500">
+                    <div class="flex flex-wrap gap-3 gap-md-4 mt-3 text-sm text-slate-500">
                         @if (! is_null($doctor->years_experience))
-                            <span class="d-inline-flex align-items-center gap-1"><span class="material-symbols-outlined text-[17px]">history</span>{{ $doctor->years_experience }} {{ $doctor->years_experience === 1 ? 'سنة خبرة' : 'سنوات خبرة' }}</span>
+                            <span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-[17px]">history</span>{{ $doctor->years_experience }} {{ $doctor->years_experience === 1 ? 'سنة خبرة' : 'سنوات خبرة' }}</span>
                         @endif
                         @if (filled($doctor->languages))
-                            <span class="d-inline-flex align-items-center gap-1"><span class="material-symbols-outlined text-[17px]">language</span>{{ implode('، ', $doctor->languages) }}</span>
+                            <span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-[17px]">language</span>{{ implode('، ', $doctor->languages) }}</span>
                         @endif
                         @if ($primarySpecialtyAssignment)
-                            <span class="d-inline-flex align-items-center gap-1"><span class="material-symbols-outlined text-[17px]">medical_information</span>{{ $primarySpecialtyAssignment->specialty->name_ar }}</span>
+                            <span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-[17px]">medical_information</span>{{ $primarySpecialtyAssignment->specialty->name_ar }}</span>
                         @endif
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="p-4 p-md-5 bg-white bg-opacity-75">
-            <div class="row g-4">
-                <div class="col-12 col-xl-8">
-                <div class="d-flex flex-column gap-4">
-                    <article class="rounded-2xl border border-slate-200 bg-white p-4 p-md-5">
+        <div class="p-6 md:p-8 grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_330px] gap-5 bg-white/80">
+                <div class="space-y-4 min-w-0">
+                    <article class="profile-preview-card rounded-2xl border border-slate-200 bg-white p-5">
                         <h4 class="font-extrabold text-slate-800 mb-2">نبذة عن الطبيب</h4>
                         @if ($publicBio)
                             <p class="text-sm leading-7 text-slate-600 mb-0">{{ $publicBio }}</p>
                         @else
                             <p class="text-sm text-slate-400 mb-0">لم تُضف نبذة عامة بعد.</p>
                         @endif
-                    </article>
-
-                    <article class="rounded-2xl border border-slate-200 bg-white p-4 p-md-5">
-                        <h4 class="font-extrabold text-slate-800 mb-3">التخصصات</h4>
                         @if ($primarySpecialtyAssignment)
-                            <div class="d-flex flex-wrap gap-2">
+                            <div aria-label="التخصصات" class="flex flex-wrap gap-2 mt-3">
                                 <span class="status-pill bg-blue-50 text-blue-700 border border-blue-200">{{ $primarySpecialtyAssignment->specialty->name_ar }}</span>
                                 @foreach ($verifiedSubspecialtyAssignments as $assignment)
                                     <span class="status-pill bg-slate-50 text-slate-700 border border-slate-200">{{ $assignment->specialty->name_ar }}</span>
                                 @endforeach
                             </div>
-                        @else
-                            <p class="text-sm text-slate-400 mb-0">لم يُحدد التخصص الرئيسي بعد.</p>
                         @endif
                     </article>
 
-                    <article class="rounded-2xl border border-slate-200 bg-white p-4 p-md-5">
+                    <article class="profile-preview-card rounded-2xl border border-slate-200 bg-white p-5">
                         <h4 class="font-extrabold text-slate-800 mb-3">المؤهلات المهنية</h4>
                         @forelse ($verifiedCredentials as $credential)
-                            <div class="d-flex align-items-start gap-3 {{ ! $loop->first ? 'pt-3 mt-3 border-top' : '' }}">
+                            <div class="flex items-start gap-3 {{ ! $loop->first ? 'pt-3 mt-3 border-top' : '' }}">
                                 <span class="material-symbols-outlined text-emerald-500">verified</span>
                                 <div>
                                     <p class="font-bold text-sm text-slate-800 mb-0">{{ $credential->title }}</p>
@@ -91,10 +83,10 @@
                         @endforelse
                     </article>
 
-                    <article class="rounded-2xl border border-slate-200 bg-white p-4 p-md-5">
-                        <h4 class="font-extrabold text-slate-800 mb-3">الإنجازات</h4>
+                    <article class="profile-preview-card rounded-2xl border border-slate-200 bg-white p-5">
+                        <h4 class="font-extrabold text-slate-800 mb-3" data-i18n="الإنجازات">الإنجازات</h4>
                         @forelse ($verifiedAchievements as $achievement)
-                            <div class="d-flex align-items-start gap-3 {{ ! $loop->first ? 'pt-3 mt-3 border-top' : '' }}">
+                            <div class="flex items-start gap-3 {{ ! $loop->first ? 'pt-3 mt-3 border-top' : '' }}">
                                 <span class="material-symbols-outlined text-purple-500">workspace_premium</span>
                                 <div>
                                     <p class="font-bold text-sm text-slate-800 mb-0">{{ $achievement->title }}</p>
@@ -106,12 +98,10 @@
                         @endforelse
                     </article>
                 </div>
-                </div>
 
-                <aside class="col-12 col-xl-4">
-                <div class="d-flex flex-column gap-4">
-                    <article class="rounded-2xl border border-slate-200 bg-white p-4 p-md-5">
-                        <h4 class="font-extrabold text-slate-800 mb-3">المنشآت</h4>
+                <aside class="space-y-4 min-w-0">
+                    <article class="profile-preview-card rounded-2xl border border-slate-200 bg-white p-5">
+                        <h4 class="font-extrabold text-slate-800 mb-3" data-i18n="المنشآت">المنشآت</h4>
                         @forelse ($publicFacilityMemberships as $membership)
                             @php
                                 $facilityType = match ($membership->facility->type) {
@@ -130,19 +120,17 @@
                         @endforelse
                     </article>
 
-                    <article class="rounded-2xl border border-blue-100 bg-blue-50 p-4 p-md-5">
-                        <div class="d-flex align-items-start gap-3">
-                            <span class="material-symbols-outlined text-[#0495F6]">medical_services</span>
+                    <article class="profile-preview-card rounded-2xl border border-slate-200 bg-white p-5">
+                        <div class="flex items-center justify-between">
                             <div>
-                                <p class="font-extrabold text-slate-800 mb-1">الخدمات والمواعيد</p>
-                                <p class="text-xs text-slate-600 leading-6 mb-3">تُدار الخدمات والأسعار ومواعيد الحجز من القسم المخصص لها.</p>
-                                <a class="btn btn-outline-primary btn-sm fw-bold" href="{{ route('doctor.practice.services') }}">إدارة الخدمات</a>
+                                <p class="text-xs text-slate-400">الخدمات المتاحة</p>
+                                <p class="font-extrabold text-slate-800 mt-1">{{ $activeServiceCount }} خدمات</p>
                             </div>
+                            <span class="material-symbols-outlined text-[#0495F6]">medical_services</span>
                         </div>
+                        <a class="w-full h-10 mt-4 rounded-xl border border-[#0495F6] text-[#0495F6] hover:bg-blue-50 font-bold text-sm flex items-center justify-center" href="{{ route('doctor.practice.services') }}">عرض الخدمات والمواعيد</a>
                     </article>
-                </div>
                 </aside>
-            </div>
         </div>
     </div>
 </section>

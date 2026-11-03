@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Validation\ValidationException;
 
-#[Fillable(['doctor_id', 'doctor_facility_id', 'doctor_service_id', 'patient_name', 'patient_phone', 'service_name', 'price_minor', 'currency', 'duration_minutes', 'starts_at', 'ends_at', 'status', 'source', 'arrived_at', 'notes', 'revision', 'request_key', 'request_fingerprint'])]
+#[Fillable(['doctor_id', 'doctor_patient_id', 'doctor_facility_id', 'doctor_service_id', 'patient_name', 'patient_phone', 'service_name', 'price_minor', 'currency', 'duration_minutes', 'starts_at', 'ends_at', 'status', 'source', 'arrived_at', 'notes', 'revision', 'request_key', 'request_fingerprint'])]
 class DoctorAppointment extends Model
 {
     /** @use HasFactory<DoctorAppointmentFactory> */
@@ -19,9 +19,19 @@ class DoctorAppointment extends Model
 
     public const STATUSES = ['confirmed' => 'مؤكد', 'cancelled' => 'ملغى', 'completed' => 'مكتمل', 'no_show' => 'لم يحضر'];
 
+    public const SOURCE_PATIENT_APP = 'patient_app';
+
     protected static function booted(): void
     {
         static::saving(function (self $appointment): void {
+            if ($appointment->doctor_patient_id && (! $appointment->exists || $appointment->isDirty(['doctor_patient_id', 'doctor_id']))) {
+                if (! DoctorPatient::whereKey($appointment->doctor_patient_id)->where('doctor_id', $appointment->doctor_id)->exists()) {
+                    throw ValidationException::withMessages(['doctor_patient_id' => 'ملف المريض لا يتبع هذا الطبيب.']);
+                }
+            }
+            if ($appointment->exists && $appointment->getOriginal('doctor_patient_id') && $appointment->isDirty(['doctor_patient_id', 'doctor_id'])) {
+                throw ValidationException::withMessages(['doctor_patient_id' => 'هوية المستفيد وبياناته المحفوظة لا تبدل بعد الربط.']);
+            }
             if ($appointment->status !== 'completed' || ($appointment->exists && ! $appointment->isDirty(['status', 'arrived_at']))) {
                 return;
             }
@@ -39,6 +49,11 @@ class DoctorAppointment extends Model
     public function doctor(): BelongsTo
     {
         return $this->belongsTo(Doctor::class);
+    }
+
+    public function patient(): BelongsTo
+    {
+        return $this->belongsTo(DoctorPatient::class, 'doctor_patient_id');
     }
 
     public function visit(): HasOne
@@ -111,7 +126,7 @@ class DoctorAppointment extends Model
         if ($this->relationLoaded('visit') && $this->visit && ! $this->visit->closed_at) {
             return 'in_visit';
         }
-        if ($this->remainingMinor() > 0) {
+        if ($this->remainingMinor() > 0 && $this->doctor->requiresCollectionBeforeVisit()) {
             return 'waiting_payment';
         }
 

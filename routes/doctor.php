@@ -4,7 +4,9 @@ use App\Http\Controllers\Doctor\Account\DoctorAchievementController;
 use App\Http\Controllers\Doctor\Account\DoctorCredentialController;
 use App\Http\Controllers\Doctor\Account\DoctorFacilityController;
 use App\Http\Controllers\Doctor\Account\DoctorFacilityProposalController;
+use App\Http\Controllers\Doctor\Account\DoctorSettingsController;
 use App\Http\Controllers\Doctor\Account\DoctorSpecialtyController;
+use App\Http\Controllers\Doctor\Account\DoctorStampController;
 use App\Http\Controllers\Doctor\Account\ProfessionalProfileController;
 use App\Http\Controllers\Doctor\Account\VerificationController;
 use App\Http\Controllers\Doctor\Appointments\DoctorAppointmentController;
@@ -13,9 +15,18 @@ use App\Http\Controllers\Doctor\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Doctor\Auth\NewPasswordController;
 use App\Http\Controllers\Doctor\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Doctor\Auth\RegisteredDoctorController;
+use App\Http\Controllers\Doctor\Clinical\DoctorDocumentCorrectionController;
+use App\Http\Controllers\Doctor\Clinical\DoctorDocumentPrintController;
 use App\Http\Controllers\Doctor\Clinical\DoctorPrescriptionController;
+use App\Http\Controllers\Doctor\Clinical\DoctorPrescriptionPrintController;
+use App\Http\Controllers\Doctor\Clinical\DoctorReferralController;
 use App\Http\Controllers\Doctor\Clinical\DoctorVisitController;
+use App\Http\Controllers\Doctor\DoctorDashboardController;
+use App\Http\Controllers\Doctor\DoctorPatientController;
+use App\Http\Controllers\Doctor\DoctorShellController;
 use App\Http\Controllers\Doctor\Finance\DoctorCollectionController;
+use App\Http\Controllers\Doctor\Orders\DoctorDiagnosticOrderController;
+use App\Http\Controllers\Doctor\Orders\DoctorExternalReportController;
 use App\Http\Controllers\Doctor\Practice\DoctorScheduleController;
 use App\Http\Controllers\Doctor\Practice\DoctorServiceController;
 use Illuminate\Support\Facades\Route;
@@ -36,7 +47,10 @@ Route::prefix('doctor')->name('doctor.')->group(function (): void {
 
     Route::middleware('auth:doctor')->group(function (): void {
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
-        Route::view('/', 'doctor.dashboard')->name('dashboard');
+        Route::get('shell/notifications', [DoctorShellController::class, 'notifications'])->middleware('throttle:60,1')->name('shell.notifications');
+        Route::get('account/stamp', [DoctorStampController::class, 'show'])->name('account.stamp.show');
+        Route::post('account/stamp', [DoctorStampController::class, 'store'])->middleware('throttle:10,1')->name('account.stamp.store');
+        Route::get('/', DoctorDashboardController::class)->name('dashboard');
 
         Route::prefix('account')->name('account.')->group(function (): void {
             Route::get('verification', [VerificationController::class, 'show'])->name('verification');
@@ -80,7 +94,8 @@ Route::prefix('doctor')->name('doctor.')->group(function (): void {
                 ->name('professional-profile.achievements.evidence');
             Route::delete('professional-profile/achievements/{doctorAchievement}', [DoctorAchievementController::class, 'destroy'])
                 ->name('professional-profile.achievements.destroy');
-            Route::view('settings', 'doctor.account.settings')->name('settings');
+            Route::get('settings', [DoctorSettingsController::class, 'edit'])->name('settings');
+            Route::put('settings', [DoctorSettingsController::class, 'update'])->middleware('throttle:20,1')->name('settings.update');
         });
 
         Route::prefix('appointments')->name('appointments.')->group(function (): void {
@@ -89,6 +104,7 @@ Route::prefix('doctor')->name('doctor.')->group(function (): void {
             Route::get('details', [DoctorAppointmentController::class, 'show'])->name('show');
             Route::get('availability', [DoctorAppointmentController::class, 'availability'])->name('availability');
             Route::get('contacts', [DoctorAppointmentController::class, 'contacts'])->name('contacts');
+            Route::get('thera-patients', [DoctorAppointmentController::class, 'theraPatients'])->middleware('throttle:20,1')->name('thera-patients');
             Route::post('/', [DoctorAppointmentController::class, 'store'])->name('store');
             Route::get('{doctorAppointment}/edit', [DoctorAppointmentController::class, 'edit'])->name('edit');
             Route::put('{doctorAppointment}', [DoctorAppointmentController::class, 'update'])->name('update');
@@ -97,8 +113,8 @@ Route::prefix('doctor')->name('doctor.')->group(function (): void {
         });
 
         Route::prefix('patients')->name('patients.')->group(function (): void {
-            Route::view('/', 'doctor.patients.index')->name('index');
-            Route::view('details', 'doctor.patients.show')->name('show');
+            Route::get('/', [DoctorPatientController::class, 'index'])->name('index');
+            Route::get('details', [DoctorPatientController::class, 'show'])->name('show');
         });
 
         Route::prefix('clinical')->name('clinical.')->group(function (): void {
@@ -108,15 +124,34 @@ Route::prefix('doctor')->name('doctor.')->group(function (): void {
             Route::put('visits/{doctorVisit}', [DoctorVisitController::class, 'update'])->name('visits.update');
             Route::get('prescriptions', [DoctorPrescriptionController::class, 'index'])->name('prescriptions');
             Route::get('prescriptions/{doctorPrescription}', [DoctorPrescriptionController::class, 'show'])->name('prescriptions.show');
+            Route::get('prescriptions/{doctorPrescription}/print', [DoctorPrescriptionPrintController::class, 'show'])->name('prescriptions.print');
+            Route::post('prescriptions/{doctorPrescription}/print', [DoctorPrescriptionPrintController::class, 'store'])->middleware('throttle:20,1')->name('prescriptions.print.store');
             Route::put('prescriptions/{doctorPrescription}', [DoctorPrescriptionController::class, 'update'])->name('prescriptions.update');
+            Route::post('prescriptions/{doctorPrescription}/correction', [DoctorPrescriptionController::class, 'correct'])->middleware('throttle:10,1')->name('prescriptions.correct');
             Route::post('visits/{doctorVisit}/prescription', [DoctorPrescriptionController::class, 'store'])->name('prescriptions.store');
-            Route::view('referrals', 'doctor.clinical.referrals')->name('referrals');
+            Route::get('referrals', [DoctorReferralController::class, 'index'])->name('referrals');
+            Route::post('visits/{doctorVisit}/referrals/{kind}', [DoctorReferralController::class, 'store'])->whereIn('kind', ['referral', 'followup'])->middleware('throttle:20,1')->name('referrals.store');
+            Route::get('referrals/{doctorReferral}', [DoctorReferralController::class, 'show'])->whereNumber('doctorReferral')->name('referrals.show');
+            Route::get('referrals/{doctorReferral}/print', [DoctorDocumentPrintController::class, 'showReferral'])->whereNumber('doctorReferral')->name('referrals.print');
+            Route::post('referrals/{doctorReferral}/print', [DoctorDocumentPrintController::class, 'storeReferral'])->whereNumber('doctorReferral')->middleware('throttle:20,1')->name('referrals.print.store');
+            Route::post('referrals/{doctorReferral}/correction', [DoctorDocumentCorrectionController::class, 'referral'])->whereNumber('doctorReferral')->middleware('throttle:10,1')->name('referrals.correct');
+            Route::put('referrals/{doctorReferral}', [DoctorReferralController::class, 'update'])->whereNumber('doctorReferral')->name('referrals.update');
         });
 
         Route::prefix('orders')->name('orders.')->group(function (): void {
-            Route::view('lab', 'doctor.orders.lab')->name('lab');
-            Route::view('radiology', 'doctor.orders.radiology')->name('radiology');
-            Route::view('results', 'doctor.orders.results')->name('results');
+            Route::get('lab', [DoctorDiagnosticOrderController::class, 'lab'])->name('lab');
+            Route::get('radiology', [DoctorDiagnosticOrderController::class, 'radiology'])->name('radiology');
+            Route::get('results', [DoctorExternalReportController::class, 'index'])->name('results');
+            Route::get('reports/{doctorExternalReport}', [DoctorExternalReportController::class, 'show'])->whereNumber('doctorExternalReport')->name('reports.show');
+            Route::post('reports/{doctorExternalReport}/review', [DoctorExternalReportController::class, 'review'])->whereNumber('doctorExternalReport')->middleware('throttle:20,1')->name('reports.review');
+            Route::get('reports/{doctorExternalReport}/download', [DoctorExternalReportController::class, 'download'])->whereNumber('doctorExternalReport')->middleware('throttle:30,1')->name('reports.download');
+            Route::post('{doctorDiagnosticOrder}/reports', [DoctorExternalReportController::class, 'store'])->whereNumber('doctorDiagnosticOrder')->middleware('throttle:10,1')->name('reports.store');
+            Route::post('visits/{doctorVisit}/{kind}', [DoctorDiagnosticOrderController::class, 'store'])->whereIn('kind', ['lab', 'radiology'])->middleware('throttle:20,1')->name('store');
+            Route::get('{doctorDiagnosticOrder}', [DoctorDiagnosticOrderController::class, 'show'])->whereNumber('doctorDiagnosticOrder')->name('show');
+            Route::get('{doctorDiagnosticOrder}/print', [DoctorDocumentPrintController::class, 'showOrder'])->whereNumber('doctorDiagnosticOrder')->name('print');
+            Route::post('{doctorDiagnosticOrder}/print', [DoctorDocumentPrintController::class, 'storeOrder'])->whereNumber('doctorDiagnosticOrder')->middleware('throttle:20,1')->name('print.store');
+            Route::post('{doctorDiagnosticOrder}/correction', [DoctorDocumentCorrectionController::class, 'order'])->whereNumber('doctorDiagnosticOrder')->middleware('throttle:10,1')->name('correct');
+            Route::put('{doctorDiagnosticOrder}', [DoctorDiagnosticOrderController::class, 'update'])->whereNumber('doctorDiagnosticOrder')->name('update');
         });
 
         Route::prefix('practice')->name('practice.')->group(function (): void {

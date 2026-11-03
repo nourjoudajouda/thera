@@ -1,7 +1,7 @@
 (() => {
     'use strict';
     let busy = false;
-    const regions = ['main-content-layout', 'service-drawer', 'period-drawer', 'exception-drawer', 'schedule-editor-template', 'practice-page-state'];
+    const regions = ['main-content-layout', 'service-drawer', 'period-drawer', 'exception-drawer', 'schedule-editor-template', 'practice-page-state', 'patient-access-modal'];
     const belongs = node => node.closest('#main-content-layout, #service-drawer, #exception-drawer');
     const cleanUrl = value => {
         const url = new URL(value, location.href);
@@ -29,6 +29,11 @@
             for (const name of Object.keys(error.errors || {})) {
                 const field = Array.from(form.elements).find(input => input.name.replace(/\[([^\]]+)\]/g, '.$1') === name && input.type !== 'hidden');
                 field?.classList.add('is-invalid');
+                if (form.id === 'visit-documentation-form' && field) {
+                    for (let parent = field.parentElement; parent && parent !== form; parent = parent.parentElement) {
+                        if (parent.tagName === 'DETAILS') parent.open = true;
+                    }
+                }
             }
             box.scrollIntoView({block:'nearest'});
         }
@@ -67,11 +72,16 @@
             if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
         });
         window.refreshDoctorWorkspaceLayout?.();
+        window.refreshDoctorShell?.();
         if (window.initDoctorAppointments) window.initDoctorAppointments();
         else if (window.initDoctorServices) window.initDoctorServices();
         else window.initDoctorSchedule();
         window.initDoctorVisit?.();
+        window.initDoctorVisitTemplate?.();
         window.initDoctorPrescription?.();
+        window.initDoctorDiagnosticOrder?.();
+        window.initDoctorPatients?.();
+        window.initDoctorSettings?.();
         window.TheraFilters?.init();
     };
     const lock = submitter => {
@@ -110,11 +120,11 @@
     });
     document.addEventListener('submit', async event => {
         const form = event.target;
-        if (event.defaultPrevented || !(form instanceof HTMLFormElement) || !belongs(form) || form.id === 'membership-switch-form') return;
+        if (event.defaultPrevented || !(form instanceof HTMLFormElement) || form.hasAttribute('data-inline-create') || form.hasAttribute('data-inline-editor') || !belongs(form) || form.id === 'membership-switch-form') return;
         event.preventDefault();
         if (busy) return;
         if (window.doctorScheduleIsDirty?.() && form.id !== 'schedule-form') { window.TheraAlerts.info('احفظ تغييرات الجدول أولًا قبل متابعة هذا الإجراء.'); return; }
-        if (window.doctorVisitIsDirty?.() && !['visit-documentation-form', 'prescription-form'].includes(form.id)) { window.TheraAlerts.info('احفظ المسودة الحالية أولًا قبل تنفيذ هذا الإجراء.'); return; }
+        if (window.doctorVisitIsDirty?.() && !['visit-documentation-form', 'prescription-form', 'diagnostic-order-form', 'referral-form'].includes(form.id)) { window.TheraAlerts.info('احفظ المسودة الحالية أولًا قبل تنفيذ هذا الإجراء.'); return; }
         form.querySelectorAll('[data-ajax-errors]').forEach(node => node.remove());
         form.querySelectorAll('.is-invalid').forEach(node => node.classList.remove('is-invalid'));
         const data = new FormData(form);
@@ -131,7 +141,8 @@
             if (!response.ok) await readError(response);
             if (!response.headers.get('content-type')?.includes('application/json')) throw new Error('تعذر تأكيد نتيجة الحفظ. تحقق من الجلسة قبل المحاولة مجددًا.');
             const result = await response.json(); saved = true;
-            if (['visit-documentation-form', 'prescription-form'].includes(form.id)) window.markDoctorVisitSaved?.();
+            if (['visit-documentation-form', 'prescription-form', 'diagnostic-order-form', 'referral-form'].includes(form.id)) window.markDoctorVisitSaved?.();
+            if (form.id === 'visit-documentation-form' && result.redirect && result.url) { window.location.assign(result.url); return; }
             if (form.hasAttribute('data-ajax-redirect') && result.url) { window.location.assign(result.url); return; }
             await render(form.hasAttribute('data-ajax-follow') && result.url ? new URL(result.url, location.href) : cleanUrl(location.href));
             window.TheraAlerts.success(result.message);

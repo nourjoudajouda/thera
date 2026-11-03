@@ -37,7 +37,7 @@
   }
   .orb{position:absolute;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
   .brand-inner{position:relative;z-index:2;height:100%;padding:26px 32px 28px;display:flex;flex-direction:column}
-  .brand-top{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+  .brand-top{display:flex;align-items:flex-start;justify-content:flex-end;gap:18px}
   .brand-logo{height:100px;max-width:180px;object-fit:contain}
   .brand-copy{max-width:620px;margin:auto 0}
   .eyebrow{display:inline-flex;align-items:center;gap:8px;color:#7DD3FC;font-size:12px;font-weight:800;letter-spacing:.07em;margin-bottom:10px}
@@ -91,6 +91,7 @@
   .divider:before,.divider:after{content:"";height:1px;background:#E2E8F0;flex:1}
   .divider span{font-size:10.5px;color:#94A3B8;font-weight:600;white-space:nowrap}
   .register{height:46px;width:100%;border:1px solid #DCE4EC;border-radius:12px;background:#fff;color:#334155;font-size:13px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:.17s ease}
+  a.register{text-decoration:none}
   .register:hover{background:#F8FAFC;border-color:#C8D3DF}
   .register .material-symbols-outlined{color:#0495F6;font-size:18px}
   .verification-line{margin-top:15px;display:flex;align-items:flex-start;gap:8px;color:#718096;font-size:10.5px;line-height:1.7}
@@ -127,10 +128,10 @@
 </style>
 
 <style id="thera-auth-final-logo-size">
-  .brand-logo{
-    height:100px !important;
-    width:auto !important;
-    max-width:220px !important;
+  .brand-top img.brand-logo{
+    height:94px !important;
+    width:136px !important;
+    max-width:136px !important;
     object-fit:contain !important;
   }
 </style>
@@ -189,10 +190,10 @@
       <div class="divider"><span>{{ $isAdminPortal ? 'وصول مخصص لإدارة THERA' : 'طبيب جديد على THERA؟' }}</span></div>
 
       @unless($isAdminPortal)
-        <button class="register" id="create-doctor-account" type="button">
+        <a class="register" id="create-doctor-account" href="{{ route('doctor.register') }}">
           <span class="material-symbols-outlined">person_add</span>
           <span>إنشاء حساب طبيب جديد</span>
-        </button>
+        </a>
       @else
         <div class="register" aria-label="وصول إداري محمي">
           <span class="material-symbols-outlined">admin_panel_settings</span>
@@ -339,10 +340,6 @@
 
   document.querySelectorAll('[data-close-forgot]').forEach(el => {
     el.addEventListener('click',()=>$('forgot-modal').classList.add('hidden'));
-  });
-
-  $('create-doctor-account')?.addEventListener('click',() => {
-    toast('التالي: إنشاء حساب طبيب جديد.','info');
   });
 
   document.addEventListener('keydown',e => {

@@ -40,14 +40,14 @@ class ProfessionalProfileControllerTest extends TestCase
         $response->assertSee('العربية، الإنجليزية');
         $response->assertSee('اختصاصي طب أسرة');
         $response->assertSee('bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css', escape: false);
-        $response->assertSee('class="row g-4"', escape: false);
+        $response->assertSee('name="professional_title"', escape: false);
         $response->assertSee('offcanvas-lg offcanvas-end', escape: false);
         $response->assertSee('data-bs-toggle="offcanvas"', escape: false);
         $response->assertSee('@media (max-width: 991.98px)', escape: false);
         $response->assertSee('professional-profile-page', escape: false);
         $response->assertSee('.professional-profile-page .form-control', escape: false);
         $response->assertSee('class="profile-tabs-list"', escape: false);
-        $response->assertSee('grid-template-columns:minmax(0,1.2fr)', escape: false);
+        $response->assertSee('css/doctor-professional-profile.css', escape: false);
         $response->assertSee('select2@4.1.0-rc.0/dist/css/select2.min.css', escape: false);
         $response->assertSee('select2@4.1.0-rc.0/dist/js/select2.min.js', escape: false);
     }
@@ -69,6 +69,10 @@ class ProfessionalProfileControllerTest extends TestCase
         $response->assertSee('const requestedTab = "achievements";', escape: false);
         $response->assertSee('history[`${options.historyMode}State`]', escape: false);
         $response->assertSee('class="modal fade profile-modal"', escape: false);
+        $response->assertSee('data-bs-target="#primary-specialty-modal"', escape: false);
+        $response->assertSee('id="primary-specialty-modal"', escape: false);
+        $response->assertSee('name="document" type="file" required', escape: false);
+        $response->assertSee('name="evidence" type="file" required', escape: false);
     }
 
     public function test_authenticated_doctor_can_complete_their_professional_profile(): void
@@ -146,6 +150,50 @@ class ProfessionalProfileControllerTest extends TestCase
         $this->assertNull($doctor->fresh()->profile_completed_at);
     }
 
+    public function test_populated_credentials_and_achievements_keep_card_information_outside_their_detail_dialogs(): void
+    {
+        $doctor = Doctor::factory()->create(['verification_status' => 'verified']);
+        $credentials = collect([
+            DoctorCredential::factory()->verified()->for($doctor)->create(['title' => 'البورد الأردني', 'issuer' => 'المجلس الطبي', 'country' => 'الأردن']),
+            DoctorCredential::factory()->for($doctor)->create(['title' => 'زمالة الرعاية المتقدمة']),
+        ]);
+        $achievements = collect([
+            DoctorAchievement::factory()->verified()->for($doctor)->create(['title' => 'اعتماد التميز']),
+            DoctorAchievement::factory()->for($doctor)->create(['title' => 'جائزة التثقيف الصحي']),
+        ]);
+
+        $response = $this->actingAs($doctor, 'doctor')->get(route('doctor.account.professional-profile', ['tab' => 'credentials']))->assertOk();
+
+        $document = new \DOMDocument;
+        $previousErrors = libxml_use_internal_errors(true);
+        try {
+            $document->loadHTML('<?xml encoding="UTF-8">'.$response->getContent());
+        } finally {
+            libxml_clear_errors();
+            libxml_use_internal_errors($previousErrors);
+        }
+        $xpath = new \DOMXPath($document);
+        $this->assertSame(2, $xpath->query('//*[@data-profile-credential]')->length);
+        foreach ($credentials as $credential) {
+            $card = $xpath->query('//*[@data-profile-credential="'.$credential->id.'"]')->item(0);
+            $this->assertStringContainsString($credential->title, $card->textContent);
+            $this->assertStringContainsString($credential->issuer, $card->textContent);
+            $this->assertSame('credential-list', $card->parentNode->getAttribute('id'));
+            $modal = $document->getElementById('credential-details-'.$credential->id);
+            $this->assertSame('credential-list', $modal->parentNode->getAttribute('id'));
+            $this->assertStringContainsString('تحميل ملف الإثبات', $modal->textContent);
+        }
+        $this->assertSame(2, $xpath->query('//*[@data-profile-achievement]')->length);
+        foreach ($achievements as $achievement) {
+            $card = $xpath->query('//*[@data-profile-achievement="'.$achievement->id.'"]')->item(0);
+            $this->assertStringContainsString($achievement->title, $card->textContent);
+            $this->assertStringContainsString($achievement->organization, $card->textContent);
+            $modal = $document->getElementById('achievement-details-'.$achievement->id);
+            $this->assertStringContainsString('حالة الظهور العام', $modal->textContent);
+            $this->assertStringContainsString($achievement->title, $modal->textContent);
+        }
+    }
+
     public function test_public_preview_uses_real_doctor_data_and_filters_private_or_unverified_items(): void
     {
         $doctor = Doctor::factory()->create([
@@ -157,9 +205,9 @@ class ProfessionalProfileControllerTest extends TestCase
             'verification_status' => 'verified',
         ]);
 
-        DoctorCredential::factory()->verified()->for($doctor)->create(['title' => 'المؤهل الموثق']);
+        $credential = DoctorCredential::factory()->verified()->for($doctor)->create(['title' => 'المؤهل الموثق']);
         DoctorCredential::factory()->for($doctor)->create(['title' => 'المؤهل قيد المراجعة']);
-        DoctorAchievement::factory()->verified()->for($doctor)->create(['title' => 'الإنجاز الموثق']);
+        $achievement = DoctorAchievement::factory()->verified()->for($doctor)->create(['title' => 'الإنجاز الموثق']);
         DoctorAchievement::factory()->for($doctor)->create(['title' => 'الإنجاز قيد المراجعة']);
 
         $publicFacility = Facility::factory()->create(['name' => 'المنشأة العامة']);
@@ -176,6 +224,12 @@ class ProfessionalProfileControllerTest extends TestCase
         $response->assertSee('المؤهل الموثق');
         $response->assertSee('الإنجاز الموثق');
         $response->assertSee('المنشأة العامة');
+        $response->assertSee('data-bs-target="#credential-details-'.$credential->id.'"', escape: false);
+        $response->assertSee('id="credential-details-'.$credential->id.'"', escape: false);
+        $response->assertSee(route('doctor.account.professional-profile.credentials.document', $credential), escape: false);
+        $response->assertSee('data-bs-target="#achievement-details-'.$achievement->id.'"', escape: false);
+        $response->assertSee('id="achievement-details-'.$achievement->id.'"', escape: false);
+        $response->assertSee(route('doctor.account.professional-profile.achievements.evidence', $achievement), escape: false);
         $response->assertDontSee('د. محمد أحمد');
         $response->assertDontSee('preview.innerHTML', escape: false);
         $response->assertViewHas('verifiedCredentials', fn (Collection $credentials): bool => $credentials->pluck('title')->all() === ['المؤهل الموثق']);

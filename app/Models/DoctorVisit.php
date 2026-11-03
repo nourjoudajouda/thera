@@ -18,7 +18,38 @@ class DoctorVisit extends Model
     /** @use HasFactory<DoctorVisitFactory> */
     use HasFactory;
 
-    public const STATUSES = ['draft' => 'مسودة قيد التوثيق', 'initial' => 'تقييم مبدئي', 'pending_results' => 'بانتظار نتيجة الفحوصات', 'completed' => 'زيارة مكتملة'];
+    public const STATUSES = ['draft' => 'مسودة', 'initial' => 'قيد التوثيق', 'pending_results' => 'بانتظار نتائج / مراجعة', 'completed' => 'زيارة مكتملة'];
+
+    /** @param array<string, mixed>|null $content */
+    public function workflowStatus(?array $content = null): string
+    {
+        if ($this->closed_at) {
+            return 'completed';
+        }
+        $orders = $this->diagnosticOrders()->whereNotNull('approved_at')->whereDoesntHave('correction', fn ($query) => $query->whereNotNull('approved_at'));
+        $pending = (clone $orders)->where(fn ($query) => $query
+            ->whereDoesntHave('externalReports', fn ($query) => $query->whereNotNull('reviewed_at'))
+            ->orWhereHas('externalReports', fn ($query) => $query->whereNull('reviewed_at')))->exists();
+        if ($pending) {
+            return 'pending_results';
+        }
+        $documented = collect($content ?? $this->content ?? [])->except('diagnosis_type')->flatten()->contains(fn ($value) => trim((string) $value) !== '');
+
+        return $documented || $orders->exists() ? 'initial' : 'draft';
+    }
+
+    public function synchronizeWorkflowStatus(): void
+    {
+        if ($this->closed_at) {
+            return;
+        }
+        $status = $this->workflowStatus();
+        if ($status !== $this->status) {
+            $previous = $this->status;
+            $this->update(['status' => $status]);
+            $this->revisions()->create(['doctor_id' => $this->doctor_id, 'action' => 'status_updated', 'revision' => $this->revision, 'snapshot' => ['previous_status' => $previous, 'status' => $status]]);
+        }
+    }
 
     protected static function booted(): void
     {
@@ -58,7 +89,17 @@ class DoctorVisit extends Model
 
     public function prescription(): HasOne
     {
-        return $this->hasOne(DoctorPrescription::class);
+        return $this->hasOne(DoctorPrescription::class)->latestOfMany();
+    }
+
+    public function diagnosticOrders(): HasMany
+    {
+        return $this->hasMany(DoctorDiagnosticOrder::class)->latest('id');
+    }
+
+    public function referrals(): HasMany
+    {
+        return $this->hasMany(DoctorReferral::class)->latest('id');
     }
 
     protected function casts(): array

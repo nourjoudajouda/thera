@@ -3,6 +3,8 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
 @include('doctor.partials.assets', ['useFormPlugin' => false])
 <link rel="stylesheet" href="{{ asset('css/thera-filters.css') }}">
+<link rel="stylesheet" href="{{ asset('css/doctor-template.css') }}">
+<link rel="stylesheet" href="{{ asset('css/doctor-diagnostic-orders.css') }}">
 <script src="{{ asset('js/thera-filters.js') }}" defer></script>
 <style>
     html,body,input,select,textarea,button{font-family:'Tajawal',sans-serif}body{background:#f6f9fc;color:#0b1020;overflow-x:hidden}

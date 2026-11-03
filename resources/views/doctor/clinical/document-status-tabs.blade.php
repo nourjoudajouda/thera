@@ -1,0 +1,4 @@
+<nav class="document-status-tabs" aria-label="حالة المستندات">
+@foreach([''=>['الكل','total'],'draft'=>['مسودات','draft'],'approved'=>['موثقة','approved']] as $value=>[$label,$count])<a href="{{ $indexUrl }}{{ ($query=http_build_query(array_filter(array_merge(request()->except(['page','status']),['status'=>$value]),fn($value)=>$value!==''))) ? '?'.$query : '' }}" class="{{ request('status','')===$value?'active':'' }}" @if(request('status','')===$value) aria-current="page" @endif>{{ $label }} <span class="font-num">{{ $counts[$count] }}</span></a>@endforeach
+@foreach($isPrescription?['جاهزة للإرسال','طلب إرسال']:['جاهزة للتوجيه','طلب توجيه'] as $label)<button type="button" disabled title="توجيه المستندات للجهات الخارجية غير مفعّل حاليًا">{{ $label }} <span class="font-num">0</span></button>@endforeach
+</nav>

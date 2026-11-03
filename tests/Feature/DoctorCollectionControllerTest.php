@@ -276,6 +276,35 @@ class DoctorCollectionControllerTest extends TestCase
         $this->get(route('doctor.finance.collections', ['date' => '2026-10-15', 'payment_status' => 'open']))->assertOk()->assertViewHas('appointments', fn ($items) => $items->total() === 0);
     }
 
+    public function test_collection_rows_follow_latest_update_not_appointment_time_and_move_after_payment_and_reversal(): void
+    {
+        $first = $this->appointment(['updated_at' => CarbonImmutable::parse('2026-10-15 06:00', config('thera.schedule_timezone'))->utc()]);
+        $second = DoctorAppointment::factory()->create(['doctor_id' => $first->doctor_id, 'doctor_facility_id' => $first->doctor_facility_id, 'starts_at' => $first->starts_at->addHour(), 'ends_at' => $first->ends_at->addHour(), 'updated_at' => now()->subHour()]);
+        $url = route('doctor.finance.collections', ['date' => '2026-10-15']);
+        $this->get($url)->assertOk()->assertViewHas('appointments', fn ($items) => $items->modelKeys() === [$second->id, $first->id]);
+
+        $this->postJson(route('doctor.finance.collections.store', $first), $this->payload('5.000'))->assertOk();
+        $this->get($url)->assertOk()->assertViewHas('appointments', fn ($items) => $items->modelKeys() === [$first->id, $second->id]);
+        $this->travel(1)->minutes();
+        $this->postJson(route('doctor.finance.collections.store', $second), $this->payload('1.000'))->assertOk();
+        $this->get($url)->assertOk()->assertViewHas('appointments', fn ($items) => $items->modelKeys() === [$second->id, $first->id]);
+
+        $this->travel(1)->minutes();
+        $payment = $first->payments()->sole();
+        $this->postJson(route('doctor.finance.reverse', $payment), ['revision' => 2, 'request_key' => (string) Str::uuid(), 'reason' => 'تصحيح مبلغ مسجل بالخطأ'])->assertOk();
+        $this->get($url)->assertOk()->assertViewHas('appointments', fn ($items) => $items->modelKeys() === [$first->id, $second->id]);
+        $this->assertSame(0, (int) $first->payments()->sum('amount_minor'));
+    }
+
+    public function test_equal_update_times_use_latest_id_first_and_keep_filters(): void
+    {
+        $first = $this->appointment(['patient_name' => 'ليلى أحمد']);
+        $second = DoctorAppointment::factory()->create(['doctor_id' => $first->doctor_id, 'doctor_facility_id' => $first->doctor_facility_id, 'patient_name' => 'ليلى محمود', 'starts_at' => $first->starts_at, 'ends_at' => $first->ends_at]);
+        DoctorAppointment::factory()->create(['doctor_id' => $first->doctor_id, 'doctor_facility_id' => $first->doctor_facility_id, 'patient_name' => 'خالد حسن', 'starts_at' => $first->starts_at, 'ends_at' => $first->ends_at]);
+        $this->get(route('doctor.finance.collections', ['date' => '2026-10-15', 'search' => 'ليلى', 'membership' => $first->doctor_facility_id, 'payment_status' => 'open']))
+            ->assertOk()->assertViewHas('appointments', fn ($items) => $items->modelKeys() === [$second->id, $first->id]);
+    }
+
     /** @param array<string, mixed> $attributes */
     private function appointment(array $attributes = []): DoctorAppointment
     {

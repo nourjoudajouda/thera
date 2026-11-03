@@ -499,6 +499,7 @@ body.onboarding-profile-mode [data-onboarding-required="1"]::after{
   #continue-to-verification { flex:1; justify-content:center; }
 }
 </style>
+<link rel="stylesheet" href="{{ asset('css/doctor-professional-profile.css') }}">
 </head>
 <body class="professional-profile-page select-none bg-[#F6F9FC] text-slate-800 antialiased min-h-screen">
 @include('doctor.partials.workspace-sidebar')
@@ -508,10 +509,10 @@ body.onboarding-profile-mode [data-onboarding-required="1"]::after{
 <div class="mt-4 flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4 mb-5">
 <div>
 <div class="flex items-center gap-2 text-sm text-slate-400 mb-1.5">
-<span>حساب الطبيب</span><span class="material-symbols-outlined text-[16px]">chevron_left</span><span class="text-[#0495F6] font-bold">الملف المهني</span>
+<span data-i18n="حساب الطبيب">حساب الطبيب</span><span class="material-symbols-outlined text-[16px]">chevron_left</span><span class="text-[#0495F6] font-bold" data-i18n="الملف المهني">الملف المهني</span>
 </div>
-<h1 class="text-[28px] leading-tight font-extrabold text-[#0B1020]">الملف المهني</h1>
-<p class="mt-1 text-sm text-slate-500">إدارة المعلومات المهنية التي تظهر في ملفك العام على THERA.</p>
+<h1 class="text-[28px] leading-tight font-extrabold text-[#0B1020]" data-i18n="الملف المهني">الملف المهني</h1>
+<p class="mt-1 text-sm text-slate-500" data-i18n="إدارة المعلومات المهنية التي تظهر في ملفك العام على THERA.">إدارة المعلومات المهنية التي تظهر في ملفك العام على THERA.</p>
 </div>
 </div><section class="hidden onboarding-banner mb-4" id="profile-onboarding-banner">
 <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
@@ -567,10 +568,10 @@ body.onboarding-profile-mode [data-onboarding-required="1"]::after{
 </div>
 <div class="w-full xl:w-[330px] shrink-0">
 <div class="flex items-center justify-between text-sm mb-2">
-<span class="font-bold text-slate-700">اكتمال الملف</span><span class="font-num font-bold text-[#0495F6]" id="profile-completion-value">{{ $profileCompletion }}%</span>
+<span class="font-bold text-slate-700" data-i18n="اكتمال الملف">اكتمال الملف</span><span class="font-num font-bold text-[#0495F6]" id="profile-completion-value">{{ $profileCompletion }}%</span>
 </div>
 <div class="progress-track"><div class="progress-fill" id="profile-completion-fill" style="width:{{ $profileCompletion }}%"></div></div>
-<p class="text-xs text-slate-400 mt-2">أكمل المعلومات المهنية والمؤهلات لتحسين ظهور ملفك للمرضى.</p>
+<p class="text-xs text-slate-400 mt-2" data-i18n="أكمل المعلومات المهنية والمؤهلات لتحسين ظهور ملفك للمرضى.">أكمل المعلومات المهنية والمؤهلات لتحسين ظهور ملفك للمرضى.</p>
 </div>
 </div>
 </section>
@@ -579,40 +580,40 @@ body.onboarding-profile-mode [data-onboarding-required="1"]::after{
 <div class="profile-card p-4 flex items-center justify-between gap-4">
 <div class="flex items-center gap-3 min-w-0">
 <div class="w-10 h-10 rounded-xl bg-[#EFF6FF] text-[#0466F1] flex items-center justify-center shrink-0"><span class="material-symbols-outlined">payments</span></div>
-<div class="min-w-0"><p class="font-bold text-sm text-slate-800">الخدمات والأسعار</p><p class="text-xs text-slate-500 mt-0.5">{{ $activeServiceCount }} خدمات مفعلة • تُدار من شاشة الخدمات والأسعار</p></div>
+<div class="min-w-0"><p class="font-bold text-sm text-slate-800" data-i18n="الخدمات والأسعار">الخدمات والأسعار</p><p class="text-xs text-slate-500 mt-0.5">{{ $activeServiceCount }} خدمات مفعلة • تُدار من شاشة الخدمات والأسعار</p></div>
 </div>
 <a class="text-xs font-bold text-[#0495F6] hover:text-[#0466F1] whitespace-nowrap" href="{{ route('doctor.practice.services') }}">إدارة الخدمات</a>
 </div>
 <div class="profile-card p-4 flex items-center justify-between gap-4">
 <div class="flex items-center gap-3 min-w-0">
 <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0" id="verification-crosslink-icon"><span class="material-symbols-outlined">verified_user</span></div>
-<div class="min-w-0"><p class="font-bold text-sm text-slate-800">التحقق المهني</p><p class="text-xs text-slate-500 mt-0.5" id="verification-crosslink-status">{{ $doctor->verification_status === 'verified' ? 'تم التحقق من الملف المهني • الحساب نشط' : 'لم يتم إرسال طلب التحقق بعد • أكمل الملف أولًا' }}</p></div>
+<div class="min-w-0"><p class="font-bold text-sm text-slate-800" data-i18n="التحقق المهني">التحقق المهني</p><p class="text-xs text-slate-500 mt-0.5" id="verification-crosslink-status">{{ $doctor->verification_status === 'verified' ? 'تم التحقق من الملف المهني • الحساب نشط' : 'لم يتم إرسال طلب التحقق بعد • أكمل الملف أولًا' }}</p></div>
 </div>
 <a class="text-xs font-bold text-[#0495F6] hover:text-[#0466F1] whitespace-nowrap" href="{{ route('doctor.account.verification', ['onboarding' => 1]) }}" id="verification-crosslink-button">إدارة التحقق</a>
 </div>
 </div>
 <!-- Tabs -->
 @if (session('status'))
-<div class="alert alert-success d-flex align-items-center gap-2 mb-4" role="alert">
+<div class="alert alert-success flex items-center gap-2 mb-4" role="alert">
 <span class="material-symbols-outlined">check_circle</span>
 <span>{{ session('status') }}</span>
 </div>
 @endif
 @if ($errors->any() || $errors->facilityMembership->any() || $errors->facilityProposal->any() || $errors->credential->any() || $errors->achievement->any())
-<div class="alert alert-danger d-flex align-items-start gap-2 mb-4" role="alert">
+<div class="alert alert-danger flex items-start gap-2 mb-4" role="alert">
 <span class="material-symbols-outlined mt-1">error</span>
 <div><strong>تعذر حفظ الملف.</strong><div class="small mt-1">راجع الحقول المطلوبة ثم حاول مجددًا.</div></div>
 </div>
 @endif
 <div class="profile-tabs-wrap mb-4">
 <div aria-label="أقسام الملف المهني" class="profile-tabs-list" role="tablist">
-<button aria-controls="profile-panel-basic" aria-selected="true" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="basic" id="profile-tab-basic" role="tab" tabindex="0" type="button">المعلومات الأساسية</button>
-<button aria-controls="profile-panel-professional" aria-selected="false" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="professional" id="profile-tab-professional" role="tab" tabindex="-1" type="button">المعلومات المهنية</button>
-<button aria-controls="profile-panel-specialties" aria-selected="false" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="specialties" id="profile-tab-specialties" role="tab" tabindex="-1" type="button">التخصصات</button>
-<button aria-controls="profile-panel-facilities" aria-selected="false" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="facilities" id="profile-tab-facilities" role="tab" tabindex="-1" type="button">المنشآت</button>
-<button aria-controls="profile-panel-credentials" aria-selected="false" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="credentials" id="profile-tab-credentials" role="tab" tabindex="-1" type="button">المؤهلات والشهادات</button>
-<button aria-controls="profile-panel-achievements" aria-selected="false" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="achievements" id="profile-tab-achievements" role="tab" tabindex="-1" type="button">الإنجازات</button>
-<button aria-controls="profile-panel-preview" aria-selected="false" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="preview" id="profile-tab-preview" role="tab" tabindex="-1" type="button">معاينة الملف العام</button>
+<button aria-controls="profile-panel-basic" aria-selected="true" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="basic" id="profile-tab-basic" role="tab" tabindex="0" type="button" data-i18n="المعلومات الأساسية">المعلومات الأساسية</button>
+<button aria-controls="profile-panel-professional" aria-selected="false" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="professional" id="profile-tab-professional" role="tab" tabindex="-1" type="button" data-i18n="المعلومات المهنية">المعلومات المهنية</button>
+<button aria-controls="profile-panel-specialties" aria-selected="false" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="specialties" id="profile-tab-specialties" role="tab" tabindex="-1" type="button" data-i18n="التخصصات">التخصصات</button>
+<button aria-controls="profile-panel-facilities" aria-selected="false" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="facilities" id="profile-tab-facilities" role="tab" tabindex="-1" type="button" data-i18n="المنشآت">المنشآت</button>
+<button aria-controls="profile-panel-credentials" aria-selected="false" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="credentials" id="profile-tab-credentials" role="tab" tabindex="-1" type="button" data-i18n="المؤهلات والشهادات">المؤهلات والشهادات</button>
+<button aria-controls="profile-panel-achievements" aria-selected="false" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="achievements" id="profile-tab-achievements" role="tab" tabindex="-1" type="button" data-i18n="الإنجازات">الإنجازات</button>
+<button aria-controls="profile-panel-preview" aria-selected="false" class="profile-tab h-10 px-4 rounded-full text-sm font-semibold" data-tab="preview" id="profile-tab-preview" role="tab" tabindex="-1" type="button" data-i18n="معاينة الملف العام">معاينة الملف العام</button>
 </div>
 </div>
 <!-- BASIC -->
@@ -624,23 +625,23 @@ body.onboarding-profile-mode [data-onboarding-required="1"]::after{
 <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_330px] gap-4">
 <div class="profile-card p-5 md:p-6">
 <div class="flex items-start justify-between gap-4 mb-5">
-<div><h3 class="text-lg font-extrabold text-[#0B1020]">المعلومات الأساسية</h3><p class="text-sm text-slate-500 mt-1">المعلومات العامة التي تساعد المرضى على التعرف عليك.</p></div>
+<div><h3 class="text-lg font-extrabold text-[#0B1020]" data-i18n="المعلومات الأساسية">المعلومات الأساسية</h3><p class="text-sm text-slate-500 mt-1" data-i18n="المعلومات العامة التي تساعد المرضى على التعرف عليك.">المعلومات العامة التي تساعد المرضى على التعرف عليك.</p></div>
 <span class="status-pill bg-blue-50 text-blue-700 border border-blue-200"><span class="material-symbols-outlined text-[15px]">public</span>تظهر للعامة</span>
 </div>
-<div class="row g-4">
-<div class="col-12 col-md-6"><label class="field-label form-label" data-onboarding-required="1" for="basic-full-name">الاسم الكامل</label><input class="form-control @error('name') is-invalid @enderror" id="basic-full-name" name="name" type="text" value="{{ old('name', $doctor->name) }}"/>@error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
-<div class="col-12 col-md-6"><label class="field-label form-label" for="basic-languages">اللغات</label><input class="form-control @error('languages_text') is-invalid @enderror" id="basic-languages" name="languages_text" type="text" value="{{ old('languages_text', implode('، ', $doctor->languages ?? [])) }}"/><p class="field-help">افصل بين اللغات بفاصلة.</p>@error('languages_text')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror</div>
-<div class="col-12"><label class="field-label form-label" for="basic-bio">نبذة مختصرة</label><textarea class="form-control @error('bio') is-invalid @enderror" id="basic-bio" maxlength="280" name="bio">{{ old('bio', $doctor->bio) }}</textarea><div class="d-flex justify-content-between mt-2"><p class="field-help m-0">ستظهر هذه النبذة في بداية ملفك العام.</p><span class="text-[11px] text-slate-400 font-num" id="basic-bio-count">{{ mb_strlen(old('bio', $doctor->bio ?? '')) }} / 280</span></div>@error('bio')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="min-w-0"><label class="field-label form-label" data-onboarding-required="1" for="basic-full-name" data-i18n="الاسم الكامل">الاسم الكامل</label><input class="form-control @error('name') is-invalid @enderror" id="basic-full-name" name="name" type="text" value="{{ old('name', $doctor->name) }}"/>@error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
+<div class="min-w-0"><label class="field-label form-label" for="basic-languages" data-i18n="اللغات">اللغات</label><input class="form-control @error('languages_text') is-invalid @enderror" id="basic-languages" name="languages_text" type="text" value="{{ old('languages_text', implode('، ', $doctor->languages ?? [])) }}"/><p class="field-help" data-i18n="افصل بين اللغات بفاصلة.">افصل بين اللغات بفاصلة.</p>@error('languages_text')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror</div>
+<div class="md:col-span-2 min-w-0"><label class="field-label form-label" for="basic-bio" data-i18n="نبذة مختصرة">نبذة مختصرة</label><textarea class="form-control @error('bio') is-invalid @enderror" id="basic-bio" maxlength="280" name="bio">{{ old('bio', $doctor->bio) }}</textarea><div class="flex justify-between mt-2"><p class="field-help m-0" data-i18n="ستظهر هذه النبذة في بداية ملفك العام.">ستظهر هذه النبذة في بداية ملفك العام.</p><span class="text-[11px] text-slate-400 font-num" id="basic-bio-count">{{ mb_strlen(old('bio', $doctor->bio ?? '')) }} / 280</span></div>@error('bio')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror</div>
 </div>
-<div class="mt-6 pt-4 border-t border-slate-100 d-flex justify-content-end"><button class="save-section btn btn-primary d-inline-flex align-items-center gap-2 px-4" type="submit"><span class="material-symbols-outlined text-[18px]">save</span>حفظ التغييرات</button></div>
+<div class="mt-6 pt-4 border-t border-slate-100 flex justify-end"><button class="save-section btn btn-primary inline-flex items-center gap-2 px-4" type="submit"><span class="material-symbols-outlined text-[18px]">save</span>حفظ التغييرات</button></div>
 </div>
 <aside class="profile-card p-5 h-fit">
-<div class="flex items-center gap-2 mb-4"><span class="material-symbols-outlined text-[#0495F6]">info</span><h4 class="font-extrabold text-sm text-slate-800">ما الذي يظهر للمرضى؟</h4></div>
+<div class="flex items-center gap-2 mb-4"><span class="material-symbols-outlined text-[#0495F6]">info</span><h4 class="font-extrabold text-sm text-slate-800" data-i18n="ما الذي يظهر للمرضى؟">ما الذي يظهر للمرضى؟</h4></div>
 <div class="space-y-0 text-sm">
-<div class="summary-row py-3 flex items-center justify-between gap-3"><span class="text-slate-600">الصورة والاسم</span><span class="text-emerald-600 font-bold text-xs">عام</span></div>
-<div class="summary-row py-3 flex items-center justify-between gap-3"><span class="text-slate-600">اللغات</span><span class="text-emerald-600 font-bold text-xs">عام</span></div>
-<div class="summary-row py-3 flex items-center justify-between gap-3"><span class="text-slate-600">النبذة المختصرة</span><span class="text-emerald-600 font-bold text-xs">عام</span></div>
-<div class="summary-row py-3 flex items-center justify-between gap-3"><span class="text-slate-600">الهاتف والبريد</span><span class="text-slate-400 font-bold text-xs">إعدادات الحساب</span></div>
+<div class="summary-row py-3 flex items-center justify-between gap-3"><span class="text-slate-600" data-i18n="الصورة والاسم">الصورة والاسم</span><span class="text-emerald-600 font-bold text-xs" data-i18n="عام">عام</span></div>
+<div class="summary-row py-3 flex items-center justify-between gap-3"><span class="text-slate-600" data-i18n="اللغات">اللغات</span><span class="text-emerald-600 font-bold text-xs" data-i18n="عام">عام</span></div>
+<div class="summary-row py-3 flex items-center justify-between gap-3"><span class="text-slate-600">النبذة المختصرة</span><span class="text-emerald-600 font-bold text-xs" data-i18n="عام">عام</span></div>
+<div class="summary-row py-3 flex items-center justify-between gap-3"><span class="text-slate-600" data-i18n="الهاتف والبريد">الهاتف والبريد</span><span class="text-slate-400 font-bold text-xs" data-i18n="إعدادات الحساب">إعدادات الحساب</span></div>
 </div>
 <div class="mt-4 rounded-xl bg-[#F8FAFC] border border-slate-100 p-3 text-xs leading-6 text-slate-500">المعلومات المهنية الموثقة تُدار من الأقسام المخصصة لها ولا يتم تعديلها من هنا.</div>
 </aside>
@@ -649,30 +650,49 @@ body.onboarding-profile-mode [data-onboarding-required="1"]::after{
 <!-- PROFESSIONAL -->
 <section aria-labelledby="profile-tab-professional" class="profile-panel" data-panel="professional" id="profile-panel-professional" role="tabpanel">
 <div class="profile-card p-5 md:p-6">
-<div class="mb-5"><h3 class="text-lg font-extrabold text-[#0B1020]">المعلومات المهنية</h3><p class="text-sm text-slate-500 mt-1">البيانات المهنية الأساسية المعروضة ضمن ملفك العام.</p></div>
-<div class="row g-4">
-<div class="col-12 col-md-6"><label class="field-label form-label" data-onboarding-required="1" for="professional-title">المسمى المهني</label><input class="form-control @error('professional_title') is-invalid @enderror" id="professional-title" name="professional_title" type="text" value="{{ old('professional_title', $doctor->professional_title) }}"/>@error('professional_title')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
-<div class="col-12 col-md-6"><label class="field-label form-label" data-onboarding-required="1" for="professional-experience">سنوات الخبرة</label><div class="input-group"><input class="form-control font-num @error('years_experience') is-invalid @enderror" id="professional-experience" max="80" min="0" name="years_experience" type="number" value="{{ old('years_experience', $doctor->years_experience) }}"/><span class="input-group-text">سنة</span>@error('years_experience')<div class="invalid-feedback">{{ $message }}</div>@enderror</div></div>
-<div class="col-12"><label class="field-label form-label" data-onboarding-required="1" for="professional-bio">النبذة المهنية</label><textarea class="form-control @error('professional_bio') is-invalid @enderror" id="professional-bio" maxlength="2000" name="professional_bio">{{ old('professional_bio', $doctor->professional_bio) }}</textarea>@error('professional_bio')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
+<div class="mb-5"><h3 class="text-lg font-extrabold text-[#0B1020]" data-i18n="المعلومات المهنية">المعلومات المهنية</h3><p class="text-sm text-slate-500 mt-1">البيانات المهنية الأساسية المعروضة ضمن ملفك العام.</p></div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="min-w-0"><label class="field-label form-label" data-onboarding-required="1" for="professional-title" data-i18n="المسمى المهني">المسمى المهني</label><input class="form-control @error('professional_title') is-invalid @enderror" id="professional-title" name="professional_title" type="text" value="{{ old('professional_title', $doctor->professional_title) }}"/>@error('professional_title')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
+<div class="min-w-0"><label class="field-label form-label" data-onboarding-required="1" for="professional-experience" data-i18n="سنوات الخبرة">سنوات الخبرة</label><div class="relative profile-experience"><input class="form-control font-num @error('years_experience') is-invalid @enderror" id="professional-experience" max="80" min="0" name="years_experience" type="number" value="{{ old('years_experience', $doctor->years_experience) }}"/><span class="profile-experience-unit">سنة</span>@error('years_experience')<div class="invalid-feedback">{{ $message }}</div>@enderror</div></div>
+<div class="md:col-span-2 min-w-0"><label class="field-label form-label" data-onboarding-required="1" for="professional-bio" data-i18n="النبذة المهنية">النبذة المهنية</label><textarea class="form-control @error('professional_bio') is-invalid @enderror" id="professional-bio" maxlength="2000" name="professional_bio">{{ old('professional_bio', $doctor->professional_bio) }}</textarea>@error('professional_bio')<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-5">
-<div class="rounded-2xl border border-slate-200 p-4 flex items-center justify-between"><div><p class="text-xs text-slate-400">التخصص الرئيسي</p><p class="font-bold text-slate-800 mt-1">{{ $primarySpecialtyAssignment?->specialty?->name_ar ?? 'لم يُحدد بعد' }}</p><p class="text-xs text-slate-500 mt-1">{{ $subspecialtyAssignments->count() }} تخصصات فرعية</p></div><button class="text-sm font-bold text-[#0495F6]" data-jump="specialties" type="button">إدارة التخصصات</button></div>
-<div class="rounded-2xl border border-slate-200 p-4 flex items-center justify-between"><div><p class="text-xs text-slate-400">التحقق المهني</p><p class="font-bold {{ $doctor->verification_status === 'verified' ? 'text-emerald-700' : 'text-amber-700' }} mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[17px]">{{ $doctor->verification_status === 'verified' ? 'verified' : 'pending' }}</span>{{ $doctor->verification_status === 'verified' ? 'تم التحقق' : 'لم يُرسل الطلب' }}</p><p class="text-xs text-slate-500 mt-1">{{ $doctor->profile_completed_at ? 'تم إكمال الملف الأساسي' : 'الملف الأساسي غير مكتمل' }}</p></div><a class="text-sm font-bold text-[#0495F6]" href="{{ route('doctor.account.verification', ['onboarding' => 1]) }}">إدارة التحقق</a></div>
+<div class="rounded-2xl border border-slate-200 p-4 flex items-center justify-between"><div><p class="text-xs text-slate-400" data-i18n="التخصص الرئيسي">التخصص الرئيسي</p><p class="font-bold text-slate-800 mt-1">{{ $primarySpecialtyAssignment?->specialty?->name_ar ?? 'لم يُحدد بعد' }}</p><p class="text-xs text-slate-500 mt-1">{{ $subspecialtyAssignments->count() }} تخصصات فرعية</p></div><button class="text-sm font-bold text-[#0495F6]" data-jump="specialties" type="button">إدارة التخصصات</button></div>
+<div class="rounded-2xl border border-slate-200 p-4 flex items-center justify-between"><div><p class="text-xs text-slate-400" data-i18n="التحقق المهني">التحقق المهني</p><p class="font-bold {{ $doctor->verification_status === 'verified' ? 'text-emerald-700' : 'text-amber-700' }} mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[17px]">{{ $doctor->verification_status === 'verified' ? 'verified' : 'pending' }}</span>{{ $doctor->verification_status === 'verified' ? 'تم التحقق' : 'لم يُرسل الطلب' }}</p><p class="text-xs text-slate-500 mt-1">{{ $doctor->profile_completed_at ? 'تم إكمال الملف الأساسي' : 'الملف الأساسي غير مكتمل' }}</p></div><a class="text-sm font-bold text-[#0495F6]" href="{{ route('doctor.account.verification', ['onboarding' => 1]) }}">إدارة التحقق</a></div>
 </div>
-<div class="mt-6 pt-4 border-t border-slate-100 d-flex justify-content-end"><button class="save-section btn btn-primary d-inline-flex align-items-center gap-2 px-4" type="submit"><span class="material-symbols-outlined text-[18px]">save</span>حفظ التغييرات</button></div>
+<div class="mt-6 pt-4 border-t border-slate-100 flex justify-end"><button class="save-section btn btn-primary inline-flex items-center gap-2 px-4" type="submit"><span class="material-symbols-outlined text-[18px]">save</span>حفظ التغييرات</button></div>
 </div>
 </section>
 </form>
 <!-- SPECIALTIES -->
 <section aria-labelledby="profile-tab-specialties" class="profile-panel" data-panel="specialties" id="profile-panel-specialties" role="tabpanel">
 <div class="profile-card p-5 md:p-6">
-<div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4"><div><h3 class="text-lg font-extrabold text-[#0B1020]">التخصصات</h3><p class="text-sm text-slate-500 mt-1">اختر تخصصك الرئيسي أولًا، ثم أضف التخصصات الفرعية التابعة له.</p></div>@if ($primarySpecialtyAssignment)<button class="btn btn-primary d-inline-flex align-items-center justify-content-center gap-2" data-bs-target="#add-subspecialty-modal" data-bs-toggle="modal" type="button" @disabled($availableSubspecialties->isEmpty() || $subspecialtyAssignments->count() >= 5)><span class="material-symbols-outlined text-[18px]">add</span>إضافة تخصص فرعي</button>@endif</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-5"><div><h3 class="text-lg font-extrabold text-[#0B1020]" data-i18n="التخصصات">التخصصات</h3><p class="text-sm text-slate-500 mt-1">التخصص الرئيسي والتخصصات الفرعية المسجلة في THERA.</p></div>@if ($primarySpecialtyAssignment)<button class="btn btn-primary inline-flex items-center justify-center gap-2" data-bs-target="#add-subspecialty-modal" data-bs-toggle="modal" type="button" @disabled($availableSubspecialties->isEmpty() || $subspecialtyAssignments->count() >= 5)><span class="material-symbols-outlined text-[18px]">add</span>إضافة تخصص فرعي</button>@endif</div>
 
-<div class="specialty-primary-editor rounded-3 border p-3 p-md-4 mb-4">
-<form action="{{ route('doctor.account.professional-profile.specialties.store', ['tab' => 'specialties']) }}" class="row g-3 align-items-end" method="POST">
+
+@if (! $primarySpecialtyAssignment)
+<div class="mb-5"><button class="btn btn-primary" data-bs-target="#primary-specialty-modal" data-bs-toggle="modal" type="button">اختيار التخصص الرئيسي</button></div>
+@endif
+<div class="space-y-3" id="specialty-list">
+@if ($primarySpecialtyAssignment)
+@php($primaryStatus = match ($primarySpecialtyAssignment->verification_status) { 'verified' => ['موثّق', 'bg-emerald-50 text-emerald-700 border border-emerald-200', 'verified'], 'rejected' => ['مرفوض', 'bg-red-50 text-red-700 border border-red-200', 'cancel'], default => ['قيد المراجعة', 'bg-amber-50 text-amber-700 border border-amber-200', 'pending'] })
+<div class="specialty-card p-4 flex flex-col md:flex-row md:items-center justify-between gap-3"><div class="flex items-center gap-3"><div class="w-11 h-11 rounded-xl bg-blue-50 text-[#0495F6] flex items-center justify-center shrink-0"><span class="material-symbols-outlined">medical_information</span></div><div><div class="flex flex-wrap items-center gap-2"><p class="font-extrabold text-slate-800 mb-0">{{ $primarySpecialtyAssignment->specialty->name_ar }}</p><span class="status-pill bg-slate-100 text-slate-600 h-6 text-[11px]">رئيسي</span></div><p class="text-xs text-slate-500 mt-1 mb-0">التخصص الأساسي الظاهر في نتائج البحث والملف العام.</p>@if ($primarySpecialtyAssignment->verification_status !== 'verified')<button class="text-xs font-bold text-[#0495F6] mt-2" data-bs-target="#primary-specialty-modal" data-bs-toggle="modal" type="button">تغيير التخصص الرئيسي</button>@endif</div></div><span class="status-pill {{ $primaryStatus[1] }}"><span class="material-symbols-outlined text-[15px]">{{ $primaryStatus[2] }}</span>{{ $primaryStatus[0] }}</span></div>
+@else
+<div class="text-center border border-dashed rounded-3 p-4 p-md-5"><span class="material-symbols-outlined text-primary fs-1">medical_information</span><p class="fw-bold text-dark mt-2 mb-1">لم تضف تخصصك الرئيسي بعد</p><p class="small text-secondary mb-0">اختيار التخصص الرئيسي مطلوب لإكمال الملف وإظهار التخصصات الفرعية المناسبة.</p></div>
+@endif
+
+@foreach ($subspecialtyAssignments as $assignment)
+@php($status = match ($assignment->verification_status) { 'verified' => ['موثّق', 'bg-emerald-50 text-emerald-700 border border-emerald-200'], 'rejected' => ['مرفوض', 'bg-red-50 text-red-700 border border-red-200'], default => ['قيد المراجعة', 'bg-amber-50 text-amber-700 border border-amber-200'] })
+<div class="specialty-card p-4 flex flex-col md:flex-row md:items-center justify-between gap-3"><div><p class="font-bold text-slate-800 mb-1">{{ $assignment->specialty->name_ar }}</p><p class="text-xs text-slate-500 mb-0">تخصص فرعي</p></div><div class="flex flex-wrap items-center gap-2"><span class="status-pill {{ $status[1] }}">{{ $status[0] }}</span>@if ($assignment->verification_status !== 'verified')<form action="{{ route('doctor.account.professional-profile.specialties.destroy', $assignment) }}" method="POST" data-thera-confirm="هل تريد حذف هذا التخصص الفرعي؟" data-thera-confirm-button="نعم، متابعة" data-thera-confirm-icon="warning">@csrf @method('DELETE')<button class="btn btn-sm btn-outline-danger" type="submit" data-i18n="حذف">حذف</button></form>@endif</div></div>
+@endforeach
+</div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="primary-specialty-title" class="modal fade profile-modal" id="primary-specialty-modal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down"><div class="modal-content"><form action="{{ route('doctor.account.professional-profile.specialties.store', ['tab' => 'specialties']) }}" class="specialty-primary-editor" method="POST">
 @csrf
 <input name="type" type="hidden" value="primary"/>
-<div class="col-12 col-lg-8">
+<div class="modal-header"><h4 class="modal-title fs-6 fw-bold" id="primary-specialty-title">التخصص الرئيسي</h4><button aria-label="إغلاق" class="btn-close" data-bs-dismiss="modal" type="button"></button></div><div class="modal-body">
+<div class="min-w-0">
 <label class="form-label fw-bold small" for="primary-specialty">{{ $primarySpecialtyAssignment ? 'تغيير التخصص الرئيسي' : 'التخصص الرئيسي' }}</label>
 <select class="form-select @error('specialty_id') is-invalid @enderror" data-current-value="{{ $primarySpecialtyAssignment?->specialty_id }}" id="primary-specialty" name="specialty_id" required @disabled($primarySpecialtyAssignment?->verification_status === 'verified')>
 <option value="">اختر التخصص الرئيسي</option>
@@ -682,28 +702,11 @@ body.onboarding-profile-mode [data-onboarding-required="1"]::after{
 </select>
 @error('specialty_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
 </div>
-<div class="col-12 col-lg-4 d-grid"><button class="btn btn-primary" id="save-primary-specialty" type="submit" @disabled($primarySpecialtyAssignment?->verification_status === 'verified')>{{ $primarySpecialtyAssignment ? 'حفظ التخصص الجديد' : 'حفظ التخصص الرئيسي' }}</button></div>
-</form>
+
 @if ($primarySpecialtyAssignment?->verification_status === 'verified')<p class="small text-success fw-semibold mt-3 mb-0"><span class="material-symbols-outlined align-middle fs-6">verified</span> التخصص الرئيسي موثّق ولا يمكن تغييره من هذه الصفحة.</p>@elseif ($primarySpecialtyAssignment)<p class="small text-secondary mt-3 mb-0">تغيير التخصص الرئيسي سيزيل التخصصات الفرعية الحالية لأنها مرتبطة به.</p>@endif
-</div>
-
-<div class="space-y-3" id="specialty-list">
-@if ($primarySpecialtyAssignment)
-@php($primaryStatus = match ($primarySpecialtyAssignment->verification_status) { 'verified' => ['موثّق', 'bg-emerald-50 text-emerald-700 border border-emerald-200', 'verified'], 'rejected' => ['مرفوض', 'bg-red-50 text-red-700 border border-red-200', 'cancel'], default => ['قيد المراجعة', 'bg-amber-50 text-amber-700 border border-amber-200', 'pending'] })
-<div class="specialty-card p-4 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3"><div class="d-flex align-items-center gap-3"><div class="w-11 h-11 rounded-xl bg-blue-50 text-[#0495F6] flex items-center justify-center flex-shrink-0"><span class="material-symbols-outlined">medical_information</span></div><div><div class="d-flex flex-wrap align-items-center gap-2"><p class="font-extrabold text-slate-800 mb-0">{{ $primarySpecialtyAssignment->specialty->name_ar }}</p><span class="status-pill bg-slate-100 text-slate-600 h-6 text-[11px]">رئيسي</span></div><p class="text-xs text-slate-500 mt-1 mb-0">التخصص الأساسي الظاهر في نتائج البحث والملف العام.</p></div></div><span class="status-pill {{ $primaryStatus[1] }}"><span class="material-symbols-outlined text-[15px]">{{ $primaryStatus[2] }}</span>{{ $primaryStatus[0] }}</span></div>
-@else
-<div class="text-center border border-dashed rounded-3 p-4 p-md-5"><span class="material-symbols-outlined text-primary fs-1">medical_information</span><p class="fw-bold text-dark mt-2 mb-1">لم تضف تخصصك الرئيسي بعد</p><p class="small text-secondary mb-0">اختيار التخصص الرئيسي مطلوب لإكمال الملف وإظهار التخصصات الفرعية المناسبة.</p></div>
-@endif
-
-@foreach ($subspecialtyAssignments as $assignment)
-@php($status = match ($assignment->verification_status) { 'verified' => ['موثّق', 'bg-emerald-50 text-emerald-700 border border-emerald-200'], 'rejected' => ['مرفوض', 'bg-red-50 text-red-700 border border-red-200'], default => ['قيد المراجعة', 'bg-amber-50 text-amber-700 border border-amber-200'] })
-<div class="specialty-card p-4 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3"><div><p class="font-bold text-slate-800 mb-1">{{ $assignment->specialty->name_ar }}</p><p class="text-xs text-slate-500 mb-0">تخصص فرعي</p></div><div class="d-flex flex-wrap align-items-center gap-2"><span class="status-pill {{ $status[1] }}">{{ $status[0] }}</span>@if ($assignment->verification_status !== 'verified')<form action="{{ route('doctor.account.professional-profile.specialties.destroy', $assignment) }}" method="POST" data-thera-confirm="هل تريد حذف هذا التخصص الفرعي؟" data-thera-confirm-button="نعم، متابعة" data-thera-confirm-icon="warning">@csrf @method('DELETE')<button class="btn btn-sm btn-outline-danger" type="submit">حذف</button></form>@endif</div></div>
-@endforeach
-</div>
-</div>
-
+</div><div class="modal-footer"><button class="btn btn-light" data-bs-dismiss="modal" type="button">إلغاء</button><button class="btn btn-primary" id="save-primary-specialty" type="submit" @disabled($primarySpecialtyAssignment?->verification_status === 'verified')>{{ $primarySpecialtyAssignment ? 'حفظ التخصص الجديد' : 'حفظ التخصص الرئيسي' }}</button></div></form></div></div></div>
 <div aria-hidden="true" aria-labelledby="add-subspecialty-title" class="modal fade profile-modal" id="add-subspecialty-modal" tabindex="-1">
-<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down"><div class="modal-content"><form action="{{ route('doctor.account.professional-profile.specialties.store', ['tab' => 'specialties']) }}" method="POST">@csrf<input name="type" type="hidden" value="subspecialty"/><div class="modal-header"><h4 class="modal-title fs-6 fw-bold" id="add-subspecialty-title">إضافة تخصص فرعي</h4><button aria-label="إغلاق" class="btn-close" data-bs-dismiss="modal" type="button"></button></div><div class="modal-body"><label class="form-label fw-bold small" for="subspecialty">التخصص الفرعي</label><select class="form-select" id="subspecialty" name="specialty_id" required><option value="">اختر التخصص الفرعي</option>@foreach ($availableSubspecialties as $specialty)<option value="{{ $specialty->id }}">{{ $specialty->name_ar }}</option>@endforeach</select><p class="form-text mb-0">تظهر هنا فقط التخصصات التابعة لتخصصك الرئيسي.</p></div><div class="modal-footer"><button class="btn btn-light" data-bs-dismiss="modal" type="button">إلغاء</button><button class="btn btn-primary" type="submit">حفظ وإرسال للمراجعة</button></div></form></div></div>
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down"><div class="modal-content"><form action="{{ route('doctor.account.professional-profile.specialties.store', ['tab' => 'specialties']) }}" method="POST">@csrf<input name="type" type="hidden" value="subspecialty"/><div class="modal-header"><h4 class="modal-title fs-6 fw-bold" id="add-subspecialty-title" data-i18n="إضافة تخصص فرعي">إضافة تخصص فرعي</h4><button aria-label="إغلاق" class="btn-close" data-bs-dismiss="modal" type="button"></button></div><div class="modal-body"><label class="form-label fw-bold small" for="subspecialty">التخصص الفرعي</label><select class="form-select" id="subspecialty" name="specialty_id" required><option value="">اختر التخصص الفرعي</option>@foreach ($availableSubspecialties as $specialty)<option value="{{ $specialty->id }}">{{ $specialty->name_ar }}</option>@endforeach</select><p class="form-text mb-0">تظهر هنا فقط التخصصات التابعة لتخصصك الرئيسي.</p></div><div class="modal-footer"><button class="btn btn-light" data-bs-dismiss="modal" type="button" data-i18n="إلغاء">إلغاء</button><button class="btn btn-primary" type="submit" data-i18n="حفظ وإرسال للمراجعة">حفظ وإرسال للمراجعة</button></div></form></div></div>
 </div>
 </section>
 <!-- FACILITIES -->
@@ -731,7 +734,7 @@ body.onboarding-profile-mode [data-onboarding-required="1"]::after{
 </header>
 <div class="p-5 md:p-6 overflow-y-auto" id="demo-modal-body"></div>
 <footer class="px-5 md:px-6 py-4 border-t border-slate-200 bg-slate-50 flex flex-wrap items-center justify-end gap-2 shrink-0" id="demo-modal-footer">
-<button class="h-10 px-4 rounded-xl border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 text-sm font-bold" data-modal-close="" type="button">إغلاق</button>
+<button class="h-10 px-4 rounded-xl border border-slate-200 bg-white text-slate-700 hover:bg-slate-100 text-sm font-bold" data-modal-close="" type="button" data-i18n="إغلاق">إغلاق</button>
 </footer>
 </section>
 </div>
@@ -744,60 +747,12 @@ body.onboarding-profile-mode [data-onboarding-required="1"]::after{
 (() => {
   'use strict';
   const $ = (id) => document.getElementById(id);
-  const sidebar = $('app-sidebar');
-  const topHeader = $('top-header');
-  const main = $('main-content-layout');
-  const pinBtn = $('sidebar-pin-toggle');
-  const pinIcon = $('sidebar-pin-icon');
-  const KEY = 'thera_doctor_sidebar_pinned';
-  const desktopViewport = window.matchMedia('(min-width: 992px)');
 
-  function applyLayout(collapsed) {
-    if (!sidebar || !topHeader || !main) return;
-
-    if (!desktopViewport.matches) {
-      sidebar.classList.remove('sidebar-collapsed', 'sidebar-hovered');
-      topHeader.style.right = '0';
-      main.style.marginRight = '0';
-      return;
-    }
-
-    sidebar.classList.toggle('sidebar-collapsed', collapsed);
-    sidebar.classList.remove('sidebar-hovered');
-    topHeader.style.right = collapsed ? '72px' : '268px';
-    main.style.marginRight = collapsed ? '72px' : '268px';
-    if (pinIcon) pinIcon.textContent = 'push_pin';
-  }
-
-  const isPinned = localStorage.getItem(KEY) !== 'false';
-  applyLayout(!isPinned);
-  desktopViewport.addEventListener('change', () => applyLayout(localStorage.getItem(KEY) === 'false'));
-
-  window.toggleSidebarPin = function () {
-    const collapsed = !sidebar.classList.contains('sidebar-collapsed');
-    localStorage.setItem(KEY, collapsed ? 'false' : 'true');
-    applyLayout(collapsed);
-  };
-
-  if (pinBtn) pinBtn.addEventListener('click', window.toggleSidebarPin);
-  if (sidebar) {
-    sidebar.addEventListener('mouseenter', () => {
-      if (sidebar.classList.contains('sidebar-collapsed')) sidebar.classList.add('sidebar-hovered');
+  document.querySelectorAll('[data-profile-upload]').forEach(input => {
+    input.addEventListener('change', () => {
+      input.closest('.profile-upload').querySelector('.profile-upload-name').textContent = input.files?.[0]?.name || 'اختيار PDF / JPG / PNG';
     });
-    sidebar.addEventListener('mouseleave', () => sidebar.classList.remove('sidebar-hovered'));
-    sidebar.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-      if (!desktopViewport.matches && window.bootstrap?.Offcanvas) {
-        window.bootstrap.Offcanvas.getOrCreateInstance(sidebar).hide();
-      }
-    }));
-  }
-
-  const qBtn = $('quick-add-btn');
-  const qMenu = $('quick-add-dropdown');
-  if (qBtn && qMenu) {
-    qBtn.addEventListener('click', (e) => { e.stopPropagation(); qMenu.classList.toggle('hidden'); });
-    document.addEventListener('click', () => qMenu.classList.add('hidden'));
-  }
+  });
 
   function initializeSelect2(select) {
     if (!window.jQuery?.fn?.select2 || select.dataset.select2Initialized === 'true') return;
@@ -904,6 +859,7 @@ body.onboarding-profile-mode [data-onboarding-required="1"]::after{
   window.addEventListener('DOMContentLoaded', () => window.bootstrap?.Modal.getOrCreateInstance($('propose-facility-modal')).show());
   @elseif ($errors->hasAny(['specialty_id', 'type']))
   activateTab('specialties', { historyMode: 'replace' });
+  window.addEventListener('DOMContentLoaded', () => window.bootstrap?.Modal.getOrCreateInstance($(@json(old('type') === 'subspecialty' ? 'add-subspecialty-modal' : 'primary-specialty-modal'))).show());
   @elseif ($errors->hasAny(['professional_title', 'years_experience', 'professional_bio']))
   activateTab('professional', { historyMode: 'replace' });
   @endif
@@ -996,13 +952,6 @@ body.onboarding-profile-mode [data-onboarding-required="1"]::after{
     `, {footer:'<button class="h-10 px-4 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm font-bold" type="button" data-modal-close>إغلاق</button><button class="h-10 px-4 rounded-xl bg-[#0495F6] text-white text-sm font-bold" type="button" id="demo-open-verification">إدارة التحقق</button>', onOpen:()=>{ const b=$('demo-open-verification'); if(b) b.onclick=()=>toast('سيتم ربطها بصفحة Doctor Verification'); }});
   }));
 
-  // Make quick-add menu entries visibly interactive in this standalone prototype.
-  if (qMenu) qMenu.querySelectorAll('button').forEach(btn => {
-    if (btn.id === 'quick-add-rad-order-btn') return;
-    btn.addEventListener('click', () => { qMenu.classList.add('hidden'); toast('هذا الإجراء تابع لوحدة أخرى وسيُربط عند تجميع الصفحات'); });
-  });
-
-  if (pinBtn) pinBtn.addEventListener('click', window.toggleSidebarPin);
 })();
 </script><script id="thera-profile-onboarding-runtime">
 (() => {

@@ -1,5 +1,5 @@
 <div class="row g-3 appointments-daily-metrics">
-    @foreach([['مواعيد اليوم',$summary['total'],'موعدًا مسجلًا','sky','calendar_today'],['بانتظار التحصيل',$summary['waiting'],'وصلوا وبقي عليهم مبلغ','amber','hourglass_top'],['جاهزون وينتظرون',$summary['ready'],'حضور مسجل والمبلغ مسدد','green','how_to_reg']] as [$label,$number,$hint,$tone,$icon])
+    @foreach([['مواعيد اليوم',$summary['total'],'موعدًا مسجلًا','sky','calendar_today'],['بانتظار التحصيل',$summary['waiting'],'وصلوا وبقي عليهم مبلغ','amber','hourglass_top'],['جاهزون وينتظرون',$summary['ready'],($doctor->requiresCollectionBeforeVisit()?'حضور مسجل والمبلغ مسدد':'حضور مسجل؛ التحصيل غير مشروط'),'green','how_to_reg']] as [$label,$number,$hint,$tone,$icon])
         <div class="col-12 col-md-4"><div class="appointments-month-metric metric-{{ $tone }}"><div><p>{{ $label }}</p><strong class="font-num">{{ $number }}</strong> <small>{{ $hint }}</small></div><span class="metric-symbol"><span class="material-symbols-outlined">{{ $icon }}</span></span></div></div>
     @endforeach
 </div>
@@ -18,9 +18,9 @@
             <div class="timeline-actions">
                 @include('doctor.clinical.visit-actions',['appointment'=>$item])
                 @if($item->queueState()==='ready')<form method="POST" action="{{ route('doctor.appointments.queue.store',$item) }}" data-thera-confirm="استدعاء المريض؟" data-thera-confirm-text="سيُسجل الاستدعاء فقط، ولن تُفتح زيارة طبية تلقائيًا.">@csrf<input type="hidden" name="revision" value="{{ $item->revision }}"><button class="timeline-action action-primary" type="submit"><span class="material-symbols-outlined">record_voice_over</span>استدعاء المريض</button></form>@endif
-                @if($item->remainingMinor()>0 && in_array($item->status,['confirmed','completed']))<a class="timeline-action" href="{{ route('doctor.finance.collections',['appointment'=>$item->id,'date'=>$localStart->toDateString()]) }}"><span class="material-symbols-outlined">payments</span>تسجيل تحصيل</a>@endif
+                @if($item->remainingMinor()>0 && in_array($item->status,['confirmed','completed']))<a class="timeline-action" href="{{ route('doctor.appointments.index',array_merge(request()->except('collection'),['collection'=>$item->id])) }}"><span class="material-symbols-outlined">payments</span>تسجيل تحصيل</a>@endif
                 @if($item->status==='confirmed' && !$item->arrived_at && $localStart->isToday())
-                    <form method="POST" action="{{ route('doctor.appointments.status',$item) }}" data-thera-confirm="تسجيل حضور المريض يدويًا؟" data-thera-confirm-text="الحضور لا يغيّر التحصيل أو الجاهزية للدخول.">@csrf @method('PATCH')<input type="hidden" name="revision" value="{{ $item->revision }}"><input type="hidden" name="action" value="arrived"><button class="timeline-action" type="submit"><span class="material-symbols-outlined">how_to_reg</span>تسجيل الوصول</button></form>
+                    <form method="POST" action="{{ route('doctor.appointments.status',$item) }}" data-thera-confirm="تسجيل حضور المريض يدويًا؟" data-thera-confirm-text="الحضور لا يسجل تحصيلًا أو يبدأ زيارة تلقائيًا.">@csrf @method('PATCH')<input type="hidden" name="revision" value="{{ $item->revision }}"><input type="hidden" name="action" value="arrived"><button class="timeline-action" type="submit"><span class="material-symbols-outlined">how_to_reg</span>تسجيل الوصول</button></form>
                 @endif
                 <a href="{{ route('doctor.appointments.show',['appointment'=>$item->id]) }}" @class(['timeline-action','action-primary'=>$item->arrived_at && $item->status==='confirmed'])><span class="material-symbols-outlined">event_note</span>تفاصيل الموعد</a>
             </div>

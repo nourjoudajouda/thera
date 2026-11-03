@@ -169,66 +169,66 @@
 <div class="sidebar-scroll flex-1 min-h-0 py-4 px-3 space-y-6 overflow-y-auto overflow-x-hidden" id="sidebar-nav-container">
 <!-- Group 1: العمل اليومي -->
 <div class="space-y-1">
-<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2">العمل اليومي</p>
+<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2" data-i18n="العمل اليومي">العمل اليومي</p>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">grid_view</span>
-<span class="nav-label">الرئيسية</span>
+<span class="nav-label" data-i18n="الرئيسية">الرئيسية</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">calendar_today</span>
-<span class="nav-label">المواعيد</span>
+<span class="nav-label" data-i18n="المواعيد">المواعيد</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">person_search</span>
-<span class="nav-label">المرضى</span>
+<span class="nav-label" data-i18n="المرضى">المرضى</span>
 </a>
 </div>
 <!-- Group 2: العمل الطبي -->
 <div class="space-y-1">
-<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2">العمل الطبي</p>
+<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2" data-i18n="العمل الطبي">العمل الطبي</p>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">stethoscope</span>
-<span class="nav-label">الزيارات</span>
+<span class="nav-label" data-i18n="الزيارات">الزيارات</span>
 </a>
 <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-300 hover:bg-[#203254] hover:text-white transition-all text-[14px]" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">prescriptions</span>
-<span class="nav-label">الوصفات الطبية</span>
+<span class="nav-label" data-i18n="الوصفات الطبية">الوصفات الطبية</span>
 </a>
 <a aria-current="page" class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base font-semibold bg-[#0495F6] text-white font-bold shadow-md shadow-[#0495F6]/20" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">science</span>
-<span class="nav-label">طلبات المختبر</span>
+<span class="nav-label" data-i18n="طلبات المختبر">طلبات المختبر</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5" href="#">
 <span class="material-symbols-outlined flex-shrink-0 text-[20px]">radiology</span>
-<span class="nav-label">طلبات الأشعة</span>
+<span class="nav-label" data-i18n="طلبات الأشعة">طلبات الأشعة</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">assignment_turned_in</span>
-<span class="nav-label">النتائج</span>
+<span class="nav-label" data-i18n="النتائج">النتائج</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">sync_alt</span>
-<span class="nav-label">الإحالات والمتابعات</span>
+<span class="nav-label" data-i18n="الإحالات والمتابعات">الإحالات والمتابعات</span>
 </a>
 </div>
 <!-- Group 3: الإدارة -->
 <div class="space-y-1">
-<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2">الإدارة</p>
+<p class="group-heading px-3 text-[13px] font-bold text-[#8EA3BA] uppercase tracking-wider mb-2" data-i18n="الإدارة">الإدارة</p>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5" href="#">
 <span class="material-symbols-outlined flex-shrink-0 text-[22px] text-white">receipt_long</span>
-<span class="nav-label">الخدمات والأسعار</span>
+<span class="nav-label" data-i18n="الخدمات والأسعار">الخدمات والأسعار</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">schedule</span>
-<span class="nav-label">الدوام والجدول</span>
+<span class="nav-label" data-i18n="الدوام والجدول">الدوام والجدول</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base font-semibold text-slate-300 hover:text-white hover:bg-white/5" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">account_balance_wallet</span>
-<span class="nav-label">التحصيل والمستحقات</span>
+<span class="nav-label" data-i18n="التحصيل والمستحقات">التحصيل والمستحقات</span>
 </a>
 <a class="nav-item flex items-center gap-3 px-4 h-[46px] rounded-xl transition-all text-base text-slate-300 hover:text-white hover:bg-white/5" href="#">
 <span class="material-symbols-outlined text-[20px] flex-shrink-0">settings</span>
-<span class="nav-label">الإعدادات</span>
+<span class="nav-label" data-i18n="الإعدادات">الإعدادات</span>
 </a>
 </div>
 </div>
@@ -254,20 +254,20 @@
 <div class="hidden absolute bottom-full mb-2 right-3 w-56 bg-[#132038] rounded-xl shadow-dropdown border border-[rgba(255,255,255,0.08)] py-1.5 z-50 text-slate-200 text-sm" id="doctor-account-menu">
 <button class="w-full text-right px-4 py-2 hover:bg-white/5 flex items-center gap-2 text-slate-200" type="button">
 <span class="material-symbols-outlined text-lg text-slate-400">person</span>
-<span class="">الملف الشخصي</span>
+<span class="" data-i18n="الملف الشخصي">الملف الشخصي</span>
 </button>
 <button class="w-full text-right px-4 py-2 hover:bg-white/5 flex items-center gap-2 text-slate-200" type="button">
 <span class="material-symbols-outlined text-lg text-slate-400">manage_accounts</span>
-<span class="">إعدادات الحساب</span>
+<span class="" data-i18n="إعدادات الحساب">إعدادات الحساب</span>
 </button>
 <button class="w-full text-right px-4 py-2 hover:bg-white/5 flex items-center gap-2 text-slate-200" type="button">
 <span class="material-symbols-outlined text-lg text-emerald-400">radio_button_checked</span>
-<span class="">تغيير حالة التوفر</span>
+<span class="" data-i18n="تغيير حالة التوفر">تغيير حالة التوفر</span>
 </button>
 <div class="my-1 border-t border-[rgba(255,255,255,0.08)]"></div>
 <button class="w-full text-right px-4 py-2 hover:bg-red-500/10 text-red-400 flex items-center gap-2" type="button">
 <span class="material-symbols-outlined text-lg text-red-400">logout</span>
-<span class="">تسجيل الخروج</span>
+<span class="" data-i18n="تسجيل الخروج">تسجيل الخروج</span>
 </button>
 </div>
 </footer>
@@ -281,7 +281,7 @@
 <div class="relative" id="quick-add-container">
 <button class="h-10 px-4 bg-[#0495F6] hover:bg-[#0466F1] text-white rounded-xl font-bold flex items-center gap-2 shadow-sm transition-colors text-sm" id="quick-add-btn" type="button">
 <span class="material-symbols-outlined text-xl">add</span>
-<span class="">إضافة</span>
+<span class="" data-i18n="إضافة">إضافة</span>
 <span class="material-symbols-outlined text-base" id="quick-add-arrow">expand_more</span>
 </button>
 <!-- Dropdown Menu -->
@@ -289,33 +289,33 @@
 <div class="px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">تشغيلي</div>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">person_add</span>
-<span class="">إضافة مريض</span>
+<span class="" data-i18n="إضافة مريض">إضافة مريض</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">calendar_today</span>
-<span class="">موعد جديد</span>
+<span class="" data-i18n="موعد جديد">موعد جديد</span>
 </button>
 <div class="my-1.5 border-t border-slate-100"></div>
 <div class="px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">سريري</div>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">stethoscope</span>
-<span class="">زيارة</span>
+<span class="" data-i18n="زيارة">زيارة</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">prescriptions</span>
-<span class="">وصفة طبية</span>
+<span class="" data-i18n="وصفة طبية">وصفة طبية</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" id="quick-add-lab-order-btn" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">science</span>
-<span class="">طلب مختبر</span>
+<span class="" data-i18n="طلب مختبر">طلب مختبر</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" id="quick-add-rad-order-btn" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">radiology</span>
-<span class="">طلب أشعة</span>
+<span class="" data-i18n="طلب أشعة">طلب أشعة</span>
 </button>
 <button class="w-full text-right px-3 py-2 hover:bg-slate-50 flex items-center gap-2.5 font-medium" type="button">
 <span class="material-symbols-outlined text-slate-500 text-lg">sync_alt</span>
-<span class="">إحالة / متابعة</span>
+<span class="" data-i18n="إحالة / متابعة">إحالة / متابعة</span>
 </button>
 </div>
 </div>
@@ -352,12 +352,12 @@
 <section class="mt-4 mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 <div>
 <nav class="flex items-center gap-2 text-xs text-slate-400 mb-1 font-medium">
-<span class="">العمل الطبي</span>
+<span class="" data-i18n="العمل الطبي">العمل الطبي</span>
 <span class="material-symbols-outlined text-xs">chevron_left</span>
-<span class="text-brand font-bold">طلبات المختبر</span>
+<span class="text-brand font-bold" data-i18n="طلبات المختبر">طلبات المختبر</span>
 </nav>
 <div class="flex items-center gap-3">
-<h1 class="text-2xl font-bold text-slate-900 tracking-tight">طلبات المختبر</h1>
+<h1 class="text-2xl font-bold text-slate-900 tracking-tight" data-i18n="طلبات المختبر">طلبات المختبر</h1>
 </div>
 <p class="text-xs text-slate-500 mt-1">إدارة ومتابعة طلبات المختبر المرتبطة بزيارات المرضى في العيادة</p>
 </div>
@@ -404,11 +404,11 @@
 <div class="min-w-0">
 <select class="rtl-select w-full h-10 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 focus:ring-1 focus:ring-brand focus:border-brand" id="filter-order-status">
 <option value="">حالة الطلب: الكل</option>
-<option value="draft">مسودة</option>
+<option value="draft" data-i18n="مسودة">مسودة</option>
 <option value="documented">موثق</option>
 <option value="route_ready">جاهز للتوجيه</option>
 <option value="route_requested">طلب توجيه</option>
-<option value="cancelled">ملغى</option>
+<option value="cancelled" data-i18n="ملغى">ملغى</option>
 </select>
 </div>
 <!-- Filter 2: Priority -->
@@ -457,7 +457,7 @@
 <table class="w-full text-right border-collapse">
 <thead>
 <tr class="bg-slate-50/75 border-b border-slate-200 text-slate-500 text-xs font-bold">
-<th class="py-3.5 px-4">المريض</th>
+<th class="py-3.5 px-4" data-i18n="المريض">المريض</th>
 <th class="py-3.5 px-4">الطلب</th>
 <th class="py-3.5 px-4">تاريخ الطلب</th>
 <th class="py-3.5 px-4">الزيارة</th>

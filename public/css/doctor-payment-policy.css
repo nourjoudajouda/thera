@@ -1,0 +1,51 @@
+/* Doctor Settings.html: payment section proportions and controls. */
+.payment-policy { color:#0b1020; }
+.settings-section.payment-policy h2 { font-size:18px; line-height:28px; font-weight:800; margin:0; }
+.payment-policy p { margin:0; }
+.payment-policy .text-sm { font-size:14px; line-height:20px; }
+.payment-policy .text-xs { font-size:12px; line-height:16px; }
+.payment-policy .text-\[11px\] { font-size:11px; line-height:16.5px; }
+.payment-policy .max-w-3xl { max-width:768px; }
+.payment-policy .p-4 { padding:16px!important; }
+.payment-policy .p-3 { padding:12px!important; }
+.payment-policy .px-3 { padding-inline:12px!important; }
+.payment-policy .mt-1 { margin-top:4px!important; }
+.payment-policy .mt-3 { margin-top:12px!important; }
+.payment-policy .mt-4 { margin-top:16px!important; }
+.payment-policy .mb-3 { margin-bottom:12px!important; }
+.payment-policy .mb-4 { margin-bottom:16px!important; }
+.payment-policy .mb-5 { margin-bottom:20px!important; }
+.payment-policy .gap-2 { gap:8px!important; }
+.payment-policy .gap-3 { gap:12px!important; }
+.payment-policy .gap-4 { gap:16px!important; }
+.payment-policy .rounded-xl { border-radius:12px; }
+.payment-policy .border-slate-200 { border-color:#e2e8f0!important; }
+.payment-policy .border-blue-100 { border-color:#dbeafe!important; }
+.payment-policy .setting-row { display:block; border:0; }
+.payment-policy .setting-row + .setting-row { border-top:1px solid #e2e8f0; }
+.payment-policy #deposit-percent-row,.payment-policy #early-payment-row { display:flex; align-items:center; justify-content:space-between; }
+.payment-policy #deposit-percent-row > div:last-child { flex-shrink:0; }
+.payment-policy .payment-choice { display:block; min-width:0; margin:0; }
+.payment-policy .payment-choice > div { transition:border-color .18s,background .18s; }
+.payment-policy .payment-choice input:checked + div { border-color:#0495f6!important; background:#eff6ff; box-shadow:0 0 0 1px #0495f6 inset; }
+.payment-policy .payment-choice input:focus-visible + div { outline:2px solid #0495f6; outline-offset:3px; }
+.payment-policy .compact-field { height:42px; padding:0 12px 0 40px; }
+.payment-policy .compact-field:focus { outline:2px solid #0495f6; outline-offset:2px; }
+.payment-policy .compact-field:disabled { cursor:not-allowed; }
+.payment-policy .toggle-track { display:block; width:42px; height:24px; border-radius:9999px; background:#cbd5e1; position:relative; transition:.2s ease; flex-shrink:0; }
+.payment-policy .toggle-track::after { content:""; width:18px; height:18px; border-radius:9999px; background:#fff; position:absolute; top:3px; right:3px; transition:.2s ease; box-shadow:0 1px 2px #0f172a2e; }
+.payment-policy input.peer:checked + .toggle-track { background:#0495f6; }
+.payment-policy input.peer:checked + .toggle-track::after { transform:translateX(-18px); }
+.payment-policy input.peer:focus-visible + .toggle-track { outline:2px solid #0495f6; outline-offset:3px; }
+.payment-current-info { max-width:768px; margin-top:16px; color:#64748b; font-size:12px; line-height:1.8; }
+.payment-current-info summary { color:#0495f6; font-weight:700; cursor:pointer; }
+.payment-current-info p { margin-top:8px; }
+.payment-current-info a { display:inline-flex; margin-top:8px; color:#0495f6; }
+@media(min-width:992px) { .settings-shell:has(#section-payment:not([hidden])) { grid-template-columns:260px minmax(0,1fr); } }
+@media(max-width:767.98px) { .payment-policy #deposit-percent-row { flex-direction:column; align-items:stretch; gap:12px; } }
+html[data-doctor-theme="dark"] .payment-policy .border-slate-200 { border-color:#334155!important; }
+html[data-doctor-theme="dark"] .payment-policy .border-blue-100 { border-color:#244e72!important; }
+html[data-doctor-theme="dark"] .payment-policy .bg-blue-50 { background:#132f4c!important; }
+html[data-doctor-theme="dark"] .payment-policy :is(.text-blue-950,.text-blue-900,.text-blue-800,.text-blue-700) { color:#bae6fd!important; }
+html[data-doctor-theme="dark"] .payment-policy .payment-choice input:checked + div { background:#132f4c!important; }
+html[data-doctor-theme="dark"] .payment-policy .setting-row + .setting-row { border-color:#334155; }

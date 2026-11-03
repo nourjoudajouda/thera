@@ -1,5 +1,10 @@
 @include('alerts')
+<link rel="stylesheet" href="{{ asset('css/doctor-shell.css') }}">
+<script src="{{ asset('js/doctor-translations.js') }}" defer></script>
+<script src="{{ asset('js/doctor-workspace.js') }}" defer></script>
+<script src="{{ asset('js/doctor-shell.js') }}" defer></script>
 <link rel="stylesheet" href="{{ asset('css/thera-brand.css') }}">
+<link rel="stylesheet" href="{{ asset('css/doctor-brand.css') }}">
 <script src="https://cdn.tailwindcss.com{{ ($useFormPlugin ?? true) ? '?plugins=forms,container-queries' : '' }}"></script>
 <style>
     html:not(.material-symbols-ready) .material-symbols-outlined {
